@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">WeatherAssistant</string>
+    <string name="navi_weatherForecast">Weather Forecast</string>
+    <string name="navi_stormyMap">Stormy Map</string>
+    <string name="navi_stormSearch">Storm Search</string>
+    <string name="navi_planTheTrip">Plan The Trip</string>
+    <string name="navi_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
