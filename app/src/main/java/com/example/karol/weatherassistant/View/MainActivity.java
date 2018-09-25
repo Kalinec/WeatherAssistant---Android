@@ -10,17 +10,34 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.JsonReader;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.karol.weatherassistant.Helpers.fetchData;
+import com.example.karol.weatherassistant.Model.CurrentWeather.CurrentWeather;
+import com.example.karol.weatherassistant.Model.CurrentWeather.Weather;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.SectionsStatePagerAdapter;
+import com.example.karol.weatherassistant.Services.WeatherService;
+import com.google.gson.Gson;
+import com.google.gson.JsonDeserializer;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout _drawerLayout;
     private SectionsStatePagerAdapter _sectionsStatePagerAdapter;
     private ViewPager _viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
         //setup the pager
         setupViewPager(_viewPager);
 
+
+
     }
 
     @Override
@@ -103,8 +122,4 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    public void setViewPager(int fragmentNumber)
-    {
-        _viewPager.setCurrentItem(fragmentNumber);
-    }
 }
