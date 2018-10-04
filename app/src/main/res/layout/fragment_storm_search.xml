@@ -1,14 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.StormSearch">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cityInfo_cardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="StormySearch" />
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="4dp">
 
-</FrameLayout>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView_CityValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_span="4"
+                    android:text="Warsaw"
+                    android:textSize="30dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView_LatitudeValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:textSize="20dp"
+                    android:text="50.42" />
+
+                <TextView
+                    android:id="@+id/textView_N"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="N" />
+
+                <TextView
+                    android:id="@+id/textView_LongitudeValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:textSize="20dp"
+                    android:text="50.23" />
+
+                <TextView
+                    android:id="@+id/textView_E"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="E" />
+            </TableRow>
+
+        </TableLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView_Radius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cityInfo_cardView"
+        android:text="Radius"
+        android:textSize="20dp" />
+
+
+    <Spinner
+        android:id="@+id/radius_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView_Radius"
+        android:layout_toEndOf="@+id/textView_Radius" />
+
+    <TextView
+        android:id="@+id/textView_Storms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="5dp"
+        android:text="Storms"
+        android:textSize="20dp" />
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/timeInfo_cardView"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/textView_Storms"
+        android:layout_gravity="center"
+        android:layout_marginLeft="40dp"
+        card_view:cardCornerRadius="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_Time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Time"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/textView_TimeValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="17dp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/numberInfo_cardView"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/textView_Storms"
+        android:layout_toEndOf="@+id/timeInfo_cardView"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        card_view:cardCornerRadius="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_Number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Number"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/textView_NumberValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="17dp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/distanceInfo_cardView"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/textView_Storms"
+        android:layout_toEndOf="@+id/numberInfo_cardView"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        card_view:cardCornerRadius="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_Distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Distance"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/textView_DistanceValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="17dp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/directionInfo_cardView"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/textView_Storms"
+        android:layout_toEndOf="@+id/distanceInfo_cardView"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        card_view:cardCornerRadius="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_Direction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Direction"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/textView_DirectionValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="17dp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <!--
+
+
+    <TextView
+        android:id="@+id/textView_Time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="117dp"
+        android:layout_below="@id/textView_LatitudeValue"
+        android:layout_marginRight="10dp"
+        android:text="Time" />
+
+    <TextView
+        android:id="@+id/textView_ThunderboltsNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView_Time"
+        android:layout_toEndOf="@+id/textView_Time"
+        android:layout_marginRight="10dp"
+        android:text="Number" />
+
+    <TextView
+        android:id="@+id/textView_ClosestThunderbolt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView_Time"
+        android:layout_toEndOf="@id/textView_ThunderboltsNumber"
+        android:layout_marginRight="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="Closest Thunderbolt" />
+
+    <TextView
+        android:id="@+id/textView_Direction"
+        android:layout_width="74dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView_Time"
+        android:layout_marginEnd="39dp"
+        android:layout_toEndOf="@id/textView_ClosestThunderbolt"
+        android:text="Direction" />
+
+    <TextView
+        android:id="@+id/textView_TimeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView_Time"
+        android:text="15" />
+
+    <TextView
+        android:id="@+id/textView_ThunderboltsNumberValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_Time"
+        android:layout_toEndOf="@+id/textView_LatitudeValue"
+        android:text="49" />
+
+    <TextView
+        android:id="@+id/textView_ClosestThunderboltValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView_ClosestThunderbolt"
+        android:layout_below="@+id/textView_Time"
+        android:text="14.23" />
+
+    <TextView
+        android:id="@+id/textView_DirectionValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView_TimeValue"
+        android:layout_alignStart="@+id/textView_Direction"
+        android:text="N" /> -->
+</RelativeLayout>

@@ -27,6 +27,13 @@
                 android:queryHint="Search"
                 android:layout_centerHorizontal="true" /> -->
 
+            <android.support.v7.widget.SearchView
+                android:id="@+id/searchCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:iconifiedByDefault="false"
+                android:queryHint="@string/search_enterCity" />
+
         </android.support.v7.widget.Toolbar>
 
 

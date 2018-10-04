@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ import org.w3c.dom.Text;
 
 public class WeatherForecast extends Fragment {
 
-    private SearchView _searchViewCity;
+    public static ImageView WeatherIcon;
     public static TextView City;
     public static TextView Country;
     public static TextView Latitude;
@@ -41,7 +42,7 @@ public class WeatherForecast extends Fragment {
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_weather_forecast, container, false);
-        _searchViewCity = (SearchView) view.findViewById(R.id.searchView);
+        WeatherIcon = (ImageView) view.findViewById(R.id.imageView_weatherIcon);
         City = (TextView) view.findViewById(R.id.textView_City);
         Country = (TextView) view.findViewById(R.id.textView_Country);
         Latitude = (TextView) view.findViewById(R.id.textView_LatitudeValue);
@@ -52,19 +53,6 @@ public class WeatherForecast extends Fragment {
         Humidity = (TextView) view.findViewById(R.id.textView_humidityValue);
         WindSpeed = (TextView) view.findViewById(R.id.textView_windSpeedValue);
         Pressure = (TextView) view.findViewById(R.id.textView_pressureValue);
-
-        _searchViewCity.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                WeatherService.getInstance().getCurrentWeatherByCityName(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
 
         //proba pobierania json
        /* try
