@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         card_view:cardCornerRadius="4dp">
 
         <TableLayout
@@ -95,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="130dp"
         android:layout_marginBottom="5dp"
         android:text="Storms"
         android:textSize="20dp" />
@@ -235,79 +237,205 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
-
-    <!--
-
-
-    <TextView
-        android:id="@+id/textView_Time"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/warningWind_cardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="117dp"
-        android:layout_below="@id/textView_LatitudeValue"
-        android:layout_marginRight="10dp"
-        android:text="Time" />
+        android:layout_below="@+id/timeInfo_cardView"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        card_view:cardCornerRadius="1dp">
 
-    <TextView
-        android:id="@+id/textView_ThunderboltsNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView_Time"
-        android:layout_toEndOf="@+id/textView_Time"
-        android:layout_marginRight="10dp"
-        android:text="Number" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView_ClosestThunderbolt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView_Time"
-        android:layout_toEndOf="@id/textView_ThunderboltsNumber"
-        android:layout_marginRight="10dp"
-        android:layout_centerHorizontal="true"
-        android:text="Closest Thunderbolt" />
 
-    <TextView
-        android:id="@+id/textView_Direction"
-        android:layout_width="74dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/textView_Time"
-        android:layout_marginEnd="39dp"
-        android:layout_toEndOf="@id/textView_ClosestThunderbolt"
-        android:text="Direction" />
+            <ImageView
+                android:id="@+id/imageView_windWarning"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/if_weather_warning_wind" />
 
-    <TextView
-        android:id="@+id/textView_TimeValue"
-        android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView_windWarning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/imageView_windWarning"
+                android:text="Wiatr"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_windWarning_degreeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_windWarning"
+                android:layout_toEndOf="@id/imageView_windWarning"
+                android:text="1"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_windWarning_degree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_windWarning"
+                android:layout_toEndOf="@+id/textView_windWarning_degreeValue"
+                android:text="stopień zagrożenia"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_windWarning_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_windWarning_degree"
+                android:layout_toEndOf="@+id/imageView_windWarning"
+                android:text="Treść opisu zagrożenia"
+                android:textSize="15dp"
+                android:textStyle="italic" />
+            <TextView
+                android:id="@+id/textView_windStatement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_windWarning_description"
+                android:layout_toEndOf="@id/imageView_windWarning"
+                android:text="Komunikat obowiązuje"
+                />
+            <TextView
+                android:id="@+id/textView_windStatement_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_windStatement"
+                android:layout_toEndOf="@+id/imageView_windWarning"
+                android:text="Od: "/>
+            <TextView
+                android:id="@+id/textView_windStatement_fromValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_windStatement"
+                android:layout_toEndOf="@+id/textView_windStatement_from"
+                android:text="20.05.2018 17.00"/>
+            <TextView
+                android:id="@+id/textView_windStatement_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_windStatement_from"
+                android:layout_toEndOf="@+id/imageView_windWarning"
+                android:text="Do: "/>
+            <TextView
+                android:id="@+id/textView_windStatement_toValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_windStatement_from"
+                android:layout_toEndOf="@+id/textView_windStatement_to"
+                android:text="21.05.2018 19.00"/>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/warningStorm_cardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView_Time"
-        android:text="15" />
+        android:layout_below="@+id/warningWind_cardView"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        card_view:cardCornerRadius="1dp">
 
-    <TextView
-        android:id="@+id/textView_ThunderboltsNumberValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_Time"
-        android:layout_toEndOf="@+id/textView_LatitudeValue"
-        android:text="49" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView_ClosestThunderboltValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView_ClosestThunderbolt"
-        android:layout_below="@+id/textView_Time"
-        android:text="14.23" />
 
-    <TextView
-        android:id="@+id/textView_DirectionValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView_TimeValue"
-        android:layout_alignStart="@+id/textView_Direction"
-        android:text="N" /> -->
+            <ImageView
+                android:id="@+id/imageView_stormWarning"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/if_weather_warning_storm" />
+
+            <TextView
+                android:id="@+id/textView_stormWarning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/imageView_stormWarning"
+                android:text="Burze"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_stormWarning_degreeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_stormWarning"
+                android:layout_toEndOf="@id/imageView_stormWarning"
+                android:text="1"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_stormWarning_degree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_stormWarning"
+                android:layout_toEndOf="@+id/textView_stormWarning_degreeValue"
+                android:text="stopień zagrożenia"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_stormWarning_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_stormWarning_degree"
+                android:layout_toEndOf="@+id/imageView_stormWarning"
+                android:text="Treść opisu zagrożenia"
+                android:textSize="15dp"
+                android:textStyle="italic" />
+            <TextView
+                android:id="@+id/textView_stormStatement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_stormWarning_description"
+                android:layout_toEndOf="@id/imageView_stormWarning"
+                android:text="Komunikat obowiązuje"
+                />
+            <TextView
+                android:id="@+id/textView_stormStatement_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_stormStatement"
+                android:layout_toEndOf="@+id/imageView_stormWarning"
+                android:text="Od: "/>
+            <TextView
+                android:id="@+id/textView_stormStatement_fromValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_stormStatement"
+                android:layout_toEndOf="@+id/textView_stormStatement_from"
+                android:text="20.05.2018 17.00"/>
+            <TextView
+                android:id="@+id/textView_stormStatement_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_stormStatement_from"
+                android:layout_toEndOf="@+id/imageView_stormWarning"
+                android:text="Do: "/>
+            <TextView
+                android:id="@+id/textView_stormStatement_toValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_stormStatement_from"
+                android:layout_toEndOf="@+id/textView_stormStatement_to"
+                android:text="21.05.2018 19.00"/>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 </RelativeLayout>
