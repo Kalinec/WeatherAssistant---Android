@@ -3,6 +3,8 @@ package com.example.karol.weatherassistant.View;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.karol.weatherassistant.Helpers.WarningAdapter;
+import com.example.karol.weatherassistant.Model.CurrentWeather.Warning;
 import com.example.karol.weatherassistant.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -48,7 +55,12 @@ public class StormSearch extends Fragment {
     public static TextView City;
     public static TextView Latitude;
     public static TextView Longitude;
-    private Spinner _radiusSpinner;
+    public static Spinner RadiusSpinner;
+
+    private RecyclerView _recyclerView;
+    private RecyclerView.LayoutManager _layoutManager;
+    public static List<Warning> warningList;
+    public static WarningAdapter warningAdapter;
 
 
     public StormSearch() {
@@ -67,12 +79,24 @@ public class StormSearch extends Fragment {
         Number = (TextView) view.findViewById(R.id.textView_NumberValue);
         Distance = (TextView) view.findViewById(R.id.textView_DistanceValue);
         Direction = (TextView) view.findViewById(R.id.textView_DirectionValue);
+        _recyclerView = (RecyclerView) view.findViewById(R.id.warningInfo_recyclerView);
+        _layoutManager = new LinearLayoutManager(getActivity());
+        _recyclerView.setLayoutManager(_layoutManager);
+
+        if(_recyclerView != null)
+            _recyclerView.setHasFixedSize(true);
+
+        warningList = new ArrayList<>();
+        warningAdapter = new WarningAdapter(warningList);
+        _recyclerView.setAdapter(warningAdapter);
+        warningAdapter.notifyDataSetChanged();
+
 
         //radius spinner implementation
-        _radiusSpinner = (Spinner) view.findViewById(R.id.radius_spinner);
+        RadiusSpinner = (Spinner) view.findViewById(R.id.radius_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.radius_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        _radiusSpinner.setAdapter(adapter);
+        RadiusSpinner.setAdapter(adapter);
         //szukajBurzy();
         return view;
     }

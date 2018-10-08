@@ -6,4 +6,35 @@
     <string name="navi_planTheTrip">Plan The Trip</string>
     <string name="navi_settings">Settings</string>
     <string name="search_enterCity">Enter city</string>
+    <string name="word_storms">Storms</string>
+    <string name="word_frost">Frost</string>
+    <string name="word_rain">Rain</string>
+    <string name="word_tornado">Tornado</string>
+    <string name="word_heat">Heat</string>
+    <string name="word_wind">Wind</string>
+    <string name="word_period">Period:</string>
+    <string name="word_from">From: </string>
+    <string name="word_to">To: </string>
+    <string name="word_degree_of_danger"> degree of danger</string>
+    <string name="StormSearch_no_warnings">No warnings here</string>
+    <string name="warning_storm_description1">Rain from 15 to 40 mm\nWind in gusts from 60 to 90 km/h\nHail below 2 cm</string>
+    <string name="warning_storm_description2">Rain from 41 to 70 mm\nWind in gusts from 91 to 110 km/h\nHail from 2 to 5 cm</string>
+    <string name="warning_storm_description3">Rain above 70 mm\nWind in gusts over 110 km/h\nHail above 5 cm</string>
+    <string name="warning_wind_description1">In gusts from 70 to 90 km/h</string>
+    <string name="warning_wind_description2">In gusts from 91 to 110 km/h</string>
+    <string name="warning_wind_description3">In gusts above 100 km/h</string>
+    <string name="warning_rain_description1">Rain from 25 to 40 mm\nin 24 hours\nor\nSnow from 10 to 15 cm\nin 24 hours</string>
+    <string name="warning_rain_description2">Rain from 41 to 70 mm\nin 24 hours\nor\nSnow from 16 to 30 cm\nin 24 hours\nor\nSnow from 10 to 15 cm\nin 12 hours</string>
+    <string name="warning_rain_description3">Rain above 70 mm\nin 24 hours\nor\nSnow above 30 cm\nin 24 hours\nor\nSnow above 15 cm\nin 12 hours</string>
+    <string name="warning_tornado_description1">Low risk</string>
+    <string name="warning_tornado_description2">Moderate risk</string>
+    <string name="warning_tornado_description3">High risk</string>
+    <string name="warning_frost_description1">From -20 to -25 °C</string>
+    <string name="warning_frost_description2">From -26 to -30 °C</string>
+    <string name="warning_frost_description3">Below -30 °C</string>
+    <string name="warning_heat_description1">From 30 to 34 °C</string>
+    <string name="warning_heat_description2">From 35 to 38 °C</string>
+    <string name="warning_heat_description3">Above 38 °C</string>
+
+
 </resources>

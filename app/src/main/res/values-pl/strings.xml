@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="word_storms">Burze</string>
+    <string name="word_frost">Mróz</string>
+    <string name="word_rain">Opady</string>
+    <string name="word_tornado">Trąby powietrzne</string>
+    <string name="word_heat">Upał</string>
+    <string name="word_wind">Wiatr</string>
+    <string name="word_period">Komunikat obowiązuje:</string>
+    <string name="word_from">Od: </string>
+    <string name="word_to">Do: </string>
+    <string name="word_degree_of_danger"> stopień zagrożenia</string>
+    <string name="StormSearch_no_warnings">Brak ostrzeżen pogodowych</string>
+    <string name="warning_storm_description1">Deszcz od 15 do 40 mm\nWiatr w porywach od 60 do 90 km/h\nGrad poniżej 2 cm</string>
+    <string name="warning_storm_description2">Deszcz od 41 do 70 mm\nWiatr w porywach od 91 do 110 km/h\nGrad od 2 do 5 cm</string>
+    <string name="warning_storm_description3">Deszcz powyżej 70 mm\nWiatr w porywach powyżej 110 km/h\nGrad powyżej 5 cm</string>
+    <string name="warning_wind_description1">W porywach od 70 do 90 km/h</string>
+    <string name="warning_wind_description2">W porywach od 91 do 110 km/h</string>
+    <string name="warning_wind_description3">W porywach powyżej 100 km/h</string>
+    <string name="warning_rain_description1">Deszcz od 25 do 40 mm\nw ciągu 24 godzin\nlub\nŚnieg od 10 do 15 cm\nw ciągu 24 godzin</string>
+    <string name="warning_rain_description2">Deszcz od 41 do 70 mm\nw ciągu 24 godzin\nlub\nŚnieg od 16 do 30 cm\nw ciągu 24 godzin\nlub\nŚnieg od 10 do 15 cm\nw ciągu 12 godzin</string>
+    <string name="warning_rain_description3">Deszcz powyżej 70 mm\nw ciągu 24 godzin\nlub\nŚnieg powyżej 30 cm\nw ciągu 24 godzin\nlub\nŚnieg powyżej 15 cm\nw ciągu 12 godzin</string>
+    <string name="warning_tornado_description1">Ryzyko niewielkie</string>
+    <string name="warning_tornado_description2">Ryzyko umiarkowane</string>
+    <string name="warning_tornado_description3">Ryzyko wysokie</string>
+    <string name="warning_frost_description1">Od -20 do -25 °C</string>
+    <string name="warning_frost_description2">Od -26 do -30 °C</string>
+    <string name="warning_frost_description3">Poniżej -30 °C</string>
+    <string name="warning_heat_description1">Od 30 do 34 °C</string>
+    <string name="warning_heat_description2">Od 35 do 38 °C</string>
+    <string name="warning_heat_description3">Powyżej 38 °C</string>
+</resources>
