@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/warningInfo_cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        card_view:cardCornerRadius="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/imageView_warningInfo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/if_weather_warning_wind" />
+
+            <TextView
+                android:id="@+id/textView_warningInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/imageView_warningInfo"
+                android:text="Wiatr"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_warningInfo_degreeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_warningInfo"
+                android:layout_toEndOf="@id/imageView_warningInfo"
+                android:text="1"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_warningInfo_degree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_warningInfo"
+                android:layout_toEndOf="@+id/textView_warningInfo_degreeValue"
+                android:text="stopień zagrożenia"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_warningInfo_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_warningInfo_degree"
+                android:layout_toEndOf="@+id/imageView_warningInfo"
+                android:text="Treść opisu zagrożenia"
+                android:textSize="15dp"
+                android:textStyle="italic" />
+            <TextView
+                android:id="@+id/textView_warningStatement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_warningInfo_description"
+                android:layout_toEndOf="@id/imageView_windWarning"
+                android:text="Komunikat obowiązuje"
+                />
+            <TextView
+                android:id="@+id/textView_warningStatement_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_warningStatement"
+                android:layout_toEndOf="@+id/imageView_warningInfo"
+                android:text="Od: "/>
+            <TextView
+                android:id="@+id/textView_warningStatement_fromValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_warningStatement"
+                android:layout_toEndOf="@+id/textView_warningStatement_from"
+                android:text="20.05.2018 17.00"/>
+            <TextView
+                android:id="@+id/textView_warningStatement_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_warningStatement_from"
+                android:layout_toEndOf="@+id/imageView_warningInfo"
+                android:text="Do: "/>
+            <TextView
+                android:id="@+id/textView_warningStatement_toValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_warningStatement_from"
+                android:layout_toEndOf="@+id/textView_warningStatement_to"
+                android:text="21.05.2018 19.00"/>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
