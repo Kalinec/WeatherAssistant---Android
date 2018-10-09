@@ -17,6 +17,9 @@
     <string name="word_to">To: </string>
     <string name="word_degree_of_danger"> degree of danger</string>
     <string name="StormSearch_no_warnings">No warnings here</string>
+    <string name="mapbox_access_token" translatable="false">pk.eyJ1Ijoia2FsaW5lYyIsImEiOiJjam1taWhiZDUwaHhnM2twYm4wZzV5cHFjIn0.NTnV11b82zHlFdXU998L7Q</string>
+    <string name="user_location_permission_explanation">This app needs location permissions in order to show its functionality.</string>
+    <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>
     <string name="warning_storm_description1">Rain from 15 to 40 mm\nWind in gusts from 60 to 90 km/h\nHail below 2 cm</string>
     <string name="warning_storm_description2">Rain from 41 to 70 mm\nWind in gusts from 91 to 110 km/h\nHail from 2 to 5 cm</string>
     <string name="warning_storm_description3">Rain above 70 mm\nWind in gusts over 110 km/h\nHail above 5 cm</string>

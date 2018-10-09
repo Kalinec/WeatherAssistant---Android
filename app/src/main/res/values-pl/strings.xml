@@ -11,6 +11,8 @@
     <string name="word_to">Do: </string>
     <string name="word_degree_of_danger"> stopień zagrożenia</string>
     <string name="StormSearch_no_warnings">Brak ostrzeżen pogodowych</string>
+    <string name="user_location_permission_explanation">Aplikacja wymaga uprawnień do lokalizacji do poprawnego działania.</string>
+    <string name="user_location_permission_not_granted">Nie przyznałeś uprawnień do lokalizacji.</string>
     <string name="warning_storm_description1">Deszcz od 15 do 40 mm\nWiatr w porywach od 60 do 90 km/h\nGrad poniżej 2 cm</string>
     <string name="warning_storm_description2">Deszcz od 41 do 70 mm\nWiatr w porywach od 91 do 110 km/h\nGrad od 2 do 5 cm</string>
     <string name="warning_storm_description3">Deszcz powyżej 70 mm\nWiatr w porywach powyżej 110 km/h\nGrad powyżej 5 cm</string>
