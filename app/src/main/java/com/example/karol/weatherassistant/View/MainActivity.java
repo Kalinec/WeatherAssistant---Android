@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (_viewPager.getCurrentItem())
                 {
                     case 0:
-                       // WeatherService.getInstance().getCurrentWeatherByCityName(query);
+                        WeatherService.getInstance().getCurrentWeatherByCityName(query);
                         break;
                     case 2:
                         try

@@ -48,8 +48,8 @@ public class WeatherForecast extends Fragment {
         Latitude = (TextView) view.findViewById(R.id.textView_LatitudeValue);
         Longitude = (TextView) view.findViewById(R.id.textView_LongitudeValue);
         Temperature = (TextView) view.findViewById(R.id.textView_temperature);
-        Condition = (TextView) view.findViewById(R.id.textView_ConditionValue);
-        Description = (TextView) view.findViewById(R.id.textView_descriptionValue);
+        Condition = (TextView) view.findViewById(R.id.textView_condition);
+        Description = (TextView) view.findViewById(R.id.textView_description);
         Humidity = (TextView) view.findViewById(R.id.textView_humidityValue);
         WindSpeed = (TextView) view.findViewById(R.id.textView_windSpeedValue);
         Pressure = (TextView) view.findViewById(R.id.textView_pressureValue);

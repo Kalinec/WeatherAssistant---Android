@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="word_humidity">Wilgotność</string>
+    <string name="word_pressure">Ciśnienie</string>
+    <string name="word_wind">Wiatr</string>
+    <string name="word_windSpeed">Prędkość</string>
+    <string name="word_windDirection">Kierunek</string>
+    <string name="word_cloudiness">Zachmurzenie</string>
+    <string name="word_visibility">Widoczność</string>
+    <string name="word_sunrise">Wschód słońca</string>
+    <string name="word_sunset">Zachód słońca</string>
     <string name="word_storms">Burze</string>
     <string name="word_frost">Mróz</string>
     <string name="word_rain">Opady</string>
     <string name="word_tornado">Trąby powietrzne</string>
     <string name="word_heat">Upał</string>
-    <string name="word_wind">Wiatr</string>
     <string name="word_period">Komunikat obowiązuje:</string>
     <string name="word_from">Od: </string>
     <string name="word_to">Do: </string>
