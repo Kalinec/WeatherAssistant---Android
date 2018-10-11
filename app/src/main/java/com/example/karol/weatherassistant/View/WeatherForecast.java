@@ -54,6 +54,7 @@ public class WeatherForecast extends Fragment {
         WindSpeed = (TextView) view.findViewById(R.id.textView_windSpeedValue);
         Pressure = (TextView) view.findViewById(R.id.textView_pressureValue);
 
+
         //proba pobierania json
        /* try
         {

@@ -10,6 +10,7 @@
     <string name="word_from">Od: </string>
     <string name="word_to">Do: </string>
     <string name="word_degree_of_danger"> stopień zagrożenia</string>
+    <string name="word_route">Trasa</string>
     <string name="StormSearch_no_warnings">Brak ostrzeżen pogodowych</string>
     <string name="user_location_permission_explanation">Aplikacja wymaga uprawnień do lokalizacji do poprawnego działania.</string>
     <string name="user_location_permission_not_granted">Nie przyznałeś uprawnień do lokalizacji.</string>
