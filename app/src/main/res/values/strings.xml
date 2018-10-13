@@ -6,6 +6,7 @@
     <string name="navi_planTheTrip">Plan The Trip</string>
     <string name="navi_settings">Settings</string>
     <string name="search_enterCity">Enter city</string>
+    <string name="word_updateTime">Updated at</string>
     <string name="word_humidity">Humidity</string>
     <string name="word_pressure">Pressure</string>
     <string name="word_wind">Wind</string>

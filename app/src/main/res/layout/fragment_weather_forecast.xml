@@ -16,43 +16,53 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/textView_City"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="City"/>
+                android:text="City"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/textView_comma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/textView_City"
+                android:text=", "
+                android:textSize="30dp"/>
 
             <TextView
                 android:id="@+id/textView_Country"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/textView_comma"
                 android:text="Country"
-                android:layout_toEndOf="@+id/textView_City"/>
+                android:textSize="30dp"/>
 
             <ImageView
                 android:id="@+id/imageView_weatherIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:src="@drawable/ic_weather_cloudy"
-                android:layout_below="@+id/textView_City"/>
+                android:layout_below="@+id/textView_City" />
 
             <TextView
                 android:id="@+id/textView_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="17"
+                android:textSize="60dp"
                 android:layout_below="@+id/textView_City"
-                android:layout_toEndOf="@+id/imageView_weatherIcon"/>
+                android:layout_toEndOf="@+id/imageView_weatherIcon" />
 
             <TextView
                 android:id="@+id/textView_temperatureType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="°C"
+                android:textSize="60dp"
                 android:layout_below="@+id/textView_City"
                 android:layout_toEndOf="@+id/textView_temperature"/>
 
@@ -61,6 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Condition"
+                android:textSize="30dp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/imageView_weatherIcon"/>
             
@@ -69,6 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description"
+                android:textSize="25dp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/textView_condition"/>
 
@@ -76,9 +88,19 @@
                 android:id="@+id/textView_updateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/word_updateTime"
+                android:layout_marginRight="5dp"
+                android:textSize="16dp"
+                android:layout_below="@+id/textView_description"/>
+
+            <TextView
+                android:id="@+id/textView_updateTimeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="11.10.2018 13.12"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/textView_description"/>
+                android:textSize="16dp"
+                android:layout_below="@id/textView_description"
+                android:layout_toEndOf="@+id/textView_updateTime"/>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
@@ -100,36 +122,45 @@
                 android:id="@+id/textView_humidity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/word_humidity"/>
+                android:layout_marginRight="5dp"
+                android:text="@string/word_humidity"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_humidityValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
                 android:layout_toEndOf="@+id/textView_humidity"
-                android:text="65" />
+                android:text="65"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_humidityType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/textView_humidityValue"
-                android:text="%"/>
+                android:text="%"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_pressure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:layout_below="@+id/textView_humidity"
-                android:text="@string/word_pressure" />
+                android:text="@string/word_pressure"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_pressureValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
                 android:layout_below="@+id/textView_humidity"
                 android:layout_toEndOf="@+id/textView_pressure"
-                android:text="1018"/>
+                android:text="1018"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_pressureType"
@@ -137,30 +168,36 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_humidity"
                 android:layout_toEndOf="@+id/textView_pressureValue"
-                android:text="hPa"/>
+                android:text="hPa"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_wind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_pressure"
-                android:text="@string/word_wind"/>
+                android:text="@string/word_wind"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_windSpeed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:layout_below="@+id/textView_wind"
                 android:layout_marginLeft="20dp"
-                android:text="Speed"/>
+                android:text="Speed"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_windSpeedValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
                 android:layout_below="@+id/textView_wind"
                 android:layout_toEndOf="@+id/textView_windSpeed"
-                android:text="4.1"/>
+                android:text="4.1"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_windSpeedType"
@@ -168,15 +205,18 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_wind"
                 android:layout_toEndOf="@+id/textView_windSpeedValue"
-                android:text="km/h"/>
+                android:text="km/h"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_windDirection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:layout_below="@+id/textView_windSpeed"
                 android:layout_marginLeft="20dp"
-                android:text="@string/word_windDirection"/>
+                android:text="@string/word_windDirection"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_windDirectionValue"
@@ -184,15 +224,17 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_windSpeed"
                 android:layout_toEndOf="@+id/textView_windDirection"
-                android:text="360"/>
+                android:text="360"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_cloudiness"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView_windDirection"
-                android:layout_marginRight="10dp"
-                android:text="@string/word_cloudiness" />
+                android:layout_marginRight="5dp"
+                android:text="@string/word_cloudiness"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_cloudinessValue"
@@ -200,8 +242,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_windDirection"
                 android:layout_toEndOf="@+id/textView_cloudiness"
-                android:layout_marginRight="5dp"
-                android:text="50"/>
+                android:layout_marginRight="3dp"
+                android:text="50"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_cloudinessType"
@@ -209,22 +252,27 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_windDirection"
                 android:layout_toEndOf="@+id/textView_cloudinessValue"
-                android:text="%"/>
+                android:text="%"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_visibility"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:layout_below="@+id/textView_cloudiness"
-                android:text="@string/word_visibility"/>
+                android:text="@string/word_visibility"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_visibilityValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
                 android:layout_below="@+id/textView_cloudiness"
                 android:layout_toEndOf="@+id/textView_visibility"
-                android:text="10"/>
+                android:text="10"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/textView_visibilityType"
@@ -232,7 +280,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView_cloudiness"
                 android:layout_toEndOf="@id/textView_visibilityValue"
-                android:text="km"/>
+                android:text="km"
+                android:textSize="18dp"/>
 
 
         </RelativeLayout>
@@ -257,18 +306,48 @@
                 android:id="@+id/textView_sunrise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/word_sunrise"/>
+                android:text="@string/word_sunrise"
+                android:textSize="18dp"/>
 
             <ImageView
                 android:id="@+id/imageView_sunrise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_sunrise" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/textView_sunrise"
+                android:src="@drawable/if_weather_sunrise"/>
 
             <TextView
                 android:id="@+id/textView_sunriseValue"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_sunrise"
+                android:layout_toEndOf="@+id/imageView_sunrise"
+                android:text="06:47"
+                android:textSize="18dp"/>
+            
+            <TextView
+                android:id="@+id/textView_sunset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView_sunrise"
+                android:text="@string/word_sunset"
+                android:textSize="18dp"/>
+
+            <ImageView
+                android:id="@+id/imageView_sunset"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/textView_sunset"
+                android:src="@drawable/if_weather_sunset"/>
+            
+            <TextView
+                android:id="@+id/textView_sunsetValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_sunset"
+                android:layout_toEndOf="@+id/imageView_sunset"
+                android:text="17:44"
+                android:textSize="18dp"/>
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

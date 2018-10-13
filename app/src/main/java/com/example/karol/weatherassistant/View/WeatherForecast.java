@@ -31,6 +31,7 @@ public class WeatherForecast extends Fragment {
     public static TextView Humidity;
     public static TextView WindSpeed;
     public static TextView Pressure;
+    public static TextView Time;
 
     public WeatherForecast() {
         // Required empty public constructor
@@ -53,6 +54,7 @@ public class WeatherForecast extends Fragment {
         Humidity = (TextView) view.findViewById(R.id.textView_humidityValue);
         WindSpeed = (TextView) view.findViewById(R.id.textView_windSpeedValue);
         Pressure = (TextView) view.findViewById(R.id.textView_pressureValue);
+        Time = (TextView) view.findViewById(R.id.textView_updateTimeValue);
 
 
         //proba pobierania json
