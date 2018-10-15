@@ -420,8 +420,8 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         mapView.onDestroy();
     }
 
