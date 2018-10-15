@@ -10,6 +10,7 @@
     <string name="word_sunrise">Wschód słońca</string>
     <string name="word_sunset">Zachód słońca</string>
     <string name="word_updateTime">Zaktualizowano o godzinie</string>
+    <string name="word_details">Szczegóły</string>
     <string name="word_storms">Burze</string>
     <string name="word_frost">Mróz</string>
     <string name="word_rain">Opady</string>
