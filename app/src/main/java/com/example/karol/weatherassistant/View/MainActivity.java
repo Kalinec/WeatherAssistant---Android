@@ -261,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     case 0:
                         WeatherService.getInstance().getCurrentWeatherByCityName(query);
+                        WeatherService.getInstance().getForecastWeatherByCityName(query);
                         break;
                     case 2:
                         try

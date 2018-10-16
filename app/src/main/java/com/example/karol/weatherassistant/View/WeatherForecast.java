@@ -5,6 +5,8 @@ import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,16 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.karol.weatherassistant.Helpers.ForecastAdapter;
+import com.example.karol.weatherassistant.Model.CurrentWeather.Forecast;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.Services.WeatherService;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class WeatherForecast extends Fragment {
@@ -43,6 +50,11 @@ public class WeatherForecast extends Fragment {
     public static LinearLayout VisibilityInfo;
     public static TextView Sunrise;
     public static TextView Sunset;
+
+    private RecyclerView _recyclerView;
+    private RecyclerView.LayoutManager _layoutManager;
+    public static List<Forecast> forecastList;
+    public static ForecastAdapter forecastAdapter;
 
 
 
@@ -74,6 +86,9 @@ public class WeatherForecast extends Fragment {
         VisibilityInfo = view.findViewById(R.id.Layout_visibilityInfo);
         Sunrise = view.findViewById(R.id.textView_sunriseValue);
         Sunset = view.findViewById(R.id.textView_sunsetValue);
+        _recyclerView = view.findViewById(R.id.forecastInfo_recyclerView);
+        _layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        _recyclerView.setLayoutManager(_layoutManager);
 
         Humidity.setBottomText(getString(R.string.word_humidity));
         Humidity.setBottomTextSize(40);
@@ -83,6 +98,14 @@ public class WeatherForecast extends Fragment {
         Cloudiness.setBottomTextSize(40);
         Cloudiness.setFinishedStrokeColor(Color.parseColor("#4A65A6"));
         Cloudiness.setUnfinishedStrokeColor(Color.parseColor("#E0E0E0"));
+
+        if(_recyclerView != null)
+            _recyclerView.setHasFixedSize(true);
+
+        forecastList = new ArrayList<>();
+        forecastAdapter = new ForecastAdapter(forecastList);
+        _recyclerView.setAdapter(forecastAdapter);
+        forecastAdapter.notifyDataSetChanged();
 
         //proba pobierania json
        /* try

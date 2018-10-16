@@ -25,10 +25,10 @@ public class Main {
     private Double grndLevel;
     @SerializedName("humidity")
     @Expose
-    private Long humidity;
+    private Double humidity;
     @SerializedName("temp_kf")
     @Expose
-    private Long tempKf;
+    private Double tempKf;
 
     public Double getTemp() {
         return temp;
@@ -78,19 +78,19 @@ public class Main {
         this.grndLevel = grndLevel;
     }
 
-    public Long getHumidity() {
+    public Double getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(Long humidity) {
+    public void setHumidity(Double humidity) {
         this.humidity = humidity;
     }
 
-    public Long getTempKf() {
+    public Double getTempKf() {
         return tempKf;
     }
 
-    public void setTempKf(Long tempKf) {
+    public void setTempKf(Double tempKf) {
         this.tempKf = tempKf;
     }
 
