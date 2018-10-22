@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -176,8 +177,8 @@
                 <com.github.lzyzsd.circleprogress.ArcProgress
                     android:id="@+id/arcProgress_humidity"
                     android:background="@android:color/transparent"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
                     android:layout_marginRight="30dp"
                     tools:arc_unfinished_color="#FFFFFF"
                     tools:arc_finished_color="#4A65A6"
@@ -188,8 +189,8 @@
                 <com.github.lzyzsd.circleprogress.ArcProgress
                     android:id="@+id/arcProgress_cloudiness"
                     android:background="@android:color/transparent"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
                     android:layout_marginLeft="30dp"
                     android:layout_toEndOf="@+id/arcProgress_humidity"
                     tools:arc_bottom_text="@string/word_cloudiness"
@@ -292,7 +293,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_below="@+id/textView_wind"
                 android:layout_marginLeft="20dp"
-                android:text="Speed"
+                android:text="@string/word_windSpeed"
                 android:textSize="18dp"/>
 
             <TextView
@@ -326,11 +327,20 @@
                 android:textSize="18dp"/>
 
             <TextView
-                android:id="@+id/textView_windDirectionValue"
+                android:id="@+id/textView_windColon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_windSpeed"
                 android:layout_toEndOf="@+id/textView_windDirection"
+                android:text=": "
+                android:textSize="18dp"/>
+
+            <TextView
+                android:id="@+id/textView_windDirectionValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_windSpeed"
+                android:layout_toEndOf="@+id/textView_windColon"
                 android:text="360"
                 android:textSize="18dp"/>
         </RelativeLayout>
@@ -354,12 +364,13 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="60dp">
+                android:layout_marginRight="40dp">
 
                 <TextView
                     android:id="@+id/textView_sunrise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:text="@string/word_sunrise"
                     android:textSize="18dp"/>
 
@@ -384,12 +395,13 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp">
+                android:layout_marginLeft="40dp">
 
                 <TextView
                     android:id="@+id/textView_sunset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:text="@string/word_sunset"
                     android:textSize="18dp"/>
 
@@ -412,13 +424,21 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/forecastInfo_recyclerView"
-        android:scrollbars="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <android.support.v7.widget.CardView
+        android:id="@+id/forecastInfo_cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
         android:layout_below="@+id/weatherForecast_sunriseAndSunsetInfo_cardView">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/forecastInfo_recyclerView"
+            android:scrollbars="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v7.widget.CardView>
+
+
 </RelativeLayout>
 </ScrollView>
