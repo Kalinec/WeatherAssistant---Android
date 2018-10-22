@@ -21,6 +21,7 @@ import java.util.Date;
 
 public class ForecastWeatherFetchData extends AsyncTask<String, Void, String>
 {
+    private ForecastWeather _forecastWeather;
 
     @Override
     protected String doInBackground(String... strings)
@@ -51,17 +52,87 @@ public class ForecastWeatherFetchData extends AsyncTask<String, Void, String>
     protected void onPostExecute(String aVoid)
     {
         Gson gson = new Gson();
-        ForecastWeather forecastWeather = gson.fromJson(aVoid, ForecastWeather.class);
+        _forecastWeather = gson.fromJson(aVoid, ForecastWeather.class);
 
         //update GUI
-        for(int i=0; i<forecastWeather.getList().size(); i++)
+        for(int i=0; i<_forecastWeather.getList().size(); i++)
         {
-            Date date = new Date(forecastWeather.getList().get(i).getDt()*1000);
-            SimpleDateFormat dayFormatter = new SimpleDateFormat("dd-MM");
+            Date date = new Date(_forecastWeather.getList().get(i).getDt()*1000);
+            SimpleDateFormat dayFormatter = new SimpleDateFormat("EEE");
             SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
-            WeatherForecast.forecastList.add(new Forecast(dayFormatter.format(date), timeFormatter.format(date), R.drawable.ic_weather_cloudy, forecastWeather.getList().get(i).getMain().getTemp().toString()));
-
+            WeatherForecast.forecastList.add(
+                    new Forecast(
+                            dayFormatter.format(date),
+                            timeFormatter.format(date),
+                            setWeatherIcon(_forecastWeather.getList().get(i).getWeather().get(0).getIcon()),
+                            _forecastWeather.getList().get(i).getMain().getTemp().toString(),
+                            String.format("%.2f",_forecastWeather.getList().get(i).getWind().getSpeed()*3.6)));
         }
         WeatherForecast.forecastAdapter.notifyDataSetChanged();
     }
+
+    private int setWeatherIcon(String icon)
+    {
+        switch (icon)
+        {
+            case "01d":
+                return R.drawable.ic_weather_sunny;
+
+            case "01n":
+                return R.drawable.ic_weather_night;
+
+            case "02d":
+                return R.drawable.ic_weather_cloudy_day;
+
+            case "02n":
+                return R.drawable.ic_weather_cloudy_night;
+
+            case "03d":
+                return R.drawable.ic_weather_cloudy;
+
+            case "03n":
+                return R.drawable.ic_weather_cloudy;
+
+            case "04d":
+                return R.drawable.ic_weather_cloudy;
+
+            case "04n":
+                return R.drawable.ic_weather_cloudy;
+
+            case "09d":
+                return R.drawable.ic_weather_cloudy_rainy;
+
+            case "09n":
+                return R.drawable.ic_weather_cloudy;
+
+            case "10d":
+                return R.drawable.ic_weather_cloudy_rainy_day;
+
+            case "10n":
+                return R.drawable.ic_weather_cloudy_rainy_night;
+
+            case "11d":
+                return R.drawable.ic_weather_cloudy_storm;
+
+            case "11n":
+                return R.drawable.ic_weather_cloudy_storm;
+
+            case "13d":
+                return R.drawable.ic_weather_cloudy_snowy_day;
+
+            case "13n":
+                return R.drawable.ic_weather_cloudy_snowy;
+
+            case "50d":
+                return R.drawable.ic_weather_windy_mist;
+
+            case "50n":
+                return R.drawable.ic_weather_windy_mist;
+        }
+
+        return -1;
+    }
+
+
+
 }
