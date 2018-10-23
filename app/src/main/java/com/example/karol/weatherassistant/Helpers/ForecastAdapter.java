@@ -19,7 +19,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        public TextView day, time, temperature;
+        public TextView day, time, temperature, windSpeed;
         public ImageView icon;
 
         public ViewHolder(View v)
@@ -29,6 +29,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
             time = v.findViewById(R.id.textView_forecast_hour);
             temperature = v.findViewById(R.id.textView_forecast_temperature);
             icon = v.findViewById(R.id.imageView_forecastIcon);
+            windSpeed = v.findViewById(R.id.textView_forecast_windSpeed);
         }
     }
 
@@ -51,6 +52,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         holder.time.setText(forecast.get_time());
         holder.temperature.setText(forecast.get_temperature());
         holder.icon.setImageResource(forecast.get_icon());
+        holder.windSpeed.setText(forecast.get_windSpeed());
     }
 
     @Override

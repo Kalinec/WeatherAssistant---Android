@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="coord_N">Północny</string>
+    <string name="coord_NE">Północny wschód</string>
+    <string name="coord_E">Wschód</string>
+    <string name="coord_SE">Południowy wschód</string>
+    <string name="coord_S">Południowy</string>
+    <string name="coord_SW">Południowy zachód</string>
+    <string name="coord_W">Zachód</string>
+    <string name="coord_NW">Północny zachód</string>
     <string name="word_humidity">Wilgotność</string>
     <string name="word_pressure">Ciśnienie</string>
     <string name="word_wind">Wiatr</string>

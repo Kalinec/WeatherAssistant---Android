@@ -7,31 +7,66 @@
         <TextView
             android:id="@+id/textView_forecast_day"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="16dp"/>
 
         <TextView
             android:id="@+id/textView_forecast_hour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView_forecast_day"/>
+            android:layout_below="@id/textView_forecast_day"
+            android:layout_centerHorizontal="true"
+            android:textSize="16dp"/>
 
         <ImageView
             android:id="@+id/imageView_forecastIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView_forecast_hour"/>
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/textView_forecast_hour"
+            android:layout_centerHorizontal="true"/>
 
-        <TextView
-            android:id="@+id/textView_forecast_temperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView_forecastIcon"/>
-
-        <TextView
-            android:id="@+id/textView_forecast_temperatureType"
+        <LinearLayout
+            android:id="@+id/layout_forecast_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView_forecastIcon"
-            android:layout_toEndOf="@+id/textView_forecast_temperature"
-            android:text="°C"/>
+            android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:id="@+id/textView_forecast_temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/textView_forecast_temperatureType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C"
+                    android:textSize="16dp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout_forecast_windSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_forecast_temperature"
+            android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:id="@+id/textView_forecast_windSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/textView_forecast_windSpeedType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" km/h"
+                    android:textSize="16dp"/>
+        </LinearLayout>
+
 </RelativeLayout>

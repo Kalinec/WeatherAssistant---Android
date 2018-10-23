@@ -168,7 +168,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                }
 
                _routeCardView.setVisibility(View.GONE);
-               hideKeyboardFrom(getContext(),getView());
+               MainActivity.hideKeyboardFrom(getContext(),getView());
             }
         });
 
@@ -440,11 +440,4 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     public void onLocationChanged(Location location) {
 
     }
-
-    public static void hideKeyboardFrom(Context context, View view) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-
-
 }

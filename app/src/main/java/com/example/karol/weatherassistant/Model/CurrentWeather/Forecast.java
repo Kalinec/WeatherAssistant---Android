@@ -6,13 +6,15 @@ public class Forecast
     private String _time;
     private int _icon;
     private String _temperature;
+    private String _windSpeed;
 
-    public Forecast(String day, String time, int icon, String temperature)
+    public Forecast(String day, String time, int icon, String temperature, String windSpeed)
     {
         _day = day;
         _time = time;
         _icon = icon;
         _temperature = temperature;
+        _windSpeed = windSpeed;
     }
 
 
@@ -46,5 +48,13 @@ public class Forecast
 
     public void set_temperature(String _temperature) {
         this._temperature = _temperature;
+    }
+
+    public String get_windSpeed() {
+        return _windSpeed;
+    }
+
+    public void set_windSpeed(String _windSpeed) {
+        this._windSpeed = _windSpeed;
     }
 }

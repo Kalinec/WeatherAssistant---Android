@@ -2,10 +2,12 @@ package com.example.karol.weatherassistant.Helpers;
 
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.AsyncTask;
+import android.view.View;
 
 import com.example.karol.weatherassistant.Model.CurrentWeather.Forecast;
 import com.example.karol.weatherassistant.Model.CurrentWeather.ForecastWeather.ForecastWeather;
 import com.example.karol.weatherassistant.R;
+import com.example.karol.weatherassistant.View.MainActivity;
 import com.example.karol.weatherassistant.View.WeatherForecast;
 import com.google.gson.Gson;
 
@@ -22,6 +24,12 @@ import java.util.Date;
 public class ForecastWeatherFetchData extends AsyncTask<String, Void, String>
 {
     private ForecastWeather _forecastWeather;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        MainActivity.DownloadProgressBar.setVisibility(View.VISIBLE);
+    }
 
     @Override
     protected String doInBackground(String... strings)
@@ -54,6 +62,7 @@ public class ForecastWeatherFetchData extends AsyncTask<String, Void, String>
         Gson gson = new Gson();
         _forecastWeather = gson.fromJson(aVoid, ForecastWeather.class);
 
+        WeatherForecast.forecastList.clear();
         //update GUI
         for(int i=0; i<_forecastWeather.getList().size(); i++)
         {
@@ -69,6 +78,7 @@ public class ForecastWeatherFetchData extends AsyncTask<String, Void, String>
                             String.format("%.2f",_forecastWeather.getList().get(i).getWind().getSpeed()*3.6)));
         }
         WeatherForecast.forecastAdapter.notifyDataSetChanged();
+        MainActivity.DownloadProgressBar.setVisibility(View.GONE);
     }
 
     private int setWeatherIcon(String icon)
