@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void Wsdl2CodeFinishedWithException(Exception ex) {
                 DownloadProgressBar.setVisibility(View.GONE);
+                Log.e(TAG, ex.getMessage());
 
             }
 
