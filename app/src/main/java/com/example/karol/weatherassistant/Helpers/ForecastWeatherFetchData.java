@@ -86,58 +86,58 @@ public class ForecastWeatherFetchData extends AsyncTask<String, Void, String>
         switch (icon)
         {
             case "01d":
-                return R.drawable.ic_weather_sunny;
+                return R.drawable.if_sunny;
 
             case "01n":
-                return R.drawable.ic_weather_night;
+                return R.drawable.if_night;
 
             case "02d":
-                return R.drawable.ic_weather_cloudy_day;
+                return R.drawable.if_cloudy_day;
 
             case "02n":
-                return R.drawable.ic_weather_cloudy_night;
+                return R.drawable.if_cloudy_night;
 
             case "03d":
-                return R.drawable.ic_weather_cloudy;
+                return R.drawable.if_cloudy;
 
             case "03n":
-                return R.drawable.ic_weather_cloudy;
+                return R.drawable.if_cloudy;
 
             case "04d":
-                return R.drawable.ic_weather_cloudy;
+                return R.drawable.if_cloudy;
 
             case "04n":
-                return R.drawable.ic_weather_cloudy;
+                return R.drawable.if_cloudy;
 
             case "09d":
-                return R.drawable.ic_weather_cloudy_rainy;
+                return R.drawable.if_cloudy_rain;
 
             case "09n":
-                return R.drawable.ic_weather_cloudy;
+                return R.drawable.if_cloudy_rain;
 
             case "10d":
-                return R.drawable.ic_weather_cloudy_rainy_day;
+                return R.drawable.if_cloudy_rainy_day;
 
             case "10n":
-                return R.drawable.ic_weather_cloudy_rainy_night;
+                return R.drawable.if_cloudy_rainy_night;
 
             case "11d":
-                return R.drawable.ic_weather_cloudy_storm;
+                return R.drawable.if_cloudy_stormy_day;
 
             case "11n":
-                return R.drawable.ic_weather_cloudy_storm;
+                return R.drawable.if_cloudy_stormy_night;
 
             case "13d":
-                return R.drawable.ic_weather_cloudy_snowy_day;
+                return R.drawable.if_cloudy_snowy_day;
 
             case "13n":
-                return R.drawable.ic_weather_cloudy_snowy;
+                return R.drawable.if_cloudy_snowy_night;
 
             case "50d":
-                return R.drawable.ic_weather_windy_mist;
+                return R.drawable.if_windy_mist;
 
             case "50n":
-                return R.drawable.ic_weather_windy_mist;
+                return R.drawable.if_windy_mist;
         }
 
         return -1;

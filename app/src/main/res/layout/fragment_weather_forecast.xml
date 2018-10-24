@@ -69,7 +69,7 @@
                     android:id="@+id/imageView_weatherIcon"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:src="@drawable/ic_weather_cloudy"
+                    android:src="@drawable/if_cloudy_day"
                     android:layout_below="@+id/Layout_cityInfo" />
 
                 <TextView
