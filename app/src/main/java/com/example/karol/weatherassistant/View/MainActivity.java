@@ -238,6 +238,12 @@ public class MainActivity extends AppCompatActivity {
                     SearchView.setVisibility(View.GONE);
                 }
 
+                else if(id == R.id.nav_Settings)
+                {
+                    _viewPager.setCurrentItem(4);
+                    SearchView.setVisibility(View.GONE);
+                }
+
 
                 _drawerLayout.closeDrawers();
 
@@ -336,6 +342,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new StormyMap(), "StormyMap");
         adapter.addFragment(new StormSearch(), "StormySearch");
         adapter.addFragment(new PlanTheTrip(), "PlanTheTrip");
+        adapter.addFragment(new Settings(), "Settings");
         viewPager.setAdapter(adapter);
     }
 

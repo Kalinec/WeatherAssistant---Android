@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileOptions{
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -19,7 +19,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        repositories{
+        repositories {
             mavenCentral()
             maven { url 'https://mapbox.bintray.com/mapbox' }
             maven { url 'https://oss.sonatype.org/content/repositories/ksoap2-android-releases/' }
@@ -31,14 +31,14 @@ android {
 dependencies {
     compile group: 'com.mapbox.mapboxsdk', name: 'mapbox-android-ui', version: '2.2.10'
     compile group: 'com.mapbox.mapboxsdk', name: 'mapbox-android-services', version: '2.2.10'
-    compile ('com.mapbox.mapboxsdk:mapbox-android-geocoder:1.0.0@aar'){
-        transitive=true
+    compile('com.mapbox.mapboxsdk:mapbox-android-geocoder:1.0.0@aar') {
+        transitive = true
     }
-    implementation ('com.mapbox.mapboxsdk:mapbox-android-sdk:6.5.0@aar') {
-        transitive=true
+    implementation('com.mapbox.mapboxsdk:mapbox-android-sdk:6.5.0@aar') {
+        transitive = true
     }
     implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.20.0'
-    implementation ('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.20.0') {
+    implementation('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.20.0') {
         transitive = true
     }
     implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.20.0'

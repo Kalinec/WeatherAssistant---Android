@@ -1,14 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.Settings">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Settings" />
+        android:id="@+id/textView_settings_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/Settings_stormNotifications"
+        android:textSize="20dp" />
 
-</FrameLayout>
+    <RadioGroup
+        android:id="@+id/radioGroup_settings_storm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/radioButton_settings_yourLocation"
+        android:orientation="horizontal"
+        android:layout_below="@+id/textView_settings_title">
+
+        <RadioButton
+            android:id="@+id/radioButton_settings_yourLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Settings_yourLocation"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Settings_enteredCity"/>
+    </RadioGroup>
+
+    <TableLayout
+        android:id="@+id/tableLayout_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="*"
+        android:stretchColumns="1"
+        android:layout_below="@+id/radioGroup_settings_storm">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/textView_settings_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:text="@string/word_city"
+                android:textSize="18dp"/>
+
+            <EditText
+                android:id="@+id/editText_settings_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/textView_settings_radius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:text="@string/word_radius"
+                android:textSize="18dp"/>
+
+            <Spinner
+                android:id="@+id/spinner_settings_radius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/textView_settings_warningType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:text="@string/Settings_weatherAlertNotifications"
+                android:textSize="18dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <CheckBox
+                android:id="@+id/checkBox_settings_frost"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/word_frost" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <CheckBox
+                android:id="@+id/checkBox_settings_heat"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/word_heat" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <CheckBox
+                android:id="@+id/checkBox_settings_wind"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/word_wind" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <CheckBox
+                android:id="@+id/checkBox_settings_rain"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/word_rain" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <CheckBox
+                android:id="@+id/checkBox_settings_storm"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/word_storms" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <CheckBox
+                android:id="@+id/checkBox_settings_tornado"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/word_tornado" />
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/button_settings_confirm"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tableLayout_settings"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorButtonBlue"
+        android:textColor="@color/colorTextWhite"
+        android:text="@string/word_confirm"/>
+</RelativeLayout>
