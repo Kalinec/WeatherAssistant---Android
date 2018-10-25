@@ -31,6 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_span="4"
+                    android:textColor="@color/colorBlack"
                     android:text="Warsaw"
                     android:textSize="30dp" />
             </TableRow>
@@ -44,6 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:textColor="@color/colorBlack"
                     android:textSize="20dp"
                     android:text="50.42" />
 
@@ -51,6 +53,7 @@
                     android:id="@+id/textView_N"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
                     android:textSize="20dp"
                     android:text="N" />
 
@@ -59,6 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:textColor="@color/colorBlack"
                     android:textSize="20dp"
                     android:text="50.23" />
 
@@ -66,6 +70,7 @@
                     android:id="@+id/textView_E"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
                     android:textSize="20dp"
                     android:text="E" />
             </TableRow>
@@ -80,6 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/cityInfo_cardView"
+        android:textColor="@color/colorBlack"
         android:text="Radius"
         android:textSize="20dp" />
 
@@ -99,6 +105,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="130dp"
         android:layout_marginBottom="5dp"
+        android:textColor="@color/colorBlack"
         android:text="Storms"
         android:textSize="20dp" />
 
@@ -122,6 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@color/colorBlack"
                 android:text="Time"
                 android:textSize="17dp" />
 
@@ -130,6 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:textColor="@color/colorBlack"
                 android:text="0"
                 android:textSize="17dp" />
         </LinearLayout>
@@ -156,6 +165,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@color/colorBlack"
                 android:text="Number"
                 android:textSize="17dp" />
 
@@ -164,6 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:textColor="@color/colorBlack"
                 android:text="0"
                 android:textSize="17dp" />
         </LinearLayout>
@@ -190,6 +201,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@color/colorBlack"
                 android:text="Distance"
                 android:textSize="17dp" />
 
@@ -198,6 +210,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:textColor="@color/colorBlack"
                 android:text="0"
                 android:textSize="17dp" />
         </LinearLayout>
@@ -224,6 +237,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@color/colorBlack"
                 android:text="Direction"
                 android:textSize="17dp" />
 
@@ -232,6 +246,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:textColor="@color/colorBlack"
                 android:text="0"
                 android:textSize="17dp" />
         </LinearLayout>
@@ -246,206 +261,4 @@
         android:layout_below="@+id/timeInfo_cardView">
 
     </android.support.v7.widget.RecyclerView>
-
-   <!-- <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/warningWind_cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/timeInfo_cardView"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        card_view:cardCornerRadius="1dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <ImageView
-                android:id="@+id/imageView_windWarning"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/if_weather_warning_wind" />
-
-            <TextView
-                android:id="@+id/textView_windWarning"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/imageView_windWarning"
-                android:text="Wiatr"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView_windWarning_degreeValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_windWarning"
-                android:layout_toEndOf="@id/imageView_windWarning"
-                android:text="1"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView_windWarning_degree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_windWarning"
-                android:layout_toEndOf="@+id/textView_windWarning_degreeValue"
-                android:text="stopień zagrożenia"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView_windWarning_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_windWarning_degree"
-                android:layout_toEndOf="@+id/imageView_windWarning"
-                android:text="Treść opisu zagrożenia"
-                android:textSize="15dp"
-                android:textStyle="italic" />
-            <TextView
-                android:id="@+id/textView_windStatement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_windWarning_description"
-                android:layout_toEndOf="@id/imageView_windWarning"
-                android:text="Komunikat obowiązuje"
-                />
-            <TextView
-                android:id="@+id/textView_windStatement_from"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_windStatement"
-                android:layout_toEndOf="@+id/imageView_windWarning"
-                android:text="Od: "/>
-            <TextView
-                android:id="@+id/textView_windStatement_fromValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_windStatement"
-                android:layout_toEndOf="@+id/textView_windStatement_from"
-                android:text="20.05.2018 17.00"/>
-            <TextView
-                android:id="@+id/textView_windStatement_to"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_windStatement_from"
-                android:layout_toEndOf="@+id/imageView_windWarning"
-                android:text="Do: "/>
-            <TextView
-                android:id="@+id/textView_windStatement_toValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_windStatement_from"
-                android:layout_toEndOf="@+id/textView_windStatement_to"
-                android:text="21.05.2018 19.00"/>
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/warningStorm_cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/warningWind_cardView"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        card_view:cardCornerRadius="1dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <ImageView
-                android:id="@+id/imageView_stormWarning"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/if_weather_warning_storm" />
-
-            <TextView
-                android:id="@+id/textView_stormWarning"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/imageView_stormWarning"
-                android:text="Burze"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView_stormWarning_degreeValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_stormWarning"
-                android:layout_toEndOf="@id/imageView_stormWarning"
-                android:text="1"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView_stormWarning_degree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_stormWarning"
-                android:layout_toEndOf="@+id/textView_stormWarning_degreeValue"
-                android:text="stopień zagrożenia"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView_stormWarning_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_stormWarning_degree"
-                android:layout_toEndOf="@+id/imageView_stormWarning"
-                android:text="Treść opisu zagrożenia"
-                android:textSize="15dp"
-                android:textStyle="italic" />
-            <TextView
-                android:id="@+id/textView_stormStatement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_stormWarning_description"
-                android:layout_toEndOf="@id/imageView_stormWarning"
-                android:text="Komunikat obowiązuje"
-                />
-            <TextView
-                android:id="@+id/textView_stormStatement_from"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_stormStatement"
-                android:layout_toEndOf="@+id/imageView_stormWarning"
-                android:text="Od: "/>
-            <TextView
-                android:id="@+id/textView_stormStatement_fromValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_stormStatement"
-                android:layout_toEndOf="@+id/textView_stormStatement_from"
-                android:text="20.05.2018 17.00"/>
-            <TextView
-                android:id="@+id/textView_stormStatement_to"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_stormStatement_from"
-                android:layout_toEndOf="@+id/imageView_stormWarning"
-                android:text="Do: "/>
-            <TextView
-                android:id="@+id/textView_stormStatement_toValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_stormStatement_from"
-                android:layout_toEndOf="@+id/textView_stormStatement_to"
-                android:text="21.05.2018 19.00"/>
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView> -->
 </RelativeLayout>

@@ -22,6 +22,7 @@ public class Settings extends Fragment
     private EditText _city;
     private Spinner _radiusSpinner;
     private Button _confirmButton;
+    private Spinner _updatesFrequencySpinner;
 
 
     public Settings()
@@ -39,6 +40,7 @@ public class Settings extends Fragment
         _city = view.findViewById(R.id.editText_settings_city);
         _radiusSpinner = view.findViewById(R.id.spinner_settings_radius);
         _confirmButton = view.findViewById(R.id.button_settings_confirm);
+        _updatesFrequencySpinner = view.findViewById(R.id.spinner_settings_updatesFrequency);
 
         _city.setEnabled(false);
 
@@ -49,20 +51,26 @@ public class Settings extends Fragment
             public void onCheckedChanged(RadioGroup group, int checkedId)
             {
                 //if "your location" radio button checked, "city" editText should not be enabled
-                if(checkedId == 2131296455)
-                    _city.setEnabled(false);
-
-                else if(checkedId == 1)
+                if(checkedId == 1)
                     _city.setEnabled(true);
+
+                else
+                    _city.setEnabled(false);
             }
         });
 
         //radius spinner implementation
         _radiusSpinner = (Spinner) view.findViewById(R.id.spinner_settings_radius);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.radius_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        _radiusSpinner.setAdapter(adapter);
+        ArrayAdapter<CharSequence> radiusAdapter = ArrayAdapter.createFromResource(getContext(),R.array.radius_array, android.R.layout.simple_spinner_item);
+        radiusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        _radiusSpinner.setAdapter(radiusAdapter);
         _radiusSpinner.setSelection(4);
+
+
+        _updatesFrequencySpinner = (Spinner) view.findViewById(R.id.spinner_settings_updatesFrequency);
+        ArrayAdapter<CharSequence> frequencyAdapter = ArrayAdapter.createFromResource(getContext(),R.array.frequency_array, android.R.layout.simple_spinner_item);
+        frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        _updatesFrequencySpinner.setAdapter(frequencyAdapter);
 
         //confirm button implementation
         _confirmButton.setOnClickListener(new View.OnClickListener()

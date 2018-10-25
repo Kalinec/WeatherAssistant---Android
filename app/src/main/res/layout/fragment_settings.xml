@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".View.Settings">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView_settings_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        android:textColor="@color/colorBlack"
         android:text="@string/Settings_stormNotifications"
         android:textSize="20dp" />
 
@@ -55,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="5dp"
+                android:textColor="@color/colorBlack"
                 android:text="@string/word_city"
                 android:textSize="18dp"/>
 
@@ -76,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="5dp"
+                android:textColor="@color/colorBlack"
                 android:text="@string/word_radius"
                 android:textSize="18dp"/>
 
@@ -84,104 +92,117 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:id="@+id/textView_settings_warningType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:text="@string/Settings_weatherAlertNotifications"
-                android:textSize="18dp"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-
-            <CheckBox
-                android:id="@+id/checkBox_settings_frost"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/word_frost" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-
-            <CheckBox
-                android:id="@+id/checkBox_settings_heat"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/word_heat" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-
-            <CheckBox
-                android:id="@+id/checkBox_settings_wind"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/word_wind" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-
-            <CheckBox
-                android:id="@+id/checkBox_settings_rain"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/word_rain" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-
-            <CheckBox
-                android:id="@+id/checkBox_settings_storm"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/word_storms" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-
-            <CheckBox
-                android:id="@+id/checkBox_settings_tornado"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/word_tornado" />
-        </TableRow>
     </TableLayout>
+
+    <TextView
+        android:id="@+id/textView_settings_warningType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tableLayout_settings"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorBlack"
+        android:text="@string/Settings_weatherAlertNotifications"
+        android:textSize="20dp"/>
+
+    <CheckBox
+        android:id="@+id/checkBox_settings_frost"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/textView_settings_warningType"
+        android:text="@string/word_frost" />
+
+    <CheckBox
+        android:id="@+id/checkBox_settings_heat"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/checkBox_settings_frost"
+        android:text="@string/word_heat" />
+
+    <CheckBox
+        android:id="@+id/checkBox_settings_wind"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/checkBox_settings_heat"
+        android:text="@string/word_wind" />
+
+    <CheckBox
+        android:id="@+id/checkBox_settings_rain"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/checkBox_settings_wind"
+        android:text="@string/word_rain" />
+
+    <CheckBox
+        android:id="@+id/checkBox_settings_storm"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/checkBox_settings_rain"
+        android:text="@string/word_storms" />
+
+    <CheckBox
+        android:id="@+id/checkBox_settings_tornado"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/checkBox_settings_storm"
+        android:text="@string/word_tornado" />
+
+
+    <TextView
+        android:id="@+id/textView_settings_updatesFrequency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@+id/checkBox_settings_tornado"
+        android:textColor="@color/colorBlack"
+        android:text="@string/Setting_updatesFrequency"
+        android:textSize="20dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_updatesFrequency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/textView_settings_updatesFrequency">
+
+        <Spinner
+            android:id="@+id/spinner_settings_updatesFrequency"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/textView_settings_minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:text="@string/word_minutes"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/button_settings_confirm"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tableLayout_settings"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/linearLayout_updatesFrequency"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
         android:background="@color/colorButtonBlue"
         android:textColor="@color/colorTextWhite"
         android:text="@string/word_confirm"/>
 </RelativeLayout>
+</ScrollView>

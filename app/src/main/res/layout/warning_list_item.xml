@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/imageView_warningInfo"
+                android:textColor="@color/colorBlack"
                 android:text="Wiatr"
                 android:textSize="17dp"
                 android:textStyle="bold" />
@@ -42,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_warningInfo"
                 android:layout_toEndOf="@id/imageView_warningInfo"
+                android:textColor="@color/colorBlack"
                 android:text="1"
                 android:textSize="17dp"
                 android:textStyle="bold" />
@@ -52,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_warningInfo"
                 android:layout_toEndOf="@+id/textView_warningInfo_degreeValue"
+                android:textColor="@color/colorBlack"
                 android:text="@string/word_degree_of_danger"
                 android:textSize="17dp"
                 android:textStyle="bold" />
@@ -62,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_warningInfo_degree"
                 android:layout_toEndOf="@+id/imageView_warningInfo"
+                android:textColor="@color/colorBlack"
                 android:text="Treść opisu zagrożenia"
                 android:textSize="15dp"
                 android:textStyle="italic" />
@@ -71,14 +75,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_warningInfo_description"
                 android:layout_toEndOf="@id/imageView_warningInfo"
-                android:text="@string/word_period"
-                />
+                android:textColor="@color/colorBlack"
+                android:text="@string/word_period" />
             <TextView
                 android:id="@+id/textView_warningStatement_from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_warningStatement"
                 android:layout_toEndOf="@+id/imageView_warningInfo"
+                android:textColor="@color/colorBlack"
                 android:text="@string/word_from"/>
             <TextView
                 android:id="@+id/textView_warningStatement_fromValue"
@@ -86,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_warningStatement"
                 android:layout_toEndOf="@+id/textView_warningStatement_from"
+                android:textColor="@color/colorBlack"
                 android:text="20.05.2018 17.00"/>
             <TextView
                 android:id="@+id/textView_warningStatement_to"
@@ -93,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_warningStatement_from"
                 android:layout_toEndOf="@+id/imageView_warningInfo"
+                android:textColor="@color/colorBlack"
                 android:text="@string/word_to"/>
             <TextView
                 android:id="@+id/textView_warningStatement_toValue"
@@ -100,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_warningStatement_from"
                 android:layout_toEndOf="@+id/textView_warningStatement_to"
+                android:textColor="@color/colorBlack"
                 android:text="21.05.2018 19.00"/>
         </RelativeLayout>
 

@@ -9,6 +9,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:textColor="@color/colorBlack"
             android:textSize="16dp"/>
 
         <TextView
@@ -17,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_forecast_day"
             android:layout_centerHorizontal="true"
+            android:textColor="@color/colorBlack"
             android:textSize="16dp"/>
 
         <ImageView
@@ -37,12 +39,14 @@
                     android:id="@+id/textView_forecast_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
                     android:textSize="16dp"/>
 
                 <TextView
                     android:id="@+id/textView_forecast_temperatureType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
                     android:text="°C"
                     android:textSize="16dp"/>
         </LinearLayout>
@@ -59,12 +63,14 @@
                     android:id="@+id/textView_forecast_windSpeed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
                     android:textSize="16dp"/>
 
                 <TextView
                     android:id="@+id/textView_forecast_windSpeedType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
                     android:text=" km/h"
                     android:textSize="16dp"/>
         </LinearLayout>

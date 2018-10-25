@@ -37,6 +37,7 @@
                     android:id="@+id/textView_City"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
                     android:text="City"
                     android:textSize="30dp" />
 
@@ -45,6 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/textView_City"
+                    android:textColor="@color/colorBlack"
                     android:text=", "
                     android:textSize="30dp"/>
 
@@ -53,6 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/textView_comma"
+                    android:textColor="@color/colorBlack"
                     android:text="Country"
                     android:textSize="30dp"/>
 
@@ -76,6 +79,7 @@
                     android:id="@+id/textView_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
                     android:text="17"
                     android:textSize="60dp"
                     android:layout_below="@+id/Layout_cityInfo"
@@ -85,6 +89,7 @@
                     android:id="@+id/textView_temperatureType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
                     android:text="°C"
                     android:textSize="60dp"
                     android:layout_below="@+id/Layout_cityInfo"
@@ -96,6 +101,7 @@
                 android:id="@+id/textView_condition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
                 android:text="Condition"
                 android:textSize="30dp"
                 android:layout_centerHorizontal="true"
@@ -105,6 +111,7 @@
                 android:id="@+id/textView_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
                 android:text="Description"
                 android:textSize="25dp"
                 android:layout_centerHorizontal="true"
@@ -122,6 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:textColor="@color/colorBlack"
                     android:text="@string/word_updateTime"
                     android:layout_marginRight="5dp"
                     android:textSize="16dp"
@@ -132,6 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:textColor="@color/colorBlack"
                     android:text="11.10.2018 13.12"
                     android:textSize="16dp"
                     android:layout_below="@id/textView_description"
@@ -163,6 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
+                android:textColor="@color/colorBlack"
                 android:text="@string/word_details"
                 android:textSize="20dp"
                 android:textStyle="bold"/>
@@ -211,6 +221,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="5dp"
+                    android:textColor="@color/colorBlack"
                     android:text="@string/word_pressure"
                     android:textSize="18dp"/>
 
@@ -219,6 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="3dp"
+                    android:textColor="@color/colorBlack"
                     android:text="1018"
                     android:textSize="18dp"/>
 
@@ -226,6 +238,7 @@
                     android:id="@+id/textView_pressureType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
                     android:text="hPa"
                     android:textSize="18dp"/>
 
@@ -247,6 +260,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:gravity="right"
+                    android:textColor="@color/colorBlack"
                     android:text="@string/word_visibility"
                     android:textSize="18dp"/>
 
@@ -255,6 +269,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
+                    android:textColor="@color/colorBlack"
                     android:text="10"
                     android:textSize="18dp"/>
 
@@ -265,6 +280,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
+                    android:textColor="@color/colorBlack"
                     android:text="km"
                     android:textSize="18dp"/>
             </LinearLayout>
@@ -276,6 +292,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_below="@+id/Layout_pressureInfo"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/colorBlack"
                 android:text="@string/word_wind"
                 android:textSize="18dp"/>
 
@@ -293,6 +310,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_below="@+id/textView_wind"
                 android:layout_marginLeft="20dp"
+                android:textColor="@color/colorBlack"
                 android:text="@string/word_windSpeed"
                 android:textSize="18dp"/>
 
@@ -303,6 +321,7 @@
                 android:layout_marginRight="3dp"
                 android:layout_below="@+id/textView_wind"
                 android:layout_toEndOf="@+id/textView_windSpeed"
+                android:textColor="@color/colorBlack"
                 android:text="4.1"
                 android:textSize="18dp"/>
 
@@ -312,6 +331,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_wind"
                 android:layout_toEndOf="@+id/textView_windSpeedValue"
+                android:textColor="@color/colorBlack"
                 android:text="km/h"
                 android:textSize="18dp"/>
 
@@ -323,6 +343,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_below="@+id/textView_windSpeed"
                 android:layout_marginLeft="20dp"
+                android:textColor="@color/colorBlack"
                 android:text="@string/word_windDirection"
                 android:textSize="18dp"/>
 
@@ -332,6 +353,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_windSpeed"
                 android:layout_toEndOf="@+id/textView_windDirection"
+                android:textColor="@color/colorBlack"
                 android:text=": "
                 android:textSize="18dp"/>
 
@@ -341,6 +363,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_windSpeed"
                 android:layout_toEndOf="@+id/textView_windColon"
+                android:textColor="@color/colorBlack"
                 android:text="360"
                 android:textSize="18dp"/>
         </RelativeLayout>
@@ -371,6 +394,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:textColor="@color/colorBlack"
                     android:text="@string/word_sunrise"
                     android:textSize="18dp"/>
 
@@ -387,6 +411,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textView_sunrise"
                     android:layout_toEndOf="@+id/imageView_sunrise"
+                    android:textColor="@color/colorBlack"
                     android:text="06:47"
                     android:textSize="18dp"/>
 
@@ -402,6 +427,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:textColor="@color/colorBlack"
                     android:text="@string/word_sunset"
                     android:textSize="18dp"/>
 
@@ -418,6 +444,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textView_sunset"
                     android:layout_toEndOf="@+id/imageView_sunset"
+                    android:textColor="@color/colorBlack"
                     android:text="17:44"
                     android:textSize="18dp"/>
             </RelativeLayout>
