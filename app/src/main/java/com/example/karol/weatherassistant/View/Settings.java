@@ -1,6 +1,7 @@
 package com.example.karol.weatherassistant.View;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.method.KeyListener;
@@ -9,20 +10,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.karol.weatherassistant.R;
+import com.example.karol.weatherassistant.Services.NotificationService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Settings extends Fragment
 {
+    //private Intent intent;
     private RadioGroup _stormLocationRadioGroup;
     private EditText _city;
     private Spinner _radiusSpinner;
     private Button _confirmButton;
     private Spinner _updatesFrequencySpinner;
+    private CheckBox[] _weatherWarnings;
+    private int[] _weatherWarningsValues;
 
 
     public Settings()
@@ -41,7 +50,16 @@ public class Settings extends Fragment
         _radiusSpinner = view.findViewById(R.id.spinner_settings_radius);
         _confirmButton = view.findViewById(R.id.button_settings_confirm);
         _updatesFrequencySpinner = view.findViewById(R.id.spinner_settings_updatesFrequency);
-
+        _weatherWarnings = new CheckBox[]
+                {
+                        view.findViewById(R.id.checkBox_settings_frost),
+                        view.findViewById(R.id.checkBox_settings_heat),
+                        view.findViewById(R.id.checkBox_settings_wind),
+                        view.findViewById(R.id.checkBox_settings_rain),
+                        view.findViewById(R.id.checkBox_settings_storm),
+                        view.findViewById(R.id.checkBox_settings_tornado)
+                };
+        _weatherWarningsValues = new int[6];
         _city.setEnabled(false);
 
         //radioGroup behavior settings
@@ -78,6 +96,10 @@ public class Settings extends Fragment
             @Override
             public void onClick(View v)
             {
+                Intent intent = new Intent();
+
+                intent.putExtra("Radius", (int)_radiusSpinner.getSelectedItem());
+                //intent.putExtra("WeatherWarnings", _weatherWarnings);
                 if((int)_stormLocationRadioGroup.getCheckedRadioButtonId() == 1)
                 {
                     if(_city.getText().equals(""))
@@ -85,13 +107,25 @@ public class Settings extends Fragment
 
                     else
                     {
+                        intent.putExtra("City", _city.getText());
+                        intent.putExtra("Radius", (int)_radiusSpinner.getSelectedItem());
+                        for(int i=0; i<6; i++)
+                        {
+                            if(_weatherWarnings[i].isChecked())
+                                _weatherWarningsValues[i] = 1;
+                            else
+                                _weatherWarningsValues[i] = 0;
+                        }
+                        intent.putExtra("WeatherWarnings", _weatherWarningsValues);
+                        intent.putExtra("updateFrequency", (int)_updatesFrequencySpinner.getSelectedItem());
 
+                        NotificationService.enqueueWork(getContext(), intent);
                     }
                 }
 
-                else if((int)_stormLocationRadioGroup.getCheckedRadioButtonId() == 2131296455)
+                else
                 {
-
+                    NotificationService.enqueueWork(getContext(), intent);
                 }
             }
         });
