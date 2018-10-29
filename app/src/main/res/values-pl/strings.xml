@@ -36,6 +36,7 @@
     <string name="Settings_enteredCity">Podana miejscowość</string>
     <string name="Settings_alert_cityNotEntered">Wprowadź miejscowość!</string>
     <string name="Setting_updatesFrequency">Częstotliwość aktualizacji</string>
+    <string name="Settings_cancel">Anuluj</string>
     <string name="word_city">Miejscowość</string>
     <string name="word_confirm">Zatwierdź</string>
     <string name="word_minutes">minut</string>

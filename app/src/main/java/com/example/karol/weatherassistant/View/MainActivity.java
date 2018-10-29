@@ -78,6 +78,23 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case "miejscowosc":
                         _stormLocation = (MyComplexTypeMiejscowosc)Data;
+                        try
+                        {
+                            _stormService.szukaj_burzyAsync(
+                                    String.valueOf(_stormLocation.y),
+                                    String.valueOf(_stormLocation.x),
+                                    Integer.valueOf(StormSearch.RadiusSpinner.getSelectedItem().toString())
+                                    ,"3f04fbcac562e34c59d03cc166dc532a9451ded3");
+
+                            _stormService.ostrzezenia_pogodoweAsync(
+                                    _stormLocation.y,
+                                    _stormLocation.x,
+                                    "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                        }
+                        catch (Exception e)
+                        {
+                            Log.e(TAG, "Explanation of what was being attempted from onPostExecute", e);
+                        }
                         StormSearch.City.setText(SearchView.getQuery());
                         StormSearch.Latitude.setText(String.valueOf(_stormLocation.y));
                         StormSearch.Longitude.setText(String.valueOf(_stormLocation.x));

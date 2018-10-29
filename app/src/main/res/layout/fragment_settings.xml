@@ -204,5 +204,19 @@
         android:background="@color/colorButtonBlue"
         android:textColor="@color/colorTextWhite"
         android:text="@string/word_confirm"/>
+
+    <Button
+        android:id="@+id/button_settings_cancel"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/linearLayout_updatesFrequency"
+        android:layout_toStartOf="@+id/button_settings_confirm"
+        android:background="@color/colorButtonBlue"
+        android:textColor="@color/colorTextWhite"
+        android:text="@string/Settings_cancel"
+        android:visibility="gone"/>
 </RelativeLayout>
 </ScrollView>

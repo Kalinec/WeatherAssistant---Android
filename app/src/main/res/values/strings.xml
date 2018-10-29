@@ -45,6 +45,7 @@
     <string name="StormSearch_no_warnings">No warnings here</string>
     <string name="Settings_alert_cityNotEntered">The city name has not been entered.</string>
     <string name="Setting_updatesFrequency">Frequency of updates</string>
+    <string name="Settings_cancel">Cancel</string>
     <string name="word_minutes">minutes</string>
     <string name="mapbox_access_token" translatable="false">pk.eyJ1Ijoia2FsaW5lYyIsImEiOiJjam1taWhiZDUwaHhnM2twYm4wZzV5cHFjIn0.NTnV11b82zHlFdXU998L7Q</string>
     <string name="user_location_permission_explanation">This app needs location permissions in order to show its functionality.</string>

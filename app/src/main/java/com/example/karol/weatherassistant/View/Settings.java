@@ -1,8 +1,12 @@
 package com.example.karol.weatherassistant.View;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.text.method.KeyListener;
 import android.view.LayoutInflater;
@@ -16,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.karol.weatherassistant.Helpers.NotificationReceiver;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.Services.NotificationService;
 
@@ -29,9 +34,12 @@ public class Settings extends Fragment
     private EditText _city;
     private Spinner _radiusSpinner;
     private Button _confirmButton;
+    private Button _cancelButton;
     private Spinner _updatesFrequencySpinner;
     private CheckBox[] _weatherWarnings;
     private int[] _weatherWarningsValues;
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
 
 
     public Settings()
@@ -49,6 +57,7 @@ public class Settings extends Fragment
         _city = view.findViewById(R.id.editText_settings_city);
         _radiusSpinner = view.findViewById(R.id.spinner_settings_radius);
         _confirmButton = view.findViewById(R.id.button_settings_confirm);
+        _cancelButton = view.findViewById(R.id.button_settings_cancel);
         _updatesFrequencySpinner = view.findViewById(R.id.spinner_settings_updatesFrequency);
         _weatherWarnings = new CheckBox[]
                 {
@@ -96,9 +105,10 @@ public class Settings extends Fragment
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent();
+                Intent intent = new Intent(getContext(), NotificationReceiver.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-                intent.putExtra("Radius", (int)_radiusSpinner.getSelectedItem());
+
+                intent.putExtra("Radius", Integer.parseInt(_radiusSpinner.getSelectedItem().toString()));
                 //intent.putExtra("WeatherWarnings", _weatherWarnings);
                 if((int)_stormLocationRadioGroup.getCheckedRadioButtonId() == 1)
                 {
@@ -107,8 +117,8 @@ public class Settings extends Fragment
 
                     else
                     {
-                        intent.putExtra("City", _city.getText());
-                        intent.putExtra("Radius", (int)_radiusSpinner.getSelectedItem());
+                        intent.putExtra("City", _city.getText().toString());
+                        intent.putExtra("Radius", Integer.parseInt(_radiusSpinner.getSelectedItem().toString()));
                         for(int i=0; i<6; i++)
                         {
                             if(_weatherWarnings[i].isChecked())
@@ -117,20 +127,42 @@ public class Settings extends Fragment
                                 _weatherWarningsValues[i] = 0;
                         }
                         intent.putExtra("WeatherWarnings", _weatherWarningsValues);
-                        intent.putExtra("updateFrequency", (int)_updatesFrequencySpinner.getSelectedItem());
+                        intent.putExtra("updateFrequency", Integer.parseInt(_updatesFrequencySpinner.getSelectedItem().toString()));
 
-                        NotificationService.enqueueWork(getContext(), intent);
+                        alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+                        pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+                        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 15000, pendingIntent);
+                        //alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 2*1000, pendingIntent);
+
+                        //NotificationService.enqueueWork(getContext(), intent);
                     }
                 }
 
                 else
                 {
-                    NotificationService.enqueueWork(getContext(), intent);
+                    //NotificationService.enqueueWork(getContext(), intent);
                 }
+
+                _confirmButton.setEnabled(false);
+                _cancelButton.setVisibility(View.VISIBLE);
+            }
+
+        });
+
+        _cancelButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+               if(alarmManager != null)
+                   alarmManager.cancel(pendingIntent);
+
+               _cancelButton.setVisibility(View.GONE);
+               _confirmButton.setEnabled(true);
             }
         });
 
         return view;
     }
-
 }
