@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="frequency_array">
+        <item>1</item>
         <item>15</item>
         <item>30</item>
         <item>60</item>

@@ -1,10 +1,16 @@
 package com.example.karol.weatherassistant.View;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -56,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
     private MyComplexTypeOstrzezenia _warningInfo;
     private boolean _stormLocationAsyncFinished;
     public static Resources resources;
+
+    //GPS Fields
+    public static LocationManager locationManager;
+    public static Location location;
 
 
     @Override
@@ -405,6 +415,12 @@ public class MainActivity extends AppCompatActivity {
     public static void hideKeyboardFrom(Context context, View view) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static boolean CheckGpsStatus(Context context){
+
+        locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
 }

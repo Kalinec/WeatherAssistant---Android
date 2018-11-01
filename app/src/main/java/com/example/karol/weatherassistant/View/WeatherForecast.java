@@ -108,22 +108,37 @@ public class WeatherForecast extends Fragment {
         _recyclerView.setAdapter(forecastAdapter);
         forecastAdapter.notifyDataSetChanged();
 
-        //proba pobierania json
-       /* try
-        {
-            downloadJson();
-        }
-        catch (Exception e)
-        {
-            Toast.makeText(getContext(),"nie pykło",Toast.LENGTH_SHORT).show();
-        }
-*/
         return view;
     }
 
-    private void downloadJson()
+    @Override
+    public void onSaveInstanceState(Bundle outState)
     {
-        //WeatherService.getInstance().getCurrentWeatherByCityName(_searchViewCity.get);
+        outState.putString("CITY", City.getText().toString());
+        outState.putString("COUNTRY", Country.getText().toString());
+        outState.putString("TEMPERATURE", Temperature.getText().toString());
+        outState.putString("CONDITION", Condition.getText().toString());
+        outState.putString("DESCRIPTION", Description.getText().toString());
+        outState.putString("TIME", Time.getText().toString());
+        outState.putInt("HUMIDITY", Humidity.getProgress());
+        outState.putInt("CLOUDINESS", Cloudiness.getProgress());
+        outState.putString("PRESSURE", Pressure.getText().toString());
+        outState.putString("VISIBILITY", Visibility.getText().toString());
+        outState.putString("WINDSPEED", WindSpeed.getText().toString());
+        outState.putString("WINDDIRECTION", WindDirection.getText().toString());
+
+        super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+
+        if(savedInstanceState != null)
+        {
+
+        }
+
+    }
 }
