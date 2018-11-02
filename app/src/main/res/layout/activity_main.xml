@@ -33,6 +33,15 @@
                 android:layout_gravity = "right"
                 android:visibility="gone"/>
 
+            <ImageButton
+                android:id="@+id/imageButton_my_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity = "right"
+                android:src="@mipmap/ic_my_location"
+                android:visibility="visible"
+                android:background="@android:color/transparent"/>
+
             <android.support.v7.widget.SearchView
                 android:id="@+id/searchCity"
                 android:layout_width="wrap_content"

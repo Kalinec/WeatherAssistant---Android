@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.example.karol.weatherassistant.Model.CurrentWeather.Warning;
@@ -51,6 +52,7 @@ import static android.content.ContentValues.TAG;
 public class MainActivity extends AppCompatActivity {
 
     public static ProgressBar DownloadProgressBar;
+    public static ImageButton LocalizerButton;
     private DrawerLayout _drawerLayout;
     private SectionsStatePagerAdapter _sectionsStatePagerAdapter;
     private ViewPager _viewPager;
@@ -222,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
         _drawerLayout = findViewById(R.id.drawer_layout);
         SearchView = findViewById(R.id.searchCity);
         DownloadProgressBar = findViewById(R.id.progressBar_download);
+        LocalizerButton = findViewById(R.id.imageButton_my_location);
 
         //set language response from WeatherAPI the same as the system language
         WeatherService.getInstance().setLanguage(Locale.getDefault().getLanguage());
@@ -242,6 +245,8 @@ public class MainActivity extends AppCompatActivity {
                 {
                     _viewPager.setCurrentItem(0);
                     SearchView.setVisibility(View.VISIBLE);
+                    LocalizerButton.setVisibility(View.VISIBLE);
+
                 }
 
 
@@ -249,6 +254,8 @@ public class MainActivity extends AppCompatActivity {
                 {
                     _viewPager.setCurrentItem(1);
                     SearchView.setVisibility(View.GONE);
+                    LocalizerButton.setVisibility(View.GONE);
+
                 }
 
 
@@ -256,6 +263,8 @@ public class MainActivity extends AppCompatActivity {
                 {
                     _viewPager.setCurrentItem(2);
                     SearchView.setVisibility(View.VISIBLE);
+                    LocalizerButton.setVisibility(View.VISIBLE);
+
                 }
 
 
@@ -263,12 +272,16 @@ public class MainActivity extends AppCompatActivity {
                 {
                     _viewPager.setCurrentItem(3);
                     SearchView.setVisibility(View.GONE);
+                    LocalizerButton.setVisibility(View.GONE);
+
                 }
 
                 else if(id == R.id.nav_Settings)
                 {
                     _viewPager.setCurrentItem(4);
                     SearchView.setVisibility(View.GONE);
+                    LocalizerButton.setVisibility(View.GONE);
+
                 }
 
 
@@ -298,9 +311,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 if(position == 0 || position == 2)
+                {
                     SearchView.setVisibility(View.VISIBLE);
+                    LocalizerButton.setVisibility(View.VISIBLE);
+                }
                 else
+                {
                     SearchView.setVisibility(View.GONE);
+                    LocalizerButton.setVisibility(View.GONE);
+                }
             }
 
             @Override
