@@ -3,7 +3,11 @@ package com.example.karol.weatherassistant.View;
 
 import android.animation.ObjectAnimator;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +27,10 @@ import com.example.karol.weatherassistant.Model.CurrentWeather.Forecast;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.Services.WeatherService;
 import com.github.lzyzsd.circleprogress.ArcProgress;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.mapzen.android.lost.api.LocationRequest;
+import com.mapzen.android.lost.api.LocationServices;
 
 import org.w3c.dom.Text;
 
@@ -30,7 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class WeatherForecast extends Fragment {
+public class WeatherForecast extends Fragment
+{
 
     public static ImageView WeatherIcon;
     public static TextView City;
@@ -56,6 +65,7 @@ public class WeatherForecast extends Fragment {
     private RecyclerView.LayoutManager _layoutManager;
     public static List<Forecast> forecastList;
     public static ForecastAdapter forecastAdapter;
+
 
 
 

@@ -9,9 +9,26 @@ import android.support.v4.content.ContextCompat;
 public class Permissions
 {
     //Request Permisson
+    public static void Request_INTERNET(Activity act, int code)
+    {
+        ActivityCompat.requestPermissions(act, new
+                String[]{Manifest.permission.INTERNET},code);
+    }
+
+    public static void Request_ACCESS_NETWORK_STATE(Activity act, int code)
+    {
+        ActivityCompat.requestPermissions(act, new
+                String[]{Manifest.permission.ACCESS_NETWORK_STATE}, code);
+    }
+
+    public static void Request_WAKE_LOCK(Activity act, int code)
+    {
+        ActivityCompat.requestPermissions(act, new
+                String[]{Manifest.permission.WAKE_LOCK}, code);
+    }
+
     public static void Request_STORAGE(Activity act,int code)
     {
-
         ActivityCompat.requestPermissions(act, new
                 String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},code);
     }
@@ -47,6 +64,24 @@ public class Permissions
     }
 
     //Check Permisson
+    public static boolean Check_INTERNET(Activity act)
+    {
+        int result = ContextCompat.checkSelfPermission(act, Manifest.permission.INTERNET);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static boolean Check_ACCESS_NETWORK_STATE(Activity act)
+    {
+        int result = ContextCompat.checkSelfPermission(act, Manifest.permission.ACCESS_NETWORK_STATE);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static boolean Check_WAKE_LOCK(Activity act)
+    {
+        int result = ContextCompat.checkSelfPermission(act, Manifest.permission.WAKE_LOCK);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
     public static boolean Check_STORAGE(Activity act)
     {
         int result = ContextCompat.checkSelfPermission(act,android.Manifest.permission.WRITE_EXTERNAL_STORAGE);

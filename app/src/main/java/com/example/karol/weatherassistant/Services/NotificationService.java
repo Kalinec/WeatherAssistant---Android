@@ -27,6 +27,11 @@ import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTyp
 import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTypeOstrzezenia;
 import com.example.karol.weatherassistant.Services.BurzeDzisService.serwerSOAPService;
 import com.example.karol.weatherassistant.View.MainActivity;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.mapbox.mapboxsdk.style.layers.Property;
 
 import java.time.Duration;
@@ -50,14 +55,20 @@ public class NotificationService extends JobIntentService {
     private final String CHANNEL_ID_WARNINGS = "WARNINGS";
     private NotificationManagerCompat _notificationManager;
 
-    //GPS FIELDS
+   /* //GPS FIELDS
     private LocationListener _locationListener;
     private Location _location;
     private Criteria _criteria;
     private LocationManager _locationManager;
     private final Looper looper = null;
-    Handler handler;
+    */
 
+    //GPS FIELDS newer
+    private FusedLocationProviderClient _fusedLocationProviderClient;
+    private LocationRequest _locationRequest;
+    private LocationCallback _locationCallback;
+
+    Handler handler;
     @Override
     public void onCreate() {
         // Handler will get associated with the current thread,
@@ -66,7 +77,7 @@ public class NotificationService extends JobIntentService {
         super.onCreate();
     }
 
-    private void runOnUiThread(Runnable runnable) {
+   private void runOnUiThread(Runnable runnable) {
         handler.post(runnable);
     }
 
@@ -363,7 +374,57 @@ public class NotificationService extends JobIntentService {
 
         else
         {
-            initializeLocalizer();
+            _fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+            _locationRequest = new LocationRequest();
+            _locationRequest.setInterval(1000);
+            _locationRequest.setFastestInterval(0);
+            _locationRequest.setNumUpdates(1);
+            _locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+            _locationCallback = new LocationCallback() {
+                @Override
+                public void onLocationResult(LocationResult locationResult) {
+                    if (locationResult == null) {
+                        return;
+                    }
+                    for (Location location : locationResult.getLocations())
+                    {
+                        String convertedLatitude = MainActivity.decimalToDM(location.getLatitude());
+                        String convertedLongitude = MainActivity.decimalToDM(location.getLongitude());
+                        try
+                        {
+                            _stormAPI.szukaj_burzyAsync(
+                                    convertedLatitude,
+                                    convertedLongitude,
+                                    Integer.valueOf(bundle.getInt("Radius")),
+                                    "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+
+                            _stormAPI.ostrzezenia_pogodoweAsync(
+                                    Float.valueOf(convertedLatitude),
+                                    Float.valueOf(convertedLongitude),
+                                    "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                        }
+                        catch (Exception e)
+                        {
+                            Log.e("Notification Service : ", "Trying resolve szukaj_burzyAsync and ostrzezenia_pogodoweAsync methods", e);
+                        }
+                    }
+                }
+            };
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try
+                    {
+                        _fusedLocationProviderClient.requestLocationUpdates(_locationRequest, _locationCallback, null);
+                    }
+                    catch (SecurityException e)
+                    {
+                        Log.e("GPS SECURITY EXCEPTION", e.getMessage());
+                    }
+                }
+            });
         }
 
         Log.i("NotificationService", "Ended run method");
@@ -400,7 +461,7 @@ public class NotificationService extends JobIntentService {
         }
     }
 
-    private void initializeLocalizer()
+   /* private void initializeLocalizer()
     {
         _criteria = new Criteria();
         setCriteria();
@@ -465,9 +526,9 @@ public class NotificationService extends JobIntentService {
             }
         });
 
-    }
+    } */
 
-    private void setCriteria()
+   /* private void setCriteria()
     {
         // this is done to save the battery life of the device
         _criteria.setAccuracy(Criteria.ACCURACY_FINE);
@@ -478,5 +539,5 @@ public class NotificationService extends JobIntentService {
         _criteria.setCostAllowed(true);
         _criteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
         _criteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
-    }
+    } */
 }

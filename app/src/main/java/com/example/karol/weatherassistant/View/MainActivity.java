@@ -5,9 +5,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -27,6 +30,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
+import com.example.karol.weatherassistant.Helpers.Permissions;
 import com.example.karol.weatherassistant.Model.CurrentWeather.Warning;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.SectionsStatePagerAdapter;
@@ -36,8 +40,15 @@ import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTyp
 import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTypeOstrzezenia;
 import com.example.karol.weatherassistant.Services.BurzeDzisService.serwerSOAPService;
 import com.example.karol.weatherassistant.Services.WeatherService;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
 import com.mapbox.mapboxsdk.storage.Resource;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -49,7 +60,7 @@ import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity /* implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener */ {
 
     public static ProgressBar DownloadProgressBar;
     public static ImageButton LocalizerButton;
@@ -69,11 +80,18 @@ public class MainActivity extends AppCompatActivity {
     public static LocationManager locationManager;
     public static Location location;
 
+    //GPS FIELDS newer
+    private FusedLocationProviderClient _fusedLocationProviderClient;
+    private LocationRequest _locationRequest;
+    private LocationCallback _locationCallback;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        checkRequiredPermissions();
 
         _eventsHandler = new IWsdl2CodeEvents() {
             @Override
@@ -226,6 +244,55 @@ public class MainActivity extends AppCompatActivity {
         DownloadProgressBar = findViewById(R.id.progressBar_download);
         LocalizerButton = findViewById(R.id.imageButton_my_location);
 
+        //gps
+        _fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        _locationRequest = new LocationRequest();
+        _locationRequest.setInterval(5000);
+        _locationRequest.setFastestInterval(1000);
+        _locationRequest.setNumUpdates(1);
+        _locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        _locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations())
+                {
+                    switch (_viewPager.getCurrentItem())
+                    {
+                        case 0:
+                            WeatherService.getInstance().getCurrentWeatherByCoordinate(location.getLatitude(), location.getLongitude());
+                            WeatherService.getInstance().getForecastWeatherByCoordinate(location.getLatitude(), location.getLongitude());
+                            break;
+
+                        case 2:
+                            String convertedLatitude = decimalToDM(location.getLatitude());
+                            String convertedLongitude = decimalToDM(location.getLongitude());
+
+                            try
+                            {
+                                _stormService.szukaj_burzyAsync(convertedLatitude, convertedLongitude, Integer.valueOf(StormSearch.RadiusSpinner.getSelectedItem().toString()),"3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                                _stormService.ostrzezenia_pogodoweAsync(Float.valueOf(convertedLatitude), Float.valueOf(convertedLongitude), "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                            }
+                            catch (Exception e)
+                            {
+                                Log.e(TAG, "Explanation of what was being attempted", e);
+                            }
+
+                            StormSearch.City.setText("-");
+                            StormSearch.Latitude.setText(convertedLatitude);
+                            StormSearch.Longitude.setText(convertedLongitude);
+                            break;
+
+                        case 4:
+                            break;
+                    }
+                }
+            }
+        };
+
         //set language response from WeatherAPI the same as the system language
         WeatherService.getInstance().setLanguage(Locale.getDefault().getLanguage());
 
@@ -367,6 +434,33 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+        LocalizerButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                DownloadProgressBar.setVisibility(View.VISIBLE);
+                try
+                {
+                    _fusedLocationProviderClient.requestLocationUpdates(_locationRequest, _locationCallback, null);
+
+                }
+                catch (SecurityException e)
+                {
+
+                }
+
+                switch (_viewPager.getCurrentItem())
+                {
+                    case 0:
+
+                }
+            }
+        });
+
+
     }
 
     @Override
@@ -436,10 +530,145 @@ public class MainActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    private void checkRequiredPermissions()
+    {
+        if(!Permissions.Check_STORAGE(this))
+            Permissions.Request_STORAGE(this,0);
+
+        if(!Permissions.Check_FINE_LOCATION(this))
+            Permissions.Request_FINE_LOCATION(this, 1);
+
+        if(!Permissions.Check_INTERNET(this))
+            Permissions.Request_INTERNET(this, 2);
+
+        if(!Permissions.Check_ACCESS_NETWORK_STATE(this))
+            Permissions.Request_ACCESS_NETWORK_STATE(this, 3);
+
+        if(!Permissions.Check_WAKE_LOCK(this))
+            Permissions.Request_WAKE_LOCK(this, 4);
+    }
+
     public static boolean CheckGpsStatus(Context context){
 
         locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
+    public static Criteria setCriteria()
+    {
+        // this is done to save the battery life of the device
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setSpeedRequired(false);
+        criteria.setCostAllowed(true);
+        criteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
+        criteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
+        return criteria;
+    }
+
+    public static String decimalToDM(double coord) {
+        String output, degrees, minutes;
+
+        // gets the modulus the coordinate divided by one (MOD1).
+        // in other words gets all the numbers after the decimal point.
+        // e.g. mod := -79.982195 % 1 == 0.982195
+        //
+        // next get the integer part of the coord. On other words the whole number part.
+        // e.g. intPart := -79
+
+        double mod = coord % 1;
+        int intPart = (int)coord;
+
+        //set degrees to the value of intPart
+        //e.g. degrees := "-79"
+
+        degrees = String.valueOf(intPart);
+
+        // next times the MOD1 of degrees by 60 so we can find the integer part for minutes.
+        // get the MOD1 of the new coord to find the numbers after the decimal point.
+        // e.g. coord :=  0.982195 * 60 == 58.9317
+        //	mod   := 58.9317 % 1    == 0.9317
+        //
+        // next get the value of the integer part of the coord.
+        // e.g. intPart := 58
+
+        coord = mod * 60;
+        mod = coord % 1;
+        intPart = (int)coord;
+        if (intPart < 0) {
+            // Convert number to positive if it's negative.
+            intPart *= -1;
+        }
+
+        // set minutes to the value of intPart.
+        // e.g. minutes = "58"
+        minutes = String.valueOf(intPart);
+        // I used this format for android but you can change it
+        // to return in whatever format you like
+        // e.g. output = "-79/1,58/1,56/1"
+        output = degrees + "." + minutes;
+
+        //Standard output of D°M′S″
+        //output = degrees + "°" + minutes + "'" + seconds + "\"";
+
+        return output;
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+    }
+
+    /*
+    // Location Listener start
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+    // Location Listener end
+
+    // GoogleApiClient.ConnectionCallbacks Start
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+    // GoogleApiClient.ConnectionCallbacks End
+
+    //GoogleApiClient.OnConnectionFailedListener Start
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+    //GoogleApiClient.OnConnectionFailedListener End
+*/
 }
