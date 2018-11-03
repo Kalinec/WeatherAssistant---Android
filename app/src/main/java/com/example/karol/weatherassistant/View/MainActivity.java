@@ -3,6 +3,9 @@ package com.example.karol.weatherassistant.View;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Criteria;
@@ -18,6 +21,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
     private MyComplexTypeOstrzezenia _warningInfo;
     private boolean _stormLocationAsyncFinished;
     public static Resources resources;
+    private Context _context;
 
     //GPS Fields
     public static LocationManager locationManager;
@@ -90,6 +95,7 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        _context = this;
 
         checkRequiredPermissions();
 
@@ -441,6 +447,12 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
             @Override
             public void onClick(View v)
             {
+                if(!CheckGpsStatus(_context))
+                {
+                    buildAlertMessageNoGps(_context);
+                    return;
+                }
+
                 DownloadProgressBar.setVisibility(View.VISIBLE);
                 try
                 {
@@ -449,12 +461,6 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
                 }
                 catch (SecurityException e)
                 {
-
-                }
-
-                switch (_viewPager.getCurrentItem())
-                {
-                    case 0:
 
                 }
             }
@@ -617,6 +623,24 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
         return output;
     }
 
+    public static void buildAlertMessageNoGps(Context context) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        context.startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     @Override
     public void onStart()
     {
@@ -627,6 +651,18 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
     public void onPause()
     {
         super.onPause();
+
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+
+        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("WEATHERFORECAST_CITY", WeatherForecast.City.getText().toString());
+        editor.commit();
     }
 
     /*

@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -17,6 +18,7 @@ import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -177,7 +179,8 @@ public class Settings extends Fragment
                         alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
                         pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
                         alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 500, pendingIntent);
-
+                        _confirmButton.setEnabled(false);
+                        _cancelButton.setVisibility(View.VISIBLE);
                         /*
                         alarmManager.setInexactRepeating(
                                 AlarmManager.ELAPSED_REALTIME_WAKEUP,
@@ -192,7 +195,10 @@ public class Settings extends Fragment
                 {
                     //NotificationService.enqueueWork(getContext(), intent);
                     if(!Permissions.Check_FINE_LOCATION(getActivity()))
+                    {
                         Permissions.Request_FINE_LOCATION(getActivity(), 2);
+                        return;
+                    }
 
 
                     if(MainActivity.CheckGpsStatus(getContext()))
@@ -201,29 +207,20 @@ public class Settings extends Fragment
                         pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
                         alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 15000, pendingIntent);
 
+                        _confirmButton.setEnabled(false);
+                        _cancelButton.setVisibility(View.VISIBLE);
                         /*
                         alarmManager.setInexactRepeating(
                                 AlarmManager.ELAPSED_REALTIME_WAKEUP,
                                 SystemClock.elapsedRealtime(),
                                 1000 * 60 * Integer.parseInt(_updatesFrequencySpinner.getSelectedItem().toString()),
                                 pendingIntent); */
-                       /* try
-                        {
-                            _locationManager.requestSingleUpdate(_criteria, _locationListener, looper);
-                        }
-                        catch (SecurityException e)
-                        {
-                            Log.e("GPS SECURITY EXCEPTION", e.getMessage());
-                        } */
-
                     }
 
-                    else
-                        Toast.makeText(getActivity(), "Włącz moduł GPS!", Toast.LENGTH_SHORT).show();
+                    else {
+                        MainActivity.buildAlertMessageNoGps(getContext());
+                    }
                 }
-
-                _confirmButton.setEnabled(false);
-                _cancelButton.setVisibility(View.VISIBLE);
             }
 
         });
@@ -284,6 +281,8 @@ public class Settings extends Fragment
         }
 
     }
+
+
 
    /* private void setCriteria()
     {

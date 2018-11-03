@@ -2,6 +2,8 @@ package com.example.karol.weatherassistant.View;
 
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -136,9 +138,15 @@ public class WeatherForecast extends Fragment
         outState.putString("VISIBILITY", Visibility.getText().toString());
         outState.putString("WINDSPEED", WindSpeed.getText().toString());
         outState.putString("WINDDIRECTION", WindDirection.getText().toString());
+        outState.putString("SUNRISE", Sunrise.getText().toString());
+        outState.putString("SUNSET", Sunset.getText().toString());
+
+        outState.putParcelable("FORECASTLIST", _recyclerView.getLayoutManager().onSaveInstanceState());
 
         super.onSaveInstanceState(outState);
     }
+
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
@@ -147,8 +155,38 @@ public class WeatherForecast extends Fragment
 
         if(savedInstanceState != null)
         {
+            City.setText(savedInstanceState.getString("CITY"));
+            Country.setText(savedInstanceState.getString("COUNTRY"));
+            Temperature.setText(savedInstanceState.getString("TEMPERATURE"));
+            Condition.setText(savedInstanceState.getString("CONDITION"));
+            Description.setText(savedInstanceState.getString("DESCRIPTION"));
+            Time.setText(savedInstanceState.getString("TIME"));
+            Humidity.setProgress(savedInstanceState.getInt("HUMIDITY"));
+            Cloudiness.setProgress(savedInstanceState.getInt("CLOUDINESS"));
+            Pressure.setText(savedInstanceState.getString("PRESSURE"));
+            Visibility.setText(savedInstanceState.getString("VISIBILITY"));
+            WindSpeed.setText(savedInstanceState.getString("WINDSPEED"));
+            WindDirection.setText(savedInstanceState.getString("WINDDIRECTION"));
+            Sunrise.setText(savedInstanceState.getString("SUNRISE"));
+            Sunset.setText(savedInstanceState.getString("SUNSET"));
 
+            _recyclerView.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable("FORECASTLIST"));
         }
 
+    }
+
+    @Override
+    public void onStart()
+    {
+        String query;
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        if(sharedPreferences.contains("WEATHERFORECAST_CITY"))
+            query = sharedPreferences.getString("WEATHERFORECAST_CITY", "");
+        else
+            query = "Lublin";
+
+        WeatherService.getInstance().getCurrentWeatherByCityName(query);
+        WeatherService.getInstance().getForecastWeatherByCityName(query);
+        super.onStart();
     }
 }
