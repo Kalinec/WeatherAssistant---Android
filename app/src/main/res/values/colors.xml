@@ -6,4 +6,5 @@
     <color name="colorButtonBlue">	#1994FE</color>
     <color name="colorTextWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorIntensiveBlue">#2d1fc3</color>
 </resources>

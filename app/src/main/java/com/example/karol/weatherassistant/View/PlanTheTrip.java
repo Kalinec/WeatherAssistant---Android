@@ -27,6 +27,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,7 +85,8 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     private ImageButton _imageButton;
     private CardView _routeCardView;
     private Button _showRouteButton;
-    private RadioGroup _criteriaMode;
+    private RadioButton _criteriaWalkingMode;
+    private RadioButton _criteriaCyclingMode;
     private MapboxGeocoder _mapboxGeocoder;
     private GeocoderAutoCompleteView autoCompleteOrigin;
     private GeocoderAutoCompleteView autoCompleteDestination;
@@ -107,7 +109,8 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
        // _routeOrigin = (EditText) view.findViewById(R.id.originValue);
        // _routeDestination = (EditText) view.findViewById(R.id.destinationValue);
         _showRouteButton = (Button) view.findViewById(R.id.button_show_route);
-        _criteriaMode = view.findViewById(R.id.radioGroup_planTheTrip_direction_profile);
+        _criteriaWalkingMode = view.findViewById(R.id.radioButton_planTheTrip_walk_mode);
+        _criteriaCyclingMode = view.findViewById(R.id.radioButton_planTheTrip_bike_mode);
         autoCompleteOrigin = (GeocoderAutoCompleteView) view.findViewById(R.id.origin);
         autoCompleteDestination = view.findViewById(R.id.destination);
         _routeDetails = view.findViewById(R.id.cardView_planTheTrip_route_details);
@@ -332,10 +335,10 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
 
     private String setRouteProfile()
     {
-        if(_criteriaMode.getCheckedRadioButtonId() == 0)
-            return DirectionsCriteria.PROFILE_WALKING;
-        else
+        if(_criteriaCyclingMode.isChecked())
             return DirectionsCriteria.PROFILE_CYCLING;
+        else
+            return DirectionsCriteria.PROFILE_WALKING;
     }
 
     @SuppressWarnings( {"MissingPermission"})
