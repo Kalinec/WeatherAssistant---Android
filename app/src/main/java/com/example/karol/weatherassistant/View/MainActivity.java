@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
     public static Location location;
 
     //GPS FIELDS newer
-    private FusedLocationProviderClient _fusedLocationProviderClient;
+    public static FusedLocationProviderClient _fusedLocationProviderClient;
     private LocationRequest _locationRequest;
     private LocationCallback _locationCallback;
 

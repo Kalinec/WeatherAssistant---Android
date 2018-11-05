@@ -2,24 +2,21 @@ package com.example.karol.weatherassistant.View;
 
 
 import java.util.List;
-import java.util.Map;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 // classes needed to initialize map
 import com.example.karol.weatherassistant.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.api.directions.v5.MapboxDirections;
 import com.mapbox.api.geocoding.v5.GeocodingCriteria;
 import com.mapbox.geocoder.MapboxGeocoder;
-import com.mapbox.geojson.LineString;
 import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
+import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 // classes needed to add location layer
 import com.mapbox.geojson.Point;
@@ -29,9 +26,9 @@ import android.location.Location;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
-import android.widget.SearchView;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import android.support.annotation.NonNull;
@@ -64,15 +61,13 @@ import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 import com.mapbox.services.android.ui.geocoder.GeocoderAutoCompleteView;
 import com.mapbox.services.api.geocoding.v5.models.CarmenFeature;
 
-import static com.mapbox.services.Constants.PRECISION_6;
-
 public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxMap.OnMapClickListener, LocationEngineListener, PermissionsListener {
     private MapView mapView;
     // variables for adding location layer
     private MapboxMap mapboxMap;
     private PermissionsManager permissionsManager;
     private LocationLayerPlugin locationLayerPlugin;
-    private LocationEngine locationEngine;
+    //private LocationEngine locationEngine;
     private Location originLocation;
     // variables for adding a marker
     private Marker destinationMarker;
@@ -86,32 +81,41 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     private DirectionsRoute currentRoute;
     private static final String TAG = "DirectionsActivity";
     private NavigationMapRoute navigationMapRoute;
-    private Button button;
     private ImageButton _imageButton;
     private CardView _routeCardView;
     private Button _showRouteButton;
+    private RadioGroup _criteriaMode;
     private MapboxGeocoder _mapboxGeocoder;
     private GeocoderAutoCompleteView autoCompleteOrigin;
     private GeocoderAutoCompleteView autoCompleteDestination;
+    private Button _startNavigateButton;
+
+    //Route details
+    private CardView _routeDetails;
+    private TextView _routeTime;
+    private TextView _routeDistance;
 
     private MapboxDirections client;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plan_the_trip, container, false);
-        Mapbox.getInstance(getContext(), getString(R.string.mapbox_access_token));
+        Mapbox.getInstance(getActivity(), getString(R.string.mapbox_access_token));
         mapView = view.findViewById(R.id.mapView);
-        button = view.findViewById(R.id.startButton);
         _imageButton = (ImageButton) view.findViewById(R.id.imageButton_route);
         _routeCardView = (CardView) view.findViewById(R.id.route_options_cardView);
        // _routeOrigin = (EditText) view.findViewById(R.id.originValue);
        // _routeDestination = (EditText) view.findViewById(R.id.destinationValue);
         _showRouteButton = (Button) view.findViewById(R.id.button_show_route);
+        _criteriaMode = view.findViewById(R.id.radioGroup_planTheTrip_direction_profile);
         autoCompleteOrigin = (GeocoderAutoCompleteView) view.findViewById(R.id.origin);
         autoCompleteDestination = view.findViewById(R.id.destination);
+        _routeDetails = view.findViewById(R.id.cardView_planTheTrip_route_details);
+        _routeTime = view.findViewById(R.id.textView_planTheTrip_time);
+        _routeDistance = view.findViewById(R.id.textView_planTheTrip_distance);
+        _startNavigateButton = view.findViewById(R.id.button_planTheTrip_start_navigate);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-
 
         autoCompleteOrigin.setAccessToken(Mapbox.getAccessToken());
         autoCompleteOrigin.setType(GeocodingCriteria.TYPE_PLACE);
@@ -120,7 +124,6 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             public void onFeatureClick(CarmenFeature feature) {
                 originPosition = feature.asPosition();
                 //updateMap(position.getLatitude(), position.getLongitude());
-
             }
         });
 
@@ -149,6 +152,9 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             @Override
             public void onClick(View v)
             {
+                //delete any markers
+                if (destinationMarker != null)
+                    mapboxMap.removeMarker(destinationMarker);
                 //destinationPoint = Point.fromLngLat(destinationCoord.getLongitude(), destinationCoord.getLatitude());
                 //originPoint = Point.fromLngLat(originCoord.getLongitude(), originCoord.getLatitude());
                if(originPosition.getLatitude() != 0.00 && originPosition.getLongitude() != 0.00 && destinationPosition.getLatitude() != 0.00 && destinationPosition.getLongitude() != 0.00)
@@ -159,6 +165,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                    try
                    {
                        getRoute(originPoint,destinationPoint);
+
 
                    }
                    catch (Exception e)
@@ -179,10 +186,12 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     public void onMapReady(MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
         enableLocationPlugin();
-        originCoord = new LatLng(originLocation.getLatitude(), originLocation.getLongitude());
+        originCoord = new LatLng(51.14, 22.34);
+        // Toast.makeText(getActivity(), "Latitude: " + originLocation.getLatitude() + "  Longitude: " + originLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+
         mapboxMap.addOnMapClickListener(this);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        _startNavigateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 boolean simulateRoute = true;
                 NavigationLauncherOptions options = NavigationLauncherOptions.builder()
@@ -193,6 +202,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                 NavigationLauncher.startNavigation(getActivity(), options);
             }
         });
+
     }
 
     @Override
@@ -207,26 +217,15 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
         destinationPoint = Point.fromLngLat(destinationCoord.getLongitude(), destinationCoord.getLatitude());
         originPoint = Point.fromLngLat(originCoord.getLongitude(), originCoord.getLatitude());
         getRoute(originPoint, destinationPoint);
-        button.setEnabled(true);
-    }
-
-    private void updateMap(double latitude, double longitude) {
-        // Build marker
-        mapboxMap.addMarker(new MarkerOptions()
-                .position(new LatLng(latitude, longitude))
-                .title("Geocoder result"));
-
-        // Animate camera to geocoder result location
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(latitude, longitude))
-                .zoom(15)
-                .build();
-        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 5000, null);
+        //button.setEnabled(true);
     }
 
     private void getRoute(Point origin, Point destination) {
-        NavigationRoute.builder(getContext())
+        String routeProfile = setRouteProfile();
+
+        NavigationRoute.builder(getActivity())
                 .accessToken(Mapbox.getAccessToken())
+                .profile(routeProfile)
                 .origin(origin)
                 .destination(destination)
                 .build()
@@ -245,6 +244,13 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
 
                         currentRoute = response.body().routes().get(0);
 
+                        //update UI - time and distance
+                        _routeCardView.setVisibility(View.GONE);
+                        _routeTime.setText(durationToDisplay(currentRoute.duration()));
+                        _routeDistance.setText(distanceToDisplay(currentRoute.distance()));
+                        _routeDetails.setVisibility(View.VISIBLE);
+
+
                         // Draw the route on the map
                         if (navigationMapRoute != null) {
                             navigationMapRoute.removeRoute();
@@ -260,75 +266,78 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                     }
                 });
 
-        CameraPosition cameraPosition = new CameraPosition.Builder()
+       /* CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(origin.latitude(), origin.longitude()))
+                .target(new LatLng(destination.latitude(), destination.longitude()))
                 .zoom(15)
                 .build();
-        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 5000, null);
-    }
+        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 5000, null); */
 
-    /* test */
-    private void getRoute2(Point origin, Point destination) {
-
-        client = MapboxDirections.builder()
-                .origin(origin)
-                .destination(destination)
-                .overview(DirectionsCriteria.OVERVIEW_FULL)
-                .profile(DirectionsCriteria.PROFILE_CYCLING)
-                .accessToken(Mapbox.getAccessToken())
+        LatLngBounds latLngBounds = new LatLngBounds.Builder()
+                .include(new LatLng(origin.latitude(), origin.longitude()))
+                .include(new LatLng(destination.latitude(), destination.longitude()))
                 .build();
 
-        client.enqueueCall(new Callback<DirectionsResponse>() {
-            @Override
-            public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
-                System.out.println(call.request().url().toString());
-
-// You can get the generic HTTP info about the response
-                Log.d(TAG, "Response code: " + response.code());
-                if (response.body() == null) {
-                    Log.e(TAG, "No routes found, make sure you set the right user and access token.");
-                    return;
-                } else if (response.body().routes().size() < 1) {
-                    Log.e(TAG, "No routes found");
-                    return;
-                }
-
-// Print some info about the route
-                currentRoute = response.body().routes().get(0);
-                Log.d(TAG, "Distance: " + currentRoute.distance());
-                //Toast.makeText(DirectionsActivity.this, String.format(getString(R.string.directions_activity_toast_message),
-                        //currentRoute.distance()), Toast.LENGTH_SHORT).show();
-
-// Draw the route on the map
-                drawRoute(currentRoute);
-            }
-
-            @Override
-            public void onFailure(Call<DirectionsResponse> call, Throwable throwable) {
-                Log.e(TAG, "Error: " + throwable.getMessage());
-                //Toast.makeText(DirectionsActivity.this, "Error: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 20), 5000, null);
     }
 
-    private void drawRoute(DirectionsRoute route) {
-// Convert LineString coordinates into LatLng[]
-        LineString lineString = LineString.fromPolyline(route.geometry(), PRECISION_6);
-        List<Point> coordinates = lineString.coordinates();
-        LatLng[] points = new LatLng[coordinates.size()];
-        for (int i = 0; i < coordinates.size(); i++) {
-            points[i] = new LatLng(
-                    coordinates.get(i).latitude(),
-                    coordinates.get(i).longitude());
+    private String distanceToDisplay(Double distance)
+    {
+
+        Double toDisplay;
+        String metric;
+
+        if(distance < 1000)
+        {
+            toDisplay = distance;
+            metric = getString(R.string.PlanTheTrip_m);
+        }
+        else
+        {
+            toDisplay = distance / 1000;
+            metric = getString(R.string.PlanTheTrip_km);
         }
 
-// Draw Points on MapView
-        mapboxMap.addPolyline(new PolylineOptions()
-                .add(points)
-                .color(Color.parseColor("#009688"))
-                .width(5));
+        StringBuilder distanceToDisplay = new StringBuilder();
+        distanceToDisplay.append("(");
+        distanceToDisplay.append(toDisplay.intValue());
+        distanceToDisplay.append(" ");
+        distanceToDisplay.append(metric);
+        distanceToDisplay.append(")");
+
+        return distanceToDisplay.toString();
     }
-    /* test */
+
+    @NonNull
+    private String durationToDisplay(Double duration)
+    {
+        int hour = (int)(duration / 3600);
+        int minutes = (int)((duration / 60) % 60);
+
+        StringBuilder timeToDisplay = new StringBuilder();
+
+        if(hour != 0)
+        {
+            timeToDisplay.append(hour);
+            timeToDisplay.append(" ");
+            timeToDisplay.append(getString(R.string.PlanTheTrip_hour));
+            timeToDisplay.append(" ");
+        }
+        timeToDisplay.append(minutes);
+        timeToDisplay.append(" ");
+        timeToDisplay.append(getString(R.string.PlanTheTrip_min));
+
+        return timeToDisplay.toString();
+    }
+
+    private String setRouteProfile()
+    {
+        if(_criteriaMode.getCheckedRadioButtonId() == 0)
+            return DirectionsCriteria.PROFILE_WALKING;
+        else
+            return DirectionsCriteria.PROFILE_CYCLING;
+    }
+
     @SuppressWarnings( {"MissingPermission"})
     private void enableLocationPlugin() {
         // Check if permissions are enabled and if not request
@@ -336,7 +345,8 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             initializeLocationEngine();
             // Create an instance of the plugin. Adding in LocationLayerOptions is also an optional
             // parameter
-            LocationLayerPlugin locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap);
+            //LocationLayerPlugin locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap);
+            locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap);
 
             // Set the plugin's camera mode
             locationLayerPlugin.setCameraMode(CameraMode.TRACKING);
@@ -349,18 +359,27 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
 
     @SuppressWarnings( {"MissingPermission"})
     private void initializeLocationEngine() {
-        LocationEngineProvider locationEngineProvider = new LocationEngineProvider(getContext());
-        locationEngine = locationEngineProvider.obtainBestLocationEngineAvailable();
-        locationEngine.setPriority(LocationEnginePriority.HIGH_ACCURACY);
-        locationEngine.activate();
+       // LocationEngineProvider locationEngineProvider = new LocationEngineProvider(getContext());
+       /// locationEngine = locationEngineProvider.obtainBestLocationEngineAvailable();
+       // locationEngine.setPriority(LocationEnginePriority.HIGH_ACCURACY);
+       // locationEngine.activate();
 
-        Location lastLocation = locationEngine.getLastLocation();
-        if (lastLocation != null) {
-            originLocation = lastLocation;
-        } else {
-            locationEngine.addLocationEngineListener(this);
+        //Location lastLocation = locationEngine.getLastLocation();
+//        if (lastLocation != null) {
+        //    originLocation = lastLocation;
+       // } else {
+            //locationEngine.addLocationEngineListener(this);
+
+           // Location location = new Location("");
+            MainActivity._fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                   originCoord.setLatitude(task.getResult().getLatitude());
+                   originCoord.setLongitude(task.getResult().getLongitude());
+                }
+            });
         }
-    }
+   // }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -437,7 +456,8 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     }
 
     @Override
-    public void onLocationChanged(Location location) {
-
+    public void onLocationChanged(Location location)
+    {
+        originLocation = location;
     }
 }

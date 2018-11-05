@@ -37,6 +37,13 @@
     <string name="Settings_alert_cityNotEntered">Wprowadź miejscowość!</string>
     <string name="Setting_updatesFrequency">Częstotliwość aktualizacji</string>
     <string name="Settings_cancel">Anuluj</string>
+    <string name="PlanTheTrip_hour">godz.</string>
+    <string name="PlanTheTrip_min">min</string>
+    <string name="PlanTheTrip_km">km</string>
+    <string name="PlanTheTrip_m">m</string>
+    <string name="PlanTheTrip_navigate">Nawiguj</string>
+    <string name="PlanTheTrip_origin">Miejsce początkowe</string>
+    <string name="PlanTheTrip_destination">Miejsce docelowe</string>
     <string name="word_city">Miejscowość</string>
     <string name="word_confirm">Zatwierdź</string>
     <string name="word_minutes">minut</string>
