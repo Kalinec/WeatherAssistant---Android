@@ -185,8 +185,8 @@ public class WeatherForecast extends Fragment
         else
             query = "Lublin";
 
-        WeatherService.getInstance().getCurrentWeatherByCityName(query);
-        WeatherService.getInstance().getForecastWeatherByCityName(query);
+        WeatherService.getInstance().getCurrentWeatherByCityName(query, "0", null);
+        WeatherService.getInstance().getForecastWeatherByCityName(query, "0", null);
         super.onStart();
     }
 }

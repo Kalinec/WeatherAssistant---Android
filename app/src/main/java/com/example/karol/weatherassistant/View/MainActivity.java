@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
     public static ImageButton LocalizerButton;
     private DrawerLayout _drawerLayout;
     private SectionsStatePagerAdapter _sectionsStatePagerAdapter;
-    private ViewPager _viewPager;
+    public static ViewPager _viewPager;
     public static SearchView SearchView;
     private serwerSOAPService _stormService;
     public IWsdl2CodeEvents _eventsHandler;
@@ -269,8 +269,8 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
                     switch (_viewPager.getCurrentItem())
                     {
                         case 0:
-                            WeatherService.getInstance().getCurrentWeatherByCoordinate(location.getLatitude(), location.getLongitude());
-                            WeatherService.getInstance().getForecastWeatherByCoordinate(location.getLatitude(), location.getLongitude());
+                            WeatherService.getInstance().getCurrentWeatherByCoordinate(location.getLatitude(), location.getLongitude(), String.valueOf(_viewPager.getCurrentItem()), null);
+                            WeatherService.getInstance().getForecastWeatherByCoordinate(location.getLatitude(), location.getLongitude(), String.valueOf(_viewPager.getCurrentItem()), null);
                             break;
 
                         case 2:
@@ -411,8 +411,8 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
                 switch (_viewPager.getCurrentItem())
                 {
                     case 0:
-                        WeatherService.getInstance().getCurrentWeatherByCityName(query);
-                        WeatherService.getInstance().getForecastWeatherByCityName(query);
+                        WeatherService.getInstance().getCurrentWeatherByCityName(query, String.valueOf(_viewPager.getCurrentItem()), null);
+                        WeatherService.getInstance().getForecastWeatherByCityName(query, String.valueOf(_viewPager.getCurrentItem()),null);
                         hideKeyboardFrom(getApplicationContext(),getCurrentFocus());
                         break;
                     case 2:

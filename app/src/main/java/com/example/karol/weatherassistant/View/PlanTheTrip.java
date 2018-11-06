@@ -1,20 +1,27 @@
 package com.example.karol.weatherassistant.View;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 // classes needed to initialize map
 import com.example.karol.weatherassistant.R;
+import com.example.karol.weatherassistant.Services.BurzeDzisService.IWsdl2CodeEvents;
+import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTypeBurza;
+import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTypeMiejscowosc;
+import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTypeOstrzezenia;
+import com.example.karol.weatherassistant.Services.BurzeDzisService.serwerSOAPService;
+import com.example.karol.weatherassistant.Services.WeatherService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.api.directions.v5.MapboxDirections;
+import com.mapbox.api.directions.v5.models.LegStep;
 import com.mapbox.api.geocoding.v5.GeocodingCriteria;
 import com.mapbox.geocoder.MapboxGeocoder;
 import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
@@ -27,8 +34,8 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -37,9 +44,6 @@ import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.CameraMode;
 import com.mapbox.services.commons.models.Position;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
-import com.mapbox.android.core.location.LocationEngine;
-import com.mapbox.android.core.location.LocationEnginePriority;
-import com.mapbox.android.core.location.LocationEngineProvider;
 import com.mapbox.android.core.location.LocationEngineListener;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
@@ -62,6 +66,8 @@ import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 import com.mapbox.services.android.ui.geocoder.GeocoderAutoCompleteView;
 import com.mapbox.services.api.geocoding.v5.models.CarmenFeature;
 
+import static android.content.ContentValues.TAG;
+
 public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxMap.OnMapClickListener, LocationEngineListener, PermissionsListener {
     private MapView mapView;
     // variables for adding location layer
@@ -75,6 +81,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     private LatLng originCoord;
     private LatLng destinationCoord;
     // variables for calculating and drawing a route
+
     private Point originPoint;
     private Point destinationPoint;
     private Position originPosition;
@@ -82,7 +89,8 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     private DirectionsRoute currentRoute;
     private static final String TAG = "DirectionsActivity";
     private NavigationMapRoute navigationMapRoute;
-    private ImageButton _imageButton;
+    private ImageButton _displayRouteSet;
+    private ImageButton _displayRiskInfo;
     private CardView _routeCardView;
     private Button _showRouteButton;
     private RadioButton _criteriaWalkingMode;
@@ -93,9 +101,38 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     private Button _startNavigateButton;
 
     //Route details
-    private CardView _routeDetails;
+    private CardView _routeDetailsCardView;
     private TextView _routeTime;
     private TextView _routeDistance;
+
+    //Risk info details
+    private CardView _riskDetailsCardView;
+    private ImageButton _exitRiskDetailsCardView;
+    public static ImageView _imageStormRisk;
+    public static ImageView _imageWeatherWarningRisk;
+    public static ImageView _imageTemperatureRisk;
+    public static ImageView _imageWeatherConditionRisk;
+    public static ImageView _imageCloudinessRisk;
+    public static ImageView _imageWindSpeedRisk;
+    public static ImageView _imageVisibilityRisk;
+    public static TextView _textStormRisk;
+    public static TextView _textWeatherWarningRisk;
+    public static TextView _textTemperatureRisk;
+    public static TextView _textWeatherConditionRisk;
+    public static TextView _textCloudinessRisk;
+    public static TextView _textWindSpeedRisk;
+    public static TextView _textVisibilityRisk;
+
+
+
+
+    //Burze.dzis.net API
+    final int RADIUS = 25;
+    private serwerSOAPService _stormApi;
+    private MyComplexTypeMiejscowosc _locationInfo;
+    private MyComplexTypeBurza _stormInfo;
+    private MyComplexTypeOstrzezenia _warningInfo;
+    public IWsdl2CodeEvents _eventsHandler;
 
     private MapboxDirections client;
     @Override
@@ -104,7 +141,10 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
         View view = inflater.inflate(R.layout.fragment_plan_the_trip, container, false);
         Mapbox.getInstance(getActivity(), getString(R.string.mapbox_access_token));
         mapView = view.findViewById(R.id.mapView);
-        _imageButton = (ImageButton) view.findViewById(R.id.imageButton_route);
+        _displayRouteSet = (ImageButton) view.findViewById(R.id.imageButton_route);
+        _displayRiskInfo = view.findViewById(R.id.imageButton_planTheTrip_options_display_risk_info);
+        _exitRiskDetailsCardView = view.findViewById(R.id.imageButton_planTheTrip_risk_exit);
+        _riskDetailsCardView = view.findViewById(R.id.cardView_planTheTrip_risk_cardView);
         _routeCardView = (CardView) view.findViewById(R.id.route_options_cardView);
        // _routeOrigin = (EditText) view.findViewById(R.id.originValue);
        // _routeDestination = (EditText) view.findViewById(R.id.destinationValue);
@@ -113,12 +153,66 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
         _criteriaCyclingMode = view.findViewById(R.id.radioButton_planTheTrip_bike_mode);
         autoCompleteOrigin = (GeocoderAutoCompleteView) view.findViewById(R.id.origin);
         autoCompleteDestination = view.findViewById(R.id.destination);
-        _routeDetails = view.findViewById(R.id.cardView_planTheTrip_route_details);
+        _routeDetailsCardView = view.findViewById(R.id.cardView_planTheTrip_route_details);
         _routeTime = view.findViewById(R.id.textView_planTheTrip_time);
         _routeDistance = view.findViewById(R.id.textView_planTheTrip_distance);
         _startNavigateButton = view.findViewById(R.id.button_planTheTrip_start_navigate);
+        _imageStormRisk = view.findViewById(R.id.imageView_planTheTrip_risk_stormRisk);
+        _imageWeatherWarningRisk = view.findViewById(R.id.imageView_planTheTrip_risk_weatherWarningRisk);
+        _imageTemperatureRisk = view.findViewById(R.id.imageView_planTheTrip_risk_temperatureRisk);
+        _imageWeatherConditionRisk = view.findViewById(R.id.imageView_planTheTrip_risk_weatherConditionRisk);
+        _imageCloudinessRisk = view.findViewById(R.id.imageView_planTheTrip_risk_cloudinessRisk);
+        _imageWindSpeedRisk = view.findViewById(R.id.imageView_planTheTrip_risk_windSpeedRisk);
+        _imageVisibilityRisk = view.findViewById(R.id.imageView_planTheTrip_risk_visibilityRisk);
+        _textStormRisk = view.findViewById(R.id.textView_planTheTrip_risk_stormRisk);
+        _textWeatherWarningRisk = view.findViewById(R.id.textView_planTheTrip_risk_weatherWarningRisk);
+        _textTemperatureRisk = view.findViewById(R.id.textView_planTheTrip_risk_temperatureRisk);
+        _textWeatherConditionRisk = view.findViewById(R.id.textView_planTheTrip_risk_weatherConditionRisk);
+        _textCloudinessRisk = view.findViewById(R.id.textView_planTheTrip_risk_cloudinessRisk);
+        _textWindSpeedRisk = view.findViewById(R.id.textView_planTheTrip_risk_windSpeedRisk);
+        _textVisibilityRisk = view.findViewById(R.id.textView_planTheTrip_risk_visibilityRisk);
+
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+
+        //burze.dzis.net API initialization
+        _eventsHandler = new IWsdl2CodeEvents() {
+            @Override
+            public void Wsdl2CodeStartedRequest() {
+
+            }
+
+            @Override
+            public void Wsdl2CodeFinished(String methodName, Object Data) {
+                switch (methodName)
+                {
+                    case "KeyAPI":
+                        break;
+                    case "miejscowosc":
+                        break;
+                    case "ostrzezenia_pogodowe":
+                        break;
+                    case "szukaj_burzy":
+                        break;
+                    case "miejscowosci_lista":
+                        break;
+                }
+            }
+
+            @Override
+            public void Wsdl2CodeFinishedWithException(Exception ex) {
+
+            }
+
+            @Override
+            public void Wsdl2CodeEndedRequest() {
+
+            }
+        };
+        _stormApi = new serwerSOAPService(_eventsHandler, "https://burze.dzis.net/soap.php");
+        _locationInfo = new MyComplexTypeMiejscowosc();
+        _stormInfo = new MyComplexTypeBurza();
+        _warningInfo = new MyComplexTypeOstrzezenia();
 
         autoCompleteOrigin.setAccessToken(Mapbox.getAccessToken());
         autoCompleteOrigin.setType(GeocodingCriteria.TYPE_PLACE);
@@ -140,7 +234,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             }
         });
 
-        _imageButton.setOnClickListener(new View.OnClickListener() {
+        _displayRouteSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
@@ -148,6 +242,24 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                     _routeCardView.setVisibility(View.VISIBLE);
                 else if(_routeCardView.getVisibility() == View.VISIBLE)
                     _routeCardView.setVisibility(View.GONE);
+            }
+        });
+
+        _displayRiskInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if(_riskDetailsCardView.getVisibility() == View.GONE)
+                    _riskDetailsCardView.setVisibility(View.VISIBLE);
+                else if(_riskDetailsCardView.getVisibility() == View.VISIBLE)
+                    _riskDetailsCardView.setVisibility(View.GONE);
+            }
+        });
+
+        _exitRiskDetailsCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _riskDetailsCardView.setVisibility(View.GONE);
             }
         });
 
@@ -251,7 +363,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                         _routeCardView.setVisibility(View.GONE);
                         _routeTime.setText(durationToDisplay(currentRoute.duration()));
                         _routeDistance.setText(distanceToDisplay(currentRoute.distance()));
-                        _routeDetails.setVisibility(View.VISIBLE);
+                        _routeDetailsCardView.setVisibility(View.VISIBLE);
 
 
                         // Draw the route on the map
@@ -261,6 +373,16 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                             navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
                         }
                         navigationMapRoute.addRoute(currentRoute);
+
+
+                        //check the risk of the trip
+                        ArrayList<LatLng> steps = new ArrayList<>();
+
+                        for(LegStep x: currentRoute.legs().get(0).steps())
+                        {
+                            steps.add(new LatLng(x.maneuver().location().latitude(), x.maneuver().location().longitude()));
+                        }
+                        assessTheRisk(currentRoute.distance(), steps, routeProfile);
                     }
 
                     @Override
@@ -276,12 +398,56 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                 .build();
         mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 5000, null); */
 
+
+
         LatLngBounds latLngBounds = new LatLngBounds.Builder()
                 .include(new LatLng(origin.latitude(), origin.longitude()))
                 .include(new LatLng(destination.latitude(), destination.longitude()))
                 .build();
-
         mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 20), 5000, null);
+    }
+
+    private void assessTheRisk(double distance, List<LatLng> steps, String criteria)
+    {
+        if(distance <= 25000)
+        {
+            //get weather information about origin point and destination point
+            WeatherService.getInstance().getCurrentWeatherByCoordinate(
+                    steps.get(0).getLatitude(),
+                    steps.get(0).getLongitude(),
+                    "3",
+                    criteria);
+
+            WeatherService.getInstance().getCurrentWeatherByCoordinate(
+                    steps.get(steps.size()-1).getLatitude(),
+                    steps.get(steps.size()-1).getLongitude(),
+                    "3",
+                    criteria);
+
+            String originLatitude;
+            String originLongitude;
+            String destinationLatitude;
+            String destinationLongitude;
+
+            originLatitude = MainActivity.decimalToDM(steps.get(0).getLatitude());
+            originLongitude = MainActivity.decimalToDM(steps.get(0).getLongitude());
+            destinationLatitude = MainActivity.decimalToDM(steps.get(steps.size()-1).getLatitude());
+            destinationLongitude = MainActivity.decimalToDM(steps.get(steps.size()-1).getLongitude());
+
+            try
+            {
+                _stormApi.szukaj_burzyAsync(originLatitude, originLongitude, RADIUS, "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                _stormApi.szukaj_burzyAsync(destinationLatitude, destinationLongitude, RADIUS, "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                _stormApi.ostrzezenia_pogodoweAsync(Float.valueOf(originLatitude), Float.valueOf(originLongitude), "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                _stormApi.ostrzezenia_pogodoweAsync(Float.valueOf(destinationLatitude), Float.valueOf(destinationLongitude), "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+            }
+            catch (Exception e)
+            {
+                Log.e(TAG, "Explanation of what was being attempted", e);
+            }
+
+
+        }
     }
 
     private String distanceToDisplay(Double distance)
