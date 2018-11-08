@@ -2,11 +2,13 @@ package com.example.karol.weatherassistant.View;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 // classes needed to initialize map
+import com.example.karol.weatherassistant.Helpers.RiskPointListener;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.Services.BurzeDzisService.IWsdl2CodeEvents;
 import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTypeBurza;
@@ -108,6 +110,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     //Risk info details
     private CardView _riskDetailsCardView;
     private ImageButton _exitRiskDetailsCardView;
+    public static TextView _generalRisk;
     public static ImageView _imageStormRisk;
     public static ImageView _imageWeatherWarningRisk;
     public static ImageView _imageTemperatureRisk;
@@ -122,17 +125,24 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     public static TextView _textCloudinessRisk;
     public static TextView _textWindSpeedRisk;
     public static TextView _textVisibilityRisk;
-
-
-
+   // public static int riskPoint;
+    private boolean _riskPointGranted;
+    public static RiskPointListener riskPoints;
 
     //Burze.dzis.net API
     final int RADIUS = 25;
     private serwerSOAPService _stormApi;
-    private MyComplexTypeMiejscowosc _locationInfo;
-    private MyComplexTypeBurza _stormInfo;
-    private MyComplexTypeOstrzezenia _warningInfo;
+    //private MyComplexTypeMiejscowosc _locationInfo;
+    //private MyComplexTypeBurza _stormInfo;
+    //private MyComplexTypeOstrzezenia _warningInfo;
     public IWsdl2CodeEvents _eventsHandler;
+    private boolean _areStormsExist;
+    private int _frostWarningLevel;
+    private int _heatWarningLevel;
+    private int _windWarningLevel;
+    private int _rainWarningLevel;
+    private int _stormWarningLevel;
+    private int _tornadoWarningLevel;
 
     private MapboxDirections client;
     @Override
@@ -157,6 +167,8 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
         _routeTime = view.findViewById(R.id.textView_planTheTrip_time);
         _routeDistance = view.findViewById(R.id.textView_planTheTrip_distance);
         _startNavigateButton = view.findViewById(R.id.button_planTheTrip_start_navigate);
+        riskPoints = new RiskPointListener();
+        _generalRisk = view.findViewById(R.id.textView_planTheTrip_risk_riskValue);
         _imageStormRisk = view.findViewById(R.id.imageView_planTheTrip_risk_stormRisk);
         _imageWeatherWarningRisk = view.findViewById(R.id.imageView_planTheTrip_risk_weatherWarningRisk);
         _imageTemperatureRisk = view.findViewById(R.id.imageView_planTheTrip_risk_temperatureRisk);
@@ -191,8 +203,31 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                     case "miejscowosc":
                         break;
                     case "ostrzezenia_pogodowe":
+                        MyComplexTypeOstrzezenia warningInfo = (MyComplexTypeOstrzezenia)Data;
+                        if(warningInfo.traba != 0 && warningInfo.traba > _tornadoWarningLevel)
+                            _tornadoWarningLevel = warningInfo.traba;
+                        if(warningInfo.burza != 0 && warningInfo.burza > _stormWarningLevel)
+                            _stormWarningLevel = warningInfo.burza;
+                        if(warningInfo.opad != 0 && warningInfo.opad > _rainWarningLevel)
+                            _rainWarningLevel = warningInfo.opad;
+                        if(warningInfo.wiatr != 0 && warningInfo.wiatr > _windWarningLevel)
+                            _windWarningLevel = warningInfo.wiatr;
+                        if(warningInfo.upal != 0 && warningInfo.upal > _heatWarningLevel)
+                            _heatWarningLevel = warningInfo.upal;
+                        if(warningInfo.mroz != 0 && warningInfo.mroz > _frostWarningLevel)
+                            _frostWarningLevel = warningInfo.mroz;
+                        checkWarnings();
+
                         break;
                     case "szukaj_burzy":
+                        MyComplexTypeBurza stormInfo = (MyComplexTypeBurza)Data;
+                        if(stormInfo.liczba != 0)
+                        {
+                            _areStormsExist = true;
+                            PlanTheTrip._imageStormRisk.setImageResource(R.drawable.if_risk_high);
+                            PlanTheTrip._textStormRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_storm_walking_and_cycle));
+                            riskPoints.setVariable(riskPoints.getValue() + 15);
+                        }
                         break;
                     case "miejscowosci_lista":
                         break;
@@ -210,9 +245,9 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             }
         };
         _stormApi = new serwerSOAPService(_eventsHandler, "https://burze.dzis.net/soap.php");
-        _locationInfo = new MyComplexTypeMiejscowosc();
-        _stormInfo = new MyComplexTypeBurza();
-        _warningInfo = new MyComplexTypeOstrzezenia();
+       // _locationInfo = new MyComplexTypeMiejscowosc();
+       // _stormInfo = new MyComplexTypeBurza();
+        //_warningInfo = new MyComplexTypeOstrzezenia();
 
         autoCompleteOrigin.setAccessToken(Mapbox.getAccessToken());
         autoCompleteOrigin.setType(GeocodingCriteria.TYPE_PLACE);
@@ -220,7 +255,6 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             @Override
             public void onFeatureClick(CarmenFeature feature) {
                 originPosition = feature.asPosition();
-                //updateMap(position.getLatitude(), position.getLongitude());
             }
         });
 
@@ -270,8 +304,6 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                 //delete any markers
                 if (destinationMarker != null)
                     mapboxMap.removeMarker(destinationMarker);
-                //destinationPoint = Point.fromLngLat(destinationCoord.getLongitude(), destinationCoord.getLatitude());
-                //originPoint = Point.fromLngLat(originCoord.getLongitude(), originCoord.getLatitude());
                if(originPosition.getLatitude() != 0.00 && originPosition.getLongitude() != 0.00 && destinationPosition.getLatitude() != 0.00 && destinationPosition.getLongitude() != 0.00)
                {
                    originPoint = Point.fromLngLat(originPosition.getLongitude(),originPosition.getLatitude());
@@ -294,9 +326,20 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             }
         });
 
+        riskPoints.setValueChangeListener(new RiskPointListener.onValueChangeListener() {
+            @Override
+            public void onChange() {
+                if(riskPoints.getValue() <= 4)
+                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none));
+                else if(riskPoints.getValue() >= 15)
+                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high));
+                else
+                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate));
+            }
+        });
+
         return view;
     };
-
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
@@ -376,13 +419,12 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
 
 
                         //check the risk of the trip
-                        ArrayList<LatLng> steps = new ArrayList<>();
-
+                     /*   ArrayList<LatLng> steps = new ArrayList<>();
                         for(LegStep x: currentRoute.legs().get(0).steps())
                         {
                             steps.add(new LatLng(x.maneuver().location().latitude(), x.maneuver().location().longitude()));
-                        }
-                        assessTheRisk(currentRoute.distance(), steps, routeProfile);
+                        } */
+                        assessTheRisk(currentRoute.distance(), currentRoute.legs().get(0).steps(), routeProfile);
                     }
 
                     @Override
@@ -390,16 +432,6 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                         Log.e(TAG, "Error: " + throwable.getMessage());
                     }
                 });
-
-       /* CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(origin.latitude(), origin.longitude()))
-                .target(new LatLng(destination.latitude(), destination.longitude()))
-                .zoom(15)
-                .build();
-        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 5000, null); */
-
-
-
         LatLngBounds latLngBounds = new LatLngBounds.Builder()
                 .include(new LatLng(origin.latitude(), origin.longitude()))
                 .include(new LatLng(destination.latitude(), destination.longitude()))
@@ -407,50 +439,176 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
         mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 20), 5000, null);
     }
 
-    private void assessTheRisk(double distance, List<LatLng> steps, String criteria)
+    private void assessTheRisk(double distance, List<LegStep> steps, String criteria)
     {
-        //if(distance <= 25000)
-        //{
-            double[][] coordinates = {
-                    {steps.get(0).getLatitude(), steps.get(0).getLongitude()},
-                    { steps.get(steps.size()-1).getLatitude(), steps.get(steps.size()-1).getLongitude()}
-            };
+        _riskPointGranted = false;
+        riskPoints.setVariable(0);
+        _areStormsExist = false;
+        _frostWarningLevel = 0;
+        _heatWarningLevel = 0;
+        _windWarningLevel = 0;
+        _rainWarningLevel = 0;
+        _stormWarningLevel = 0;
+        _tornadoWarningLevel = 0;
+        PlanTheTrip._imageStormRisk.setImageResource(R.drawable.if_risk_not);
+        PlanTheTrip._textStormRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_storm_walking_and_cycle));
 
-            WeatherService.getInstance().getMultipleCurrentWeatherByCoordinate(coordinates, criteria);
+        ArrayList<ArrayList<Double>> listOfCoordinates = new ArrayList<ArrayList<Double>>();
+        if(distance <= 25000)
+        {
+            listOfCoordinates.add(new ArrayList<Double>(Arrays.asList(steps.get(0).maneuver().location().latitude(), steps.get(0).maneuver().location().longitude())));
+            listOfCoordinates.add(new ArrayList<Double>(Arrays.asList(steps.get(steps.size() - 1).maneuver().location().latitude(), steps.get(steps.size() - 1).maneuver().location().longitude())));
+        }
 
-            //get weather information about origin point and destination point
-          /*  WeatherService.getInstance().getCurrentWeatherByCoordinate(
-                    steps.get(0).getLatitude(),
-                    steps.get(0).getLongitude(),
-                    criteria);
+        else
+        {
+            listOfCoordinates.add(new ArrayList<Double>(Arrays.asList(steps.get(0).maneuver().location().latitude(), steps.get(0).maneuver().location().longitude())));
 
-            WeatherService.getInstance().getCurrentWeatherByCoordinate(
-                    steps.get(steps.size()-1).getLatitude(),
-                    steps.get(steps.size()-1).getLongitude(),
-                    criteria); */
-
-            String originLatitude;
-            String originLongitude;
-            String destinationLatitude;
-            String destinationLongitude;
-
-            originLatitude = MainActivity.decimalToDM(steps.get(0).getLatitude());
-            originLongitude = MainActivity.decimalToDM(steps.get(0).getLongitude());
-            destinationLatitude = MainActivity.decimalToDM(steps.get(steps.size()-1).getLatitude());
-            destinationLongitude = MainActivity.decimalToDM(steps.get(steps.size()-1).getLongitude());
-
-           /* try
+            int distanceStep = 0;
+            for(int i = 0; i < steps.size(); i++)
             {
-                _stormApi.szukaj_burzyAsync(originLatitude, originLongitude, RADIUS, "3f04fbcac562e34c59d03cc166dc532a9451ded3");
-                _stormApi.szukaj_burzyAsync(destinationLatitude, destinationLongitude, RADIUS, "3f04fbcac562e34c59d03cc166dc532a9451ded3");
-                _stormApi.ostrzezenia_pogodoweAsync(Float.valueOf(originLatitude), Float.valueOf(originLongitude), "3f04fbcac562e34c59d03cc166dc532a9451ded3");
-                _stormApi.ostrzezenia_pogodoweAsync(Float.valueOf(destinationLatitude), Float.valueOf(destinationLongitude), "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                distanceStep += steps.get(i).distance();
+                if(distanceStep >= 25000)
+                {
+                    listOfCoordinates.add(new ArrayList<Double>(Arrays.asList(steps.get(i).maneuver().location().latitude(), steps.get(i).maneuver().location().longitude())));
+                    distanceStep = 0;
+                }
+
+            }
+        }
+            WeatherService.getInstance().getMultipleCurrentWeatherByCoordinate(listOfCoordinates, criteria);
+
+            try
+            {
+                for(ArrayList<Double> doubleList : listOfCoordinates)
+                {
+                    String DMLatitude = MainActivity.decimalToDM(doubleList.get(0));
+                    String DMLongitude = MainActivity.decimalToDM(doubleList.get(1));
+
+                    if(_areStormsExist == false)
+                        _stormApi.szukaj_burzyAsync(DMLatitude, DMLongitude, RADIUS, "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+
+                    _stormApi.ostrzezenia_pogodoweAsync(Float.valueOf(DMLatitude), Float.valueOf(DMLongitude), "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+
+                }
             }
             catch (Exception e)
+            {Log.e(TAG, "Explanation of what was being attempted", e);}
+    }
+
+    private void checkWarnings()
+    {
+        if(_frostWarningLevel == 0 || _heatWarningLevel == 0 ||
+                _windWarningLevel == 0 || _rainWarningLevel == 0 ||
+                _stormWarningLevel == 0 || _tornadoWarningLevel == 0)
+        {
+            PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_warnings_walking_and_cycle));
+            PlanTheTrip._imageWeatherWarningRisk.setImageResource(R.drawable.if_risk_not);
+        }
+
+        else
+        {
+            if(!_riskPointGranted)
             {
-                Log.e(TAG, "Explanation of what was being attempted", e);
-            } */
-        //}
+                riskPoints.setVariable(riskPoints.getValue() + 15);
+                _riskPointGranted = true;
+            }
+
+            PlanTheTrip._textWeatherWarningRisk.setText("");
+            PlanTheTrip._imageWeatherWarningRisk.setImageResource(R.drawable.if_risk_high);
+            switch (_frostWarningLevel)
+            {
+                case 1:
+                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree1_walking_and_cycle));
+                    break;
+                case 2:
+                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree2_walking_and_cycle));
+                    break;
+                case 3:
+                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree3_walking_and_cycle));
+                    break;
+            }
+
+            switch (_heatWarningLevel)
+            {
+                case 1:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree1_walking_and_cycle));
+                    break;
+                case 2:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree2_walking_and_cycle));
+                    break;
+                case 3:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree3_walking_and_cycle));
+                    break;
+            }
+
+            switch (_windWarningLevel)
+            {
+                case 1:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_wind_degree1_walking_and_cycle));
+                    break;
+                case 2:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_wind_degree2_walking_and_cycle));
+                    break;
+                case 3:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_wind_degree3_walking_and_cycle));
+                    break;
+            }
+
+            switch (_rainWarningLevel)
+            {
+                case 1:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_rain_degree1_walking_and_cycle));
+                    break;
+                case 2:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_rain_degree2_walking_and_cycle));
+                    break;
+                case 3:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_rain_degree3_walking_and_cycle));
+                    break;
+            }
+
+            switch (_stormWarningLevel)
+            {
+                case 1:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_storms_degree1_walking_and_cycle));
+                    break;
+                case 2:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_storms_degree2_walking_and_cycle));
+                    break;
+                case 3:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_storms_degree3_walking_and_cycle));
+                    break;
+            }
+
+            switch (_tornadoWarningLevel)
+            {
+                case 1:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_tornado_degree1_walking_and_cycle));
+                    break;
+                case 2:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_tornado_degree2_walking_and_cycle));
+                    break;
+                case 3:
+                    PlanTheTrip._textWeatherWarningRisk.append("\n");
+                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_tornado_degree3_walking_and_cycle));
+                    break;
+            }
+        }
     }
 
     private String distanceToDisplay(Double distance)

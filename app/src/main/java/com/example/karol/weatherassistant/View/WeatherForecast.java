@@ -174,7 +174,6 @@ public class WeatherForecast extends Fragment
         }
 
     }
-
     @Override
     public void onStart()
     {

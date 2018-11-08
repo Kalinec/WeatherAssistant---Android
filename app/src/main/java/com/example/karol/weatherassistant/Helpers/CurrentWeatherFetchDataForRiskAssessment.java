@@ -154,9 +154,9 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                 PlanTheTrip._textTemperatureRisk.setText(
                         MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_temperature_walking_and_cycle) +
                                 " " +
-                                minTemperature +
+                                minTemperature.intValue() +
                                 "-" +
-                                maxTemperature +
+                                maxTemperature.intValue() +
                                 "°C");
                 PlanTheTrip._imageTemperatureRisk.setImageResource(R.drawable.if_risk_not);
                 break;
@@ -164,21 +164,23 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             case 1:
                 PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_temperature_walking_and_cycle) +
                         " " +
-                        minTemperature +
+                        minTemperature.intValue() +
                         "-" +
-                        maxTemperature +
+                        maxTemperature.intValue() +
                         "°C");
                 PlanTheTrip._imageTemperatureRisk.setImageResource(R.drawable.if_risk_moderate);
+                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 5);
                 break;
 
             case 2:
                 PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_temperature_walking_and_cycle) +
                         " " +
-                        minTemperature +
+                        minTemperature.intValue() +
                         "-" +
-                        maxTemperature +
+                        maxTemperature.intValue() +
                         "°C");
                 PlanTheTrip._imageTemperatureRisk.setImageResource(R.drawable.if_risk_high);
+                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 15);
                 break;
 
             case -1:
@@ -192,9 +194,9 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             case 0:
                 PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_wind_speed_walking_and_cycle) +
                 " " +
-                minWindSpeed * 3.6 +
+                        (int)(minWindSpeed * 3.6) +
                 "-" +
-                maxWindSpeed * 3.6 +
+                        (int)(maxWindSpeed * 3.6) +
                 "km/h");
                 PlanTheTrip._imageWindSpeedRisk.setImageResource(R.drawable.if_risk_not);
                 break;
@@ -202,21 +204,23 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             case 1:
                 PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_wind_speed_walking_and_cycle)+
                         " " +
-                        minWindSpeed * 3.6 +
+                        (int)(minWindSpeed * 3.6) +
                         "-" +
-                        maxWindSpeed * 3.6 +
+                        (int)(maxWindSpeed * 3.6) +
                         "km/h");
                 PlanTheTrip._imageWindSpeedRisk.setImageResource(R.drawable.if_risk_moderate);
+                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 5);
                 break;
 
             case 2:
                 PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_wind_speed_walking_and_cycle)+
                         " " +
-                        minWindSpeed * 3.6 +
+                        (int)(minWindSpeed * 3.6) +
                         "-" +
-                        maxWindSpeed * 3.6 +
+                        (int)(maxWindSpeed * 3.6) +
                         "km/h");
                 PlanTheTrip._imageWindSpeedRisk.setImageResource(R.drawable.if_risk_high);
+                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 15);
                 break;
 
             case -1:
@@ -229,9 +233,9 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             case 0:
                 PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_visibility_walking_and_cycle) +
                 " " +
-                minVisibility / 1000 +
+                        (int)(minVisibility / 1000) +
                 "-" +
-                maxVisibility / 1000 +
+                        (int)(maxVisibility / 1000) +
                 "km");
                 PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_not);
                 break;
@@ -239,21 +243,23 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             case 1:
                 PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_visibility_walking_and_cycle)+
                         " " +
-                        minVisibility / 1000 +
+                        (int)(minVisibility / 1000) +
                         "-" +
-                        maxVisibility / 1000 +
+                        (int)(maxVisibility / 1000) +
                         "km");
                 PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_moderate);
+                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 2);
                 break;
 
             case 2:
                 PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_visibility_walking_and_cycle)+
                         " " +
-                        minVisibility / 1000 +
+                        (int)(minVisibility / 1000) +
                         "-" +
-                        maxVisibility / 1000 +
+                        (int)(maxVisibility / 1000) +
                         "km");
                 PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_high);
+                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 5);
                 break;
 
             case -1:
@@ -280,6 +286,7 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                         maxCloudiness +
                         "%");
                 PlanTheTrip._imageCloudinessRisk.setImageResource(R.drawable.if_risk_moderate);
+                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 1);
                 break;
             case 2:
                 PlanTheTrip._textCloudinessRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_cloudiness_walking_and_cycle)+
@@ -289,6 +296,7 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                         maxCloudiness +
                         "%");
                 PlanTheTrip._imageCloudinessRisk.setImageResource(R.drawable.if_risk_high);
+                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 2);
                 break;
             case -1:
                 PlanTheTrip._textCloudinessRisk.setVisibility(View.GONE);
@@ -306,11 +314,13 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             case 1:
                 PlanTheTrip._imageWeatherConditionRisk.setImageResource(R.drawable.if_risk_moderate);
                 PlanTheTrip._textWeatherConditionRisk.setText(weatherConditionDescription);
+                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 5);
                 break;
 
             case 2:
                 PlanTheTrip._imageWeatherConditionRisk.setImageResource(R.drawable.if_risk_high);
                 PlanTheTrip._textWeatherConditionRisk.setText(weatherConditionDescription);
+                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 15);
                 break;
 
             case -1:
