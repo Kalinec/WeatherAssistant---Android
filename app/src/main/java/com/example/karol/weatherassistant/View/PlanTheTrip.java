@@ -409,20 +409,25 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
 
     private void assessTheRisk(double distance, List<LatLng> steps, String criteria)
     {
-        if(distance <= 25000)
-        {
+        //if(distance <= 25000)
+        //{
+            double[][] coordinates = {
+                    {steps.get(0).getLatitude(), steps.get(0).getLongitude()},
+                    { steps.get(steps.size()-1).getLatitude(), steps.get(steps.size()-1).getLongitude()}
+            };
+
+            WeatherService.getInstance().getMultipleCurrentWeatherByCoordinate(coordinates, criteria);
+
             //get weather information about origin point and destination point
-            WeatherService.getInstance().getCurrentWeatherByCoordinate(
+          /*  WeatherService.getInstance().getCurrentWeatherByCoordinate(
                     steps.get(0).getLatitude(),
                     steps.get(0).getLongitude(),
-                    "3",
                     criteria);
 
             WeatherService.getInstance().getCurrentWeatherByCoordinate(
                     steps.get(steps.size()-1).getLatitude(),
                     steps.get(steps.size()-1).getLongitude(),
-                    "3",
-                    criteria);
+                    criteria); */
 
             String originLatitude;
             String originLongitude;
@@ -434,7 +439,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             destinationLatitude = MainActivity.decimalToDM(steps.get(steps.size()-1).getLatitude());
             destinationLongitude = MainActivity.decimalToDM(steps.get(steps.size()-1).getLongitude());
 
-            try
+           /* try
             {
                 _stormApi.szukaj_burzyAsync(originLatitude, originLongitude, RADIUS, "3f04fbcac562e34c59d03cc166dc532a9451ded3");
                 _stormApi.szukaj_burzyAsync(destinationLatitude, destinationLongitude, RADIUS, "3f04fbcac562e34c59d03cc166dc532a9451ded3");
@@ -444,10 +449,8 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             catch (Exception e)
             {
                 Log.e(TAG, "Explanation of what was being attempted", e);
-            }
-
-
-        }
+            } */
+        //}
     }
 
     private String distanceToDisplay(Double distance)

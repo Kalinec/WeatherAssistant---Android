@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.karol.weatherassistant.Model.CurrentWeather.CurrentWeather.CurrentWeather;
+import com.example.karol.weatherassistant.Model.CurrentWeather.CurrentWeather.Main;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.View.MainActivity;
 import com.example.karol.weatherassistant.View.PlanTheTrip;
@@ -22,18 +23,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<String, Void, CurrentWeatherDataForRiskAssessmentWrapper>
+public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayList<String>, Void, CurrentWeatherDataForRiskAssessmentWrapper>
 {
-    String viewPagerSelectedFragment;
     String criteriaType;
     CurrentWeatherDataForRiskAssessmentWrapper wrapper;
     List<List<Integer>> listOfWeatherConditionsRisk;
-   /* List<Integer> noRiskConditionsIdsWalking;
-    List<Integer> moderateRiskConditionsIdsWalking;
-    List<Integer> highRiskConditionsIdsWalking;
-    List<Integer> noRiskConditionsIdsCycling;
-    List<Integer> moderateRiskConditionsIdsCycling;
-    List<Integer> highRiskConditionsIdsCycling; */
 
     @Override
     protected void onPreExecute()
@@ -43,17 +37,17 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<String, 
     }
 
     @Override
-    protected CurrentWeatherDataForRiskAssessmentWrapper doInBackground(String... strings)
+    protected CurrentWeatherDataForRiskAssessmentWrapper doInBackground(ArrayList<String>... strings)
     {
-        viewPagerSelectedFragment = strings[1];
-        criteriaType = strings[2];
+        ArrayList<String> parameters = strings[0];
+        criteriaType = parameters.get(parameters.size()-1);
 
         wrapper = new CurrentWeatherDataForRiskAssessmentWrapper();
-        wrapper.jsonRespones = new String[strings.length - 1];
+        wrapper.jsonRespones = new String[parameters.size()-1];
 
-        for(int i=0; i<strings.length-2; i++)
+        for(int i=0; i<parameters.size() - 1; i++)
         {
-            wrapper.jsonRespones[i] = fetchData(strings[i]);
+            wrapper.jsonRespones[i] = fetchData(parameters.get(i));
         }
 
         return wrapper;
@@ -117,161 +111,215 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<String, 
             }
 
             int oldWeatherConditionRiskLevel =  weatherConditionRiskLevel;
-            if(weatherConditionDescription.equals(""))
-                weatherConditionDescription = currentWeathers.get(i).getWeather().get(0).getDescription();
+            //if(weatherConditionDescription.equals(""))
+            //    weatherConditionDescription = currentWeathers.get(i).getWeather().get(0).getDescription();
 
             weatherConditionRiskLevel = getWorstWeatherConditionLevel(weatherConditionRiskLevel, currentWeathers.get(i).getWeather().get(0).getId(), criteriaType);
 
-            if((oldWeatherConditionRiskLevel != weatherConditionRiskLevel) && oldWeatherConditionRiskLevel != -1)
-                weatherConditionDescription = currentWeathers.get(i).getWeather().get(0).getDescription();
+            //if((oldWeatherConditionRiskLevel != weatherConditionRiskLevel) && oldWeatherConditionRiskLevel != -1)
+            if((oldWeatherConditionRiskLevel != weatherConditionRiskLevel))
+                    weatherConditionDescription = currentWeathers.get(i).getWeather().get(0).getDescription();
         }
 
         if(criteriaType.equals(DirectionsCriteria.PROFILE_WALKING))
         {
             temperatureRiskLevel = getTemperatureRiskLevelForWalking(minTemperature, maxTemperature);
+            cloudinessRiskLevel = getCloudinessRiskLevelForWalkingAndCycling(maxCloudiness);
+            windSpeedRiskLevel = getWindSpeedRiskLevelForWalking(maxWindSpeed);
+            visibilityRiskLevel = getVisibilityRiskLevelForWalking(maxVisibility);
         }
 
         else if(criteriaType.equals(DirectionsCriteria.PROFILE_CYCLING))
         {
-
+            temperatureRiskLevel = getTemperatureRiskLevelForCycling(minTemperature, maxTemperature);
+            cloudinessRiskLevel = getCloudinessRiskLevelForWalkingAndCycling(maxCloudiness);
+            windSpeedRiskLevel = getWindSpeedRiskLevelForCycling(maxWindSpeed);
+            visibilityRiskLevel = getVisibilityRiskLevelForCycling(maxVisibility);
         }
 
-        //set cloudiness risk
+        PlanTheTrip._imageWindSpeedRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip._textWindSpeedRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip._imageWindSpeedRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip._textWindSpeedRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip._imageVisibilityRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip._textVisibilityRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip._textCloudinessRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip._imageCloudinessRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip._imageWeatherConditionRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip._textWeatherConditionRisk.setVisibility(View.VISIBLE);
 
-        if(criteriaType.equals(DirectionsCriteria.PROFILE_WALKING))
+        switch (temperatureRiskLevel)
         {
-            //set temperature risk
-            Double temperature = currentWeather.getMain().getTemp();
-            if(temperature >= -5 && temperature <= 29)
-            {
-                PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_temperature_walking_and_cycle) + " " + currentWeather.getMain().getTemp());
+            case 0:
+                PlanTheTrip._textTemperatureRisk.setText(
+                        MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_temperature_walking_and_cycle) +
+                                " " +
+                                minTemperature +
+                                "-" +
+                                maxTemperature +
+                                "°C");
                 PlanTheTrip._imageTemperatureRisk.setImageResource(R.drawable.if_risk_not);
-            }
-            else if((temperature >= -15 && temperature < -5) || (temperature >= 30 && temperature < 34 ))
-            {
-                PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_temperature_walking_and_cycle));
+                break;
+
+            case 1:
+                PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_temperature_walking_and_cycle) +
+                        " " +
+                        minTemperature +
+                        "-" +
+                        maxTemperature +
+                        "°C");
                 PlanTheTrip._imageTemperatureRisk.setImageResource(R.drawable.if_risk_moderate);
-            }
-            else if(temperature >= 34)
-            {
-                PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_temperature_walking_and_cycle));
+                break;
+
+            case 2:
+                PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_temperature_walking_and_cycle) +
+                        " " +
+                        minTemperature +
+                        "-" +
+                        maxTemperature +
+                        "°C");
                 PlanTheTrip._imageTemperatureRisk.setImageResource(R.drawable.if_risk_high);
-            }
+                break;
 
-            //set wind speed risk
-            Double windSpeed = currentWeather.getWind().getSpeed() * 3.6;
-            if(windSpeed >= 0 && windSpeed <= 58)
-            {
-                PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_wind_speed_walking_and_cycle));
-                PlanTheTrip._imageWindSpeedRisk.setImageResource(R.drawable.if_risk_not);
-            }
-            else if(windSpeed >= 59 && windSpeed <= 69)
-            {
-                PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_wind_speed_walking_and_cycle));
-                PlanTheTrip._imageWindSpeedRisk.setImageResource(R.drawable.if_risk_moderate);
-            }
-
-            else if(windSpeed >= 70)
-            {
-                PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_wind_speed_walking_and_cycle));
-                PlanTheTrip._imageWindSpeedRisk.setImageResource(R.drawable.if_risk_high);
-            }
-
-            try
-            {
-                Double visibility = currentWeather.getVisibility();
-                if(visibility > 200)
-                {
-                    PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_visibility_walking_and_cycle));
-                    PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_not);
-                }
-                else if(visibility >= 50 && visibility <= 200)
-                {
-                    PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_visibility_walking_and_cycle));
-                    PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_moderate);
-                }
-                else if(visibility < 50)
-                {
-                    PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_visibility_walking_and_cycle));
-                    PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_high);
-                }
-
-                PlanTheTrip._textVisibilityRisk.setVisibility(View.VISIBLE);
-                PlanTheTrip._imageVisibilityRisk.setVisibility(View.VISIBLE);
-
-            } catch (Exception e) {
-                Log.d("Visibility", "Not exist");
-                PlanTheTrip._textVisibilityRisk.setVisibility(View.GONE);
-                PlanTheTrip._imageVisibilityRisk.setVisibility(View.GONE);
-            }
+            case -1:
+                PlanTheTrip._textTemperatureRisk.setVisibility(View.GONE);
+                PlanTheTrip._imageTemperatureRisk.setVisibility(View.GONE);
 
         }
-        else if(criteriaType.equals(DirectionsCriteria.PROFILE_CYCLING))
+
+        switch (windSpeedRiskLevel)
         {
-            //set temperature risk
-            Double temperature = currentWeather.getMain().getTemp();
-            if(temperature > 0 && temperature <= 29)
-            {
-                PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_temperature_walking_and_cycle) + " " + currentWeather.getMain().getTemp());
-                PlanTheTrip._imageTemperatureRisk.setImageResource(R.drawable.if_risk_not);
-            }
-            else if(temperature >= 30 && temperature <= 34)
-            {
-                PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_temperature_walking_and_cycle));
-                PlanTheTrip._imageTemperatureRisk.setImageResource(R.drawable.if_risk_moderate);
-            }
-            else if((temperature <= 0) || (temperature > 34))
-            {
-                PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_temperature_walking_and_cycle));
-                PlanTheTrip._imageTemperatureRisk.setImageResource(R.drawable.if_risk_high);
-            }
-
-            //set wind speed risk
-            Double windSpeed = currentWeather.getWind().getSpeed() * 3.6; // m/s to km/h
-            if(windSpeed >= 0 && windSpeed <= 48)
-            {
-                PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_wind_speed_walking_and_cycle));
+            case 0:
+                PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_wind_speed_walking_and_cycle) +
+                " " +
+                minWindSpeed * 3.6 +
+                "-" +
+                maxWindSpeed * 3.6 +
+                "km/h");
                 PlanTheTrip._imageWindSpeedRisk.setImageResource(R.drawable.if_risk_not);
-            }
-            else if(windSpeed >= 49 && windSpeed <= 59)
-            {
-                PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_wind_speed_walking_and_cycle));
+                break;
+
+            case 1:
+                PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_wind_speed_walking_and_cycle)+
+                        " " +
+                        minWindSpeed * 3.6 +
+                        "-" +
+                        maxWindSpeed * 3.6 +
+                        "km/h");
                 PlanTheTrip._imageWindSpeedRisk.setImageResource(R.drawable.if_risk_moderate);
-            }
-            else if(windSpeed >= 60)
-            {
-                PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_wind_speed_walking_and_cycle));
+                break;
+
+            case 2:
+                PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_wind_speed_walking_and_cycle)+
+                        " " +
+                        minWindSpeed * 3.6 +
+                        "-" +
+                        maxWindSpeed * 3.6 +
+                        "km/h");
                 PlanTheTrip._imageWindSpeedRisk.setImageResource(R.drawable.if_risk_high);
-            }
+                break;
 
-            try
-            {
-                Double visibility = currentWeather.getVisibility();
-                if(visibility > 1000)
-                {
-                    PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_visibility_walking_and_cycle));
-                    PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_not);
-                }
-                else if(visibility >= 200 && visibility <= 1000)
-                {
-                    PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_visibility_walking_and_cycle));
-                    PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_moderate);
-                }
-                else if(visibility < 200)
-                {
-                    PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_visibility_walking_and_cycle));
-                    PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_high);
-                }
-
-                PlanTheTrip._textVisibilityRisk.setVisibility(View.VISIBLE);
-                PlanTheTrip._imageVisibilityRisk.setVisibility(View.VISIBLE);
-
-            } catch (Exception e) {
-                Log.d("Visibility", "Not exist");
-                PlanTheTrip._textVisibilityRisk.setVisibility(View.GONE);
-                PlanTheTrip._imageVisibilityRisk.setVisibility(View.GONE);
-            }
+            case -1:
+                PlanTheTrip._imageWindSpeedRisk.setVisibility(View.GONE);
+                PlanTheTrip._textWindSpeedRisk.setVisibility(View.GONE);
         }
+
+        switch (visibilityRiskLevel)
+        {
+            case 0:
+                PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_visibility_walking_and_cycle) +
+                " " +
+                minVisibility / 1000 +
+                "-" +
+                maxVisibility / 1000 +
+                "km");
+                PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_not);
+                break;
+
+            case 1:
+                PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_visibility_walking_and_cycle)+
+                        " " +
+                        minVisibility / 1000 +
+                        "-" +
+                        maxVisibility / 1000 +
+                        "km");
+                PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_moderate);
+                break;
+
+            case 2:
+                PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_visibility_walking_and_cycle)+
+                        " " +
+                        minVisibility / 1000 +
+                        "-" +
+                        maxVisibility / 1000 +
+                        "km");
+                PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_high);
+                break;
+
+            case -1:
+                PlanTheTrip._imageVisibilityRisk.setVisibility(View.GONE);
+                PlanTheTrip._textVisibilityRisk.setVisibility(View.GONE);
+        }
+
+        switch (cloudinessRiskLevel)
+        {
+            case 0:
+                PlanTheTrip._textCloudinessRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_cloudiness_walking_and_cycle)+
+                        " " +
+                        minCloudiness +
+                        "-" +
+                        maxCloudiness +
+                        "%");
+                PlanTheTrip._imageCloudinessRisk.setImageResource(R.drawable.if_risk_not);
+                break;
+            case 1:
+                PlanTheTrip._textCloudinessRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_cloudiness_walking_and_cycle)+
+                        " " +
+                        minCloudiness +
+                        "-" +
+                        maxCloudiness +
+                        "%");
+                PlanTheTrip._imageCloudinessRisk.setImageResource(R.drawable.if_risk_moderate);
+                break;
+            case 2:
+                PlanTheTrip._textCloudinessRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_cloudiness_walking_and_cycle)+
+                        " " +
+                        minCloudiness +
+                        "-" +
+                        maxCloudiness +
+                        "%");
+                PlanTheTrip._imageCloudinessRisk.setImageResource(R.drawable.if_risk_high);
+                break;
+            case -1:
+                PlanTheTrip._textCloudinessRisk.setVisibility(View.GONE);
+                PlanTheTrip._imageCloudinessRisk.setVisibility(View.GONE);
+                break;
+        }
+
+        switch (weatherConditionRiskLevel)
+        {
+            case 0:
+                PlanTheTrip._imageWeatherConditionRisk.setImageResource(R.drawable.if_risk_not);
+                PlanTheTrip._textWeatherConditionRisk.setText(weatherConditionDescription);
+                break;
+
+            case 1:
+                PlanTheTrip._imageWeatherConditionRisk.setImageResource(R.drawable.if_risk_moderate);
+                PlanTheTrip._textWeatherConditionRisk.setText(weatherConditionDescription);
+                break;
+
+            case 2:
+                PlanTheTrip._imageWeatherConditionRisk.setImageResource(R.drawable.if_risk_high);
+                PlanTheTrip._textWeatherConditionRisk.setText(weatherConditionDescription);
+                break;
+
+            case -1:
+                PlanTheTrip._imageWeatherConditionRisk.setVisibility(View.GONE);
+                PlanTheTrip._textWeatherConditionRisk.setVisibility(View.GONE);
+                break;
+        }
+
+        MainActivity.DownloadProgressBar.setVisibility(View.GONE);
     }
 
     private String fetchData(String Url)
@@ -343,57 +391,84 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<String, 
         return riskLevel;
     }
 
-    private int getCloudinessRiskLevelForWalkingAndCycling(Double minCloudiness, Double maxCloudiness)
+    private int getCloudinessRiskLevelForWalkingAndCycling(Double maxCloudiness)
     {
-        int riskLevel = -1;
-
-        if(minCloudiness != null && maxCloudiness != null)
+        if(maxCloudiness != null)
         {
+            if(maxCloudiness >= 84)
+                return 2;
 
-            if((minCloudiness <= 59) || (maxCloudiness <= 59))
-            {
-                if(riskLevel < 0)
-                    riskLevel = 0;
-            }
+            else if(maxCloudiness >= 60 && maxCloudiness <= 83)
+                return 1;
 
-            else if((minCloudiness >= 60 && minCloudiness <= 83) || (maxCloudiness >= 60 && maxCloudiness <= 83))
-            {
-                if(riskLevel < 1)
-                    riskLevel = 1;
-            }
-
-            else if((minCloudiness >= 84) || (maxCloudiness >= 84))
-            {
-                if(riskLevel < 2)
-                    riskLevel = 2;
-            }
+            else if(maxCloudiness <= 59)
+                return 0;
         }
-
-        return riskLevel;
+        return -1;
     }
 
-    private int getWindSpeedRiskLevelForWalking(Double minWindSpeed, Double maxWindSpeed)
+    private int getWindSpeedRiskLevelForWalking(Double maxWindSpeed)
     {
-        int riskLevel = -1;
-
-        double minWindSpeedInKilometers = minWindSpeed * 3.6;
         double maxWindSpeedInKilometers = maxWindSpeed * 3.6;
 
-        if((minWindSpeedInKilometers >= 0 && minWindSpeedInKilometers <= 58) ||
-                (maxWindSpeedInKilometers >= 0 && maxWindSpeedInKilometers <= 58))
-        {
-            if(riskLevel < 0)
-                riskLevel = 0;
-        }
+        if (maxWindSpeedInKilometers <= 58)
+            return 0;
 
-        else if((minWindSpeedInKilometers >= 59 && minWindSpeedInKilometers <= 69) ||
-                (maxWindSpeedInKilometers >= 59 && maxWindSpeedInKilometers <= 69))
-        {
-            if(riskLevel < 1)
-                riskLevel = 1;
-        }
+        else if(maxWindSpeedInKilometers >= 59 && maxWindSpeedInKilometers <= 69)
+            return 1;
 
-        else if((minWindSpeedInKilometers >= 70) || (maxWindSpeedInKilometers >= 70))
+        else if(maxWindSpeedInKilometers >= 70)
+            return 2;
+
+        return -1;
+    }
+
+    private int getWindSpeedRiskLevelForCycling(Double maxWindSpeed)
+    {
+        double maxWindSpeedInKilometers = maxWindSpeed * 3.6;
+
+        if (maxWindSpeedInKilometers <= 48)
+            return 0;
+
+        else if(maxWindSpeedInKilometers >= 49 && maxWindSpeedInKilometers <= 59)
+            return 1;
+
+        else if(maxWindSpeedInKilometers >= 60)
+            return 2;
+
+        return -1;
+    }
+
+    private int getVisibilityRiskLevelForWalking(Double maxVisibility)
+    {
+        if(maxVisibility != null)
+        {
+            if(maxVisibility < 50)
+                return 2;
+
+            else if(maxVisibility >= 50 && maxVisibility <= 200)
+                return 1;
+
+            else if(maxVisibility > 200)
+                return 0;
+        }
+        return -1;
+    }
+
+    private int getVisibilityRiskLevelForCycling(Double maxVisibility)
+    {
+        if(maxVisibility != null)
+        {
+            if(maxVisibility < 50)
+                return 2;
+
+            else if(maxVisibility >= 50 && maxVisibility <= 200)
+                return 1;
+
+            else if(maxVisibility > 200)
+                return 0;
+        }
+        return -1;
     }
 
     private double getMinimumValue(Double currentValue, double valueToCheck)
@@ -410,29 +485,29 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<String, 
         return currentValue;
     }
 
-    private int getWorstWeatherConditionLevel(int currentValue, int valueToCheck, String criteriaType)
+    private int getWorstWeatherConditionLevel(int currentRiskValue, int idValueToCheck, String criteriaType)
     {
-        if(currentValue == -1)
-            return valueToCheck;
+       // if(currentRiskValue == -1)
+        //    return idValueToCheck;
 
 
-            int currentRiskLevel = -1;
+          //  int currentRiskLevel = -1;
            // String currentConditionDescription;
             int toCheckRiskLevel = -1;
            // String toCheckConditionDescription;
 
             for(List<Integer> list : listOfWeatherConditionsRisk)
             {
-                if(list.contains(currentValue))
+              /*  if(list.contains(currentRiskValue))
                 {
                     if(criteriaType.equals(DirectionsCriteria.PROFILE_WALKING))
                         currentRiskLevel = list.get(1);
 
                     else if(criteriaType.equals(DirectionsCriteria.PROFILE_CYCLING))
                         currentRiskLevel = list.get(2);
-                }
+                } */
 
-                if(list.contains(valueToCheck))
+                if(list.contains(idValueToCheck))
                 {
                     if(criteriaType.equals(DirectionsCriteria.PROFILE_WALKING))
                         toCheckRiskLevel = list.get(1);
@@ -441,10 +516,10 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<String, 
                 }
             }
 
-            if(currentRiskLevel < toCheckRiskLevel)
-                return valueToCheck;
+            if(currentRiskValue < toCheckRiskLevel)
+                return toCheckRiskLevel;
 
-            return currentValue;
+            return currentRiskValue;
 
     }
 

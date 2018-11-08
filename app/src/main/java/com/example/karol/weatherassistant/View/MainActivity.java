@@ -269,8 +269,8 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
                     switch (_viewPager.getCurrentItem())
                     {
                         case 0:
-                            WeatherService.getInstance().getCurrentWeatherByCoordinate(location.getLatitude(), location.getLongitude(), String.valueOf(_viewPager.getCurrentItem()), null);
-                            WeatherService.getInstance().getForecastWeatherByCoordinate(location.getLatitude(), location.getLongitude(), String.valueOf(_viewPager.getCurrentItem()), null);
+                            WeatherService.getInstance().getCurrentWeatherByCoordinate(location.getLatitude(), location.getLongitude(), null);
+                            WeatherService.getInstance().getForecastWeatherByCoordinate(location.getLatitude(), location.getLongitude(), null);
                             break;
 
                         case 2:
@@ -411,8 +411,8 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
                 switch (_viewPager.getCurrentItem())
                 {
                     case 0:
-                        WeatherService.getInstance().getCurrentWeatherByCityName(query, String.valueOf(_viewPager.getCurrentItem()), null);
-                        WeatherService.getInstance().getForecastWeatherByCityName(query, String.valueOf(_viewPager.getCurrentItem()),null);
+                        WeatherService.getInstance().getCurrentWeatherByCityName(query,  null);
+                        WeatherService.getInstance().getForecastWeatherByCityName(query, null);
                         hideKeyboardFrom(getApplicationContext(),getCurrentFocus());
                         break;
                     case 2:
