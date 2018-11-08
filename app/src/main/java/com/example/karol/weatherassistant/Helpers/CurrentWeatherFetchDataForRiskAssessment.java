@@ -365,13 +365,13 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             if(riskLevel < 0)
                 riskLevel = 0;
         }
-        else if(((minTemperature >= -15 && minTemperature < -5) || (minTemperature >= 30 && minTemperature < 34 )) ||
+        if(((minTemperature >= -15 && minTemperature < -5) || (minTemperature >= 30 && minTemperature < 34 )) ||
                 ((maxTemperature >= -15 && maxTemperature < -5) || (maxTemperature >= 30 && maxTemperature < 34 )))
         {
             if(riskLevel < 1)
                 riskLevel = 1;
         }
-        else if((minTemperature >= 34) || (maxTemperature >= 34))
+        if((minTemperature >= 34) || (maxTemperature >= 34))
         {
             riskLevel = 2;
         }
@@ -388,12 +388,12 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             if(riskLevel < 0)
                 riskLevel = 0;
         }
-        else if(((minTemperature >= 30 && minTemperature <= 34) || (maxTemperature >= 30 && maxTemperature <= 34 )))
+        if(((minTemperature >= 30 && minTemperature <= 34) || (maxTemperature >= 30 && maxTemperature <= 34 )))
         {
             if(riskLevel < 1)
                 riskLevel = 1;
         }
-        else if(((minTemperature <= 0) || (minTemperature > 34)) || ((maxTemperature <= 0) || (maxTemperature > 34)))
+        if(((minTemperature <= 0) || (minTemperature > 34)) || ((maxTemperature <= 0) || (maxTemperature > 34)))
         {
             riskLevel = 2;
         }

@@ -330,11 +330,11 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             @Override
             public void onChange() {
                 if(riskPoints.getValue() <= 4)
-                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none));
+                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none) + " (" + riskPoints.getValue() + "pkt)");
                 else if(riskPoints.getValue() >= 15)
-                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high));
+                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high) + " (" + riskPoints.getValue() + "pkt)");
                 else
-                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate));
+                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate) + " (" + riskPoints.getValue() + "pkt)");
             }
         });
 
