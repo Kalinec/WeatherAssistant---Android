@@ -250,7 +250,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
         //_warningInfo = new MyComplexTypeOstrzezenia();
 
         autoCompleteOrigin.setAccessToken(Mapbox.getAccessToken());
-        autoCompleteOrigin.setType(GeocodingCriteria.TYPE_PLACE);
+        //autoCompleteOrigin.setType(GeocodingCriteria.TYPE_PLACE);
         autoCompleteOrigin.setOnFeatureListener(new GeocoderAutoCompleteView.OnFeatureListener() {
             @Override
             public void onFeatureClick(CarmenFeature feature) {
@@ -259,7 +259,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
         });
 
         autoCompleteDestination.setAccessToken(Mapbox.getAccessToken());
-        autoCompleteDestination.setType(GeocodingCriteria.TYPE_PLACE);
+        //autoCompleteDestination.setType(GeocodingCriteria.TYPE_PLACE);
         autoCompleteDestination.setOnFeatureListener(new GeocoderAutoCompleteView.OnFeatureListener() {
             @Override
             public void onFeatureClick(CarmenFeature feature) {
