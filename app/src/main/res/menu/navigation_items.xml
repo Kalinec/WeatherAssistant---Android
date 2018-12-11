@@ -15,7 +15,7 @@
             android:title="@string/navi_planTheTrip" />
         <item
             android:id="@+id/nav_Settings"
-            android:title="@string/navi_settings" />
+            android:title="@string/navi_notifications" />
 
     </group>
 </menu>

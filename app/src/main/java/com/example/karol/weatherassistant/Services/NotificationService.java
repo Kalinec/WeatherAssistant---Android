@@ -333,7 +333,10 @@ public class NotificationService extends JobIntentService {
                                     .setSmallIcon(R.drawable.if_thunderbolt)
                                     .setContentTitle("Wykryto wyładowanie atmosferyczne!")
                                     .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText("Czas: " + _stormInfo.okres + "min" + "\nLiczba: " + _stormInfo.liczba + "\nDystans: " + _stormInfo.odleglosc + " km/h\nKierunek: " + _stormInfo.kierunek))
+                                            .bigText("Czas: " + _stormInfo.okres + "min" +
+                                                    "\nLiczba: " + _stormInfo.liczba +
+                                                    "\nDystans: " + _stormInfo.odleglosc +
+                                                    " km/h\nKierunek: " + _stormInfo.kierunek))
                                     .setDefaults(DEFAULT_LIGHTS | DEFAULT_SOUND | DEFAULT_VIBRATE)
                                     .setPriority(NotificationCompat.PRIORITY_MAX)
                                     .setVisibility(VISIBILITY_PUBLIC);
@@ -445,17 +448,12 @@ public class NotificationService extends JobIntentService {
             //Storms channel
             NotificationChannel channelStorms = new NotificationChannel(CHANNEL_ID_STORMS, "Storms", NotificationManager.IMPORTANCE_HIGH);
             channelStorms.setDescription("Information about detected storms");
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager stormsNotificationManager = getSystemService(NotificationManager.class);
             stormsNotificationManager.createNotificationChannel(channelStorms);
-
 
             //Warnings channel
             NotificationChannel channelWarnings = new NotificationChannel(CHANNEL_ID_WARNINGS, "Warnings", NotificationManager.IMPORTANCE_HIGH);
             channelWarnings.setDescription("Information about detected warnings");
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channelWarnings);
         }

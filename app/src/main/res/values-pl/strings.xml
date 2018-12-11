@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Asystent pogodowy</string>
+    <string name="navi_weatherForecast">Prognoza pogody</string>
+    <string name="navi_stormyMap">Mapy burzowe</string>
+    <string name="navi_stormSearch">Szukaj burzy</string>
+    <string name="navi_planTheTrip">Planowanie wycieczki</string>
+    <string name="navi_notifications">Powiadomienia</string>
+    <string name="search_enterCity">Wprowadź miejscowość</string>
     <string name="coord_N">Północny</string>
     <string name="coord_NE">Północny wschód</string>
     <string name="coord_E">Wschód</string>
@@ -29,6 +36,33 @@
     <string name="word_to">Do: </string>
     <string name="word_degree_of_danger"> stopień zagrożenia</string>
     <string name="word_route">Trasa</string>
+    <string name="StormyMap_mapOfPoland">Mapa Polski</string>
+    <string name="StormyMap_mapOfEurope">Mapa Europy</string>
+    <string name="StormyMap_mapType">Typ mapy</string>
+    <string name="StormyMap_staticMap">Mapa statyczna</string>
+    <string name="StormyMap_animatedMap">Mapa animowana</string>
+    <string name="StormyMap_magnification">Powiększenie</string>
+    <string name="StormyMap_magnification_without">brak</string>
+    <string name="StormyMap_magnification_northwest">północny-zachód</string>
+    <string name="StormyMap_magnification_northeast">północny-wschód</string>
+    <string name="StormyMap_magnification_center">centrum</string>
+    <string name="StormyMap_magnification_southwest">południowy-zachód</string>
+    <string name="StormyMap_magnification_southeast">południowy-wschód</string>
+    <string name="StormyMap_magnification_europe">Europy</string>
+    <string name="StormyMap_magnification_austria">Austrii</string>
+    <string name="StormyMap_magnification_belgiumNetherlandsLuxembourg">Belgii, Holandii, Luksemburga</string>
+    <string name="StormyMap_magnification_bosniaAndHerzegovinaCroatiaSlovenia">Bośni i Hercegowiny, Chorwacji, Słowenii</string>
+    <string name="StormyMap_magnification_czech">Czech</string>
+    <string name="StormyMap_magnification_france">Franci</string>
+    <string name="StormyMap_magnification_greece">Grecji</string>
+    <string name="StormyMap_magnification_SpainPortugal">Hiszpanii, Portugalii</string>
+    <string name="StormyMap_magnification_german">Niemiec</string>
+    <string name="StormyMap_magnification_slovakiaHungary">Słowacji, Węgier</string>
+    <string name="StormyMap_magnification_switzerlandLiechtenstein">Szwajcarii, Liechtensteinu</string>
+    <string name="StormyMap_magnification_italian">Włoch</string>
+    <string name="StormyMap_magnification_britishIsles">Wysp Brytyjskich</string>
+    <string name="StormyMap_option_showDirectionAndSpeed">Pokaż na mapie kierunek i prędkość przemieszczania chmur burzowych w km/h (beta)</string>
+    <string name="StormyMap_option_showGroupsAndStormsNumber">Pokaż na mapie grupy i liczbę wyładowań atmosferycznych (beta)</string>
     <string name="Settings_yourLocation">Twoja lokalizacja</string>
     <string name="Settings_stormNotifications">Powiadomienia o burzach</string>
     <string name="Settings_weatherAlertNotifications">Powiadomienia o ostrzeżeniach pogodowych</string>

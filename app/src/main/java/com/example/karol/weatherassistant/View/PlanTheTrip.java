@@ -330,11 +330,21 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             @Override
             public void onChange() {
                 if(riskPoints.getValue() <= 4)
-                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none) + " (" + riskPoints.getValue() + "pkt)");
+                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none) +
+                            " (" +
+                            riskPoints.getValue()
+                            + "pkt)");
+
                 else if(riskPoints.getValue() >= 15)
-                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high) + " (" + riskPoints.getValue() + "pkt)");
+                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high) +
+                            " (" +
+                            riskPoints.getValue() +
+                            "pkt)");
                 else
-                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate) + " (" + riskPoints.getValue() + "pkt)");
+                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate) +
+                            " (" +
+                            riskPoints.getValue() +
+                            "pkt)");
             }
         });
 
@@ -351,12 +361,11 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
 
         _startNavigateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                boolean simulateRoute = true;
+                boolean simulateRoute = false;
                 NavigationLauncherOptions options = NavigationLauncherOptions.builder()
                         .directionsRoute(currentRoute)
                         .shouldSimulateRoute(simulateRoute)
                         .build();
-                // Call this method with Context from within an Activity
                 NavigationLauncher.startNavigation(getActivity(), options);
             }
         });
@@ -400,6 +409,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                             return;
                         }
 
+                        //saving the map route
                         currentRoute = response.body().routes().get(0);
 
                         //update UI - time and distance
@@ -533,15 +543,15 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             {
                 case 1:
                     PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree1_walking_and_cycle));
+                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_heat_degree1_walking_and_cycle));
                     break;
                 case 2:
                     PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree2_walking_and_cycle));
+                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_heat_degree2_walking_and_cycle));
                     break;
                 case 3:
                     PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree3_walking_and_cycle));
+                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_heat_degree3_walking_and_cycle));
                     break;
             }
 
@@ -573,7 +583,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                     break;
                 case 3:
                     PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_rain_degree3_walking_and_cycle));
+                    PlanTheTrip._textWeatherWarningRisk.setText(getString(R.string.PlanTheTrip_risk_high_warnings_rain_degree3_walking_and_cycle));
                     break;
             }
 

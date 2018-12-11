@@ -187,6 +187,16 @@ public class Settings extends Fragment
                                 SystemClock.elapsedRealtime(),
                                 1000 * 60 * Integer.parseInt(_updatesFrequencySpinner.getSelectedItem().toString()),
                                 pendingIntent); */
+                        ///
+                      /*  alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+                        Intent intent = new Intent(getContext(), NotificationReceiver.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                        alarmManager.setInexactRepeating(
+                                AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                                SystemClock.elapsedRealtime(),
+                                1000 * 60 * Integer.parseInt(_updatesFrequencySpinner.getSelectedItem().toString()),
+                                pendingIntent); */
+                        ///
 
                     }
                 }
@@ -230,10 +240,21 @@ public class Settings extends Fragment
             @Override
             public void onClick(View v)
             {
+
+                //Canceling the alarm when the application has not been closed.
                if(alarmManager != null)
                    alarmManager.cancel(pendingIntent);
 
-               _cancelButton.setVisibility(View.GONE);
+               //Canceling an alarm in case the application was previously closed.
+               else
+               {
+                   Intent intent = new Intent(getContext(), NotificationReceiver.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                   alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+                   pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                   alarmManager.cancel(pendingIntent);
+               }
+
+              // _cancelButton.setVisibility(View.GONE);
                _confirmButton.setEnabled(true);
             }
         });

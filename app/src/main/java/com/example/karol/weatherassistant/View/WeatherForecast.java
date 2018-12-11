@@ -112,6 +112,10 @@ public class WeatherForecast extends Fragment
         Cloudiness.setFinishedStrokeColor(Color.parseColor("#4A65A6"));
         Cloudiness.setUnfinishedStrokeColor(Color.parseColor("#E0E0E0"));
 
+        _recyclerView = view.findViewById(R.id.forecastInfo_recyclerView);
+        _layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        _recyclerView.setLayoutManager(_layoutManager);
+
         if(_recyclerView != null)
             _recyclerView.setHasFixedSize(true);
 

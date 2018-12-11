@@ -145,7 +145,12 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
                         if(_warningInfo.burza != 0)
                         {
                             if(_warningInfo.burza == 1)
-                                StormSearch.warningList.add(new Warning(getString(R.string.word_storms), String.valueOf(_warningInfo.burza), getString(R.string.warning_storm_description1), utcToLocalTime(_warningInfo.burza_od_dnia), utcToLocalTime(_warningInfo.burza_do_dnia), R.drawable.if_weather_warning_storm));
+                                StormSearch.warningList.add(new Warning(getString(R.string.word_storms),
+                                        String.valueOf(_warningInfo.burza),
+                                        getString(R.string.warning_storm_description1),
+                                        utcToLocalTime(_warningInfo.burza_od_dnia),
+                                        utcToLocalTime(_warningInfo.burza_do_dnia),
+                                        R.drawable.if_weather_warning_storm));
                             else if(_warningInfo.burza == 2)
                                 StormSearch.warningList.add(new Warning(getString(R.string.word_storms), String.valueOf(_warningInfo.burza), getString(R.string.warning_storm_description2), utcToLocalTime(_warningInfo.burza_od_dnia), utcToLocalTime(_warningInfo.burza_do_dnia), R.drawable.if_weather_warning_storm));
                             else
@@ -253,8 +258,6 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
         //gps
         _fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         _locationRequest = new LocationRequest();
-        _locationRequest.setInterval(5000);
-        _locationRequest.setFastestInterval(1000);
         _locationRequest.setNumUpdates(1);
         _locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
