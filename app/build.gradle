@@ -23,12 +23,14 @@ android {
             mavenCentral()
             maven { url 'https://mapbox.bintray.com/mapbox' }
             maven { url 'https://oss.sonatype.org/content/repositories/ksoap2-android-releases/' }
-            maven { url "https://jitpack.io" }
+
         }
     }
 }
 
 dependencies {
+
+    compile 'com.koushikdutta.ion:ion:2.+'
     compile group: 'com.mapbox.mapboxsdk', name: 'mapbox-android-ui', version: '2.2.10'
     compile group: 'com.mapbox.mapboxsdk', name: 'mapbox-android-services', version: '2.2.10'
     compile('com.mapbox.mapboxsdk:mapbox-android-geocoder:1.0.0@aar') {
@@ -58,5 +60,6 @@ dependencies {
     compile 'com.github.lzyzsd:circleprogress:1.2.1'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.github.chrisbanes:PhotoView:2.1.4'
 
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="magnification_polish_array">
+        <item>@string/StormyMap_magnification_without</item>
+        <item>@string/StormyMap_magnification_northwest</item>
+        <item>@string/StormyMap_magnification_northeast</item>
+        <item>@string/StormyMap_magnification_center</item>
+        <item>@string/StormyMap_magnification_southwest</item>
+        <item>@string/StormyMap_magnification_southeast</item>
+    </string-array>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="magnification_europe_array">
+        <item>@string/StormyMap_magnification_europe</item>
+        <item>@string/StormyMap_magnification_austria</item>
+        <item>@string/StormyMap_magnification_belgiumNetherlandsLuxembourg</item>
+        <item>@string/StormyMap_magnification_bosniaAndHerzegovinaCroatiaSlovenia</item>
+        <item>@string/StormyMap_magnification_czech</item>
+        <item>@string/StormyMap_magnification_france</item>
+        <item>@string/StormyMap_magnification_greece</item>
+        <item>@string/StormyMap_magnification_SpainPortugal</item>
+        <item>@string/StormyMap_magnification_german</item>
+        <item>@string/StormyMap_magnification_slovakiaHungary</item>
+        <item>@string/StormyMap_magnification_switzerlandLiechtenstein</item>
+        <item>@string/StormyMap_magnification_italian</item>
+        <item>@string/StormyMap_magnification_britishIsles</item>
+    </string-array>
+</resources>

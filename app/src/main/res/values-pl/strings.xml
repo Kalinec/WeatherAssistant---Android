@@ -39,8 +39,8 @@
     <string name="StormyMap_mapOfPoland">Mapa Polski</string>
     <string name="StormyMap_mapOfEurope">Mapa Europy</string>
     <string name="StormyMap_mapType">Typ mapy</string>
-    <string name="StormyMap_staticMap">Mapa statyczna</string>
-    <string name="StormyMap_animatedMap">Mapa animowana</string>
+    <string name="StormyMap_staticMap">Statyczna</string>
+    <string name="StormyMap_animatedMap">Animowana</string>
     <string name="StormyMap_magnification">Powiększenie</string>
     <string name="StormyMap_magnification_without">brak</string>
     <string name="StormyMap_magnification_northwest">północny-zachód</string>
@@ -61,6 +61,7 @@
     <string name="StormyMap_magnification_switzerlandLiechtenstein">Szwajcarii, Liechtensteinu</string>
     <string name="StormyMap_magnification_italian">Włoch</string>
     <string name="StormyMap_magnification_britishIsles">Wysp Brytyjskich</string>
+    <string name="StormyMap_options">Opcje</string>
     <string name="StormyMap_option_showDirectionAndSpeed">Pokaż na mapie kierunek i prędkość przemieszczania chmur burzowych w km/h (beta)</string>
     <string name="StormyMap_option_showGroupsAndStormsNumber">Pokaż na mapie grupy i liczbę wyładowań atmosferycznych (beta)</string>
     <string name="Settings_yourLocation">Twoja lokalizacja</string>

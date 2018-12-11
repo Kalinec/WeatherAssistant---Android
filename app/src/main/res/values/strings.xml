@@ -45,8 +45,8 @@
     <string name="StormyMap_mapOfPoland">Map of Poland</string>
     <string name="StormyMap_mapOfEurope">Map of Europe</string>
     <string name="StormyMap_mapType">Map Type</string>
-    <string name="StormyMap_staticMap">Static map</string>
-    <string name="StormyMap_animatedMap">Animated map</string>
+    <string name="StormyMap_staticMap">Static</string>
+    <string name="StormyMap_animatedMap">Animated</string>
     <string name="StormyMap_magnification">Magnification</string>
     <string name="StormyMap_magnification_without">without</string>
     <string name="StormyMap_magnification_northwest">northwest</string>
@@ -67,6 +67,7 @@
     <string name="StormyMap_magnification_switzerlandLiechtenstein">Switzerland, Liechtenstein</string>
     <string name="StormyMap_magnification_italian">Italian</string>
     <string name="StormyMap_magnification_britishIsles">British Isles</string>
+    <string name="StormyMap_options">Options</string>
     <string name="StormyMap_option_showDirectionAndSpeed">Show the direction and speed of storm clouds in km / h on the map (beta)</string>
     <string name="StormyMap_option_showGroupsAndStormsNumber">Show groups and the number of atmospheric discharges on the map (beta)</string>
     <string name="StormSearch_no_warnings">No warnings here</string>
