@@ -59,6 +59,7 @@ public class StormyMap extends Fragment {
         _staticMap = view.findViewById(R.id.radioButton_stormyMap_staticMap);
         _animatedMap = view.findViewById(R.id.radioButton_stormyMap_animatedMap);
         _mapMagnification = view.findViewById(R.id.spinner_stormyMap_magnification);
+        _staticMap.setChecked(true);
 
         adapter = ArrayAdapter.createFromResource(getContext(),R.array.magnification_polish_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

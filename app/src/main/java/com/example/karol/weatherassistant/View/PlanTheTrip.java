@@ -283,7 +283,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             @Override
             public void onClick(View v)
             {
-                if(_riskDetailsCardView.getVisibility() == View.GONE)
+                if(_riskDetailsCardView.getVisibility() == View.GONE && currentRoute != null)
                     _riskDetailsCardView.setVisibility(View.VISIBLE);
                 else if(_riskDetailsCardView.getVisibility() == View.VISIBLE)
                     _riskDetailsCardView.setVisibility(View.GONE);
@@ -768,7 +768,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
         super.onStop();
         mapView.onStop();
         if (locationLayerPlugin != null) {
-            locationLayerPlugin.onStart();
+            locationLayerPlugin.onStop();
         }
     }
 

@@ -331,7 +331,7 @@ public class CurrentWeatherFetchData extends AsyncTask<String, Void, String> {
         }
 
         WeatherForecast.Time.setText(new SimpleDateFormat("HH.mm").format(Calendar.getInstance().getTime()));
-        WeatherForecast.Temperature.setText(currentWeather.getMain().getTemp().toString());
+        WeatherForecast.Temperature.setText(String.valueOf(currentWeather.getMain().getTemp().intValue()));
         if(Locale.getDefault().getLanguage().equals("en"))
             WeatherForecast.Condition.setText(currentWeather.getWeather().get(0).getMain());
         else if(Locale.getDefault().getLanguage().equals("pl"))
@@ -339,7 +339,7 @@ public class CurrentWeatherFetchData extends AsyncTask<String, Void, String> {
         WeatherForecast.Description.setText(currentWeather.getWeather().get(0).getDescription());
         WeatherForecast.Humidity.setProgress(currentWeather.getMain().getHumidity().intValue());
         WeatherForecast.Cloudiness.setProgress(currentWeather.getClouds().getAll().intValue());
-        WeatherForecast.WindSpeed.setText(String.format("%.2f", currentWeather.getWind().getSpeed()*3.6));
+        WeatherForecast.WindSpeed.setText(String.format("%.0f", currentWeather.getWind().getSpeed()*3.6));
         // WeatherForecast.WindSpeed.setText(String.valueOf(currentWeather.getWind().getSpeed()*3.6));
         WeatherForecast.Pressure.setText(currentWeather.getMain().getPressure().toString());
 

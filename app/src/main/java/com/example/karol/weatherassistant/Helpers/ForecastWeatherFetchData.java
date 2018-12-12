@@ -74,7 +74,7 @@ public class ForecastWeatherFetchData extends AsyncTask<String, Void, String>
                             dayFormatter.format(date),
                             timeFormatter.format(date),
                             setWeatherIcon(_forecastWeather.getList().get(i).getWeather().get(0).getIcon()),
-                            _forecastWeather.getList().get(i).getMain().getTemp().toString(),
+                            String.valueOf(_forecastWeather.getList().get(i).getMain().getTemp().intValue()),
                             String.format("%.2f",_forecastWeather.getList().get(i).getWind().getSpeed()*3.6)));
         }
         WeatherForecast.forecastAdapter.notifyDataSetChanged();
