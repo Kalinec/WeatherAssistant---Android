@@ -5,6 +5,7 @@
     <string name="navi_stormSearch">Storm Search</string>
     <string name="navi_planTheTrip">Plan The Trip</string>
     <string name="navi_notifications">Notifications</string>
+    <string name="gps_disabled_alert">It is required that the GPS module is on. Activate it now?</string>
     <string name="search_enterCity">Enter city</string>
     <string name="coord_N">North</string>
     <string name="coord_NE">North-East</string>
@@ -39,6 +40,8 @@
     <string name="word_number">Number</string>
     <string name="word_distance">Distance</string>
     <string name="word_direction">Direction</string>
+    <string name="word_yes">Yes</string>
+    <string name="word_no">No</string>
     <string name="Settings_yourLocation">Your location</string>
     <string name="Settings_stormNotifications">Storm notifications</string>
     <string name="Settings_weatherAlertNotifications">Weather alert notifications</string>
@@ -143,9 +146,5 @@
     <string name="warning_heat_description1">From 30 to 34 °C</string>
     <string name="warning_heat_description2">From 35 to 38 °C</string>
     <string name="warning_heat_description3">Above 38 °C</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
 </resources>

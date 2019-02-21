@@ -6,6 +6,7 @@
     <string name="navi_stormSearch">Szukaj burzy</string>
     <string name="navi_planTheTrip">Planowanie wycieczki</string>
     <string name="navi_notifications">Powiadomienia</string>
+    <string name="gps_disabled_alert">Wymagane jest, aby moduł GPS był włączony. Aktywować go teraz?</string>
     <string name="search_enterCity">Wprowadź miejscowość</string>
     <string name="coord_N">Północny</string>
     <string name="coord_NE">Północny wschód</string>
@@ -40,6 +41,8 @@
     <string name="word_number">Liczba</string>
     <string name="word_distance">Dystans</string>
     <string name="word_direction">Kierunek</string>
+    <string name="word_yes">Tak</string>
+    <string name="word_no">Nie</string>
     <string name="StormyMap_mapOfPoland">Mapa Polski</string>
     <string name="StormyMap_mapOfEurope">Mapa Europy</string>
     <string name="StormyMap_mapType">Typ mapy</string>

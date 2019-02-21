@@ -669,7 +669,10 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     private void enableLocationPlugin() {
         // Check if permissions are enabled and if not request
         if (PermissionsManager.areLocationPermissionsGranted(getContext())) {
-            initializeLocationEngine();
+            if(MainActivity.CheckGpsStatus(getContext()))
+                initializeLocationEngine();
+            else
+                MainActivity.buildAlertMessageNoGps(getContext());
             // Create an instance of the plugin. Adding in LocationLayerOptions is also an optional
             // parameter
             locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap);

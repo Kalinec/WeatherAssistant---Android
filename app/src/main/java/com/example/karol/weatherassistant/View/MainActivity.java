@@ -64,7 +64,8 @@ import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
 
-public class MainActivity extends AppCompatActivity /* implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener */ {
+public class MainActivity extends AppCompatActivity
+{
 
     public static ProgressBar DownloadProgressBar;
     public static ImageButton LocalizerButton;
@@ -553,27 +554,13 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
 
         if(!Permissions.Check_WAKE_LOCK(this))
             Permissions.Request_WAKE_LOCK(this, 4);
+
     }
 
     public static boolean CheckGpsStatus(Context context){
 
         locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }
-
-    public static Criteria setCriteria()
-    {
-        // this is done to save the battery life of the device
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
-        criteria.setAltitudeRequired(false);
-        criteria.setBearingRequired(false);
-        criteria.setSpeedRequired(false);
-        criteria.setCostAllowed(true);
-        criteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
-        criteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
-        return criteria;
     }
 
     public static String decimalToDM(double coord) {
@@ -626,14 +613,14 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
 
     public static void buildAlertMessageNoGps(Context context) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+        builder.setMessage(resources.getString(R.string.gps_disabled_alert))
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(resources.getString(R.string.word_yes), new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                         context.startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(resources.getString(R.string.word_no), new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                         dialog.cancel();
                     }
