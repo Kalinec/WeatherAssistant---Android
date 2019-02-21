@@ -1,6 +1,5 @@
 package com.example.karol.weatherassistant.Helpers;
 
-import android.database.CursorIndexOutOfBoundsException;
 import android.os.AsyncTask;
 import android.view.View;
 
@@ -62,14 +61,14 @@ public class ForecastWeatherFetchData extends AsyncTask<String, Void, String>
         Gson gson = new Gson();
         _forecastWeather = gson.fromJson(aVoid, ForecastWeather.class);
 
-        WeatherForecast.forecastList.clear();
+        WeatherForecast.ForecastList.clear();
         //update GUI
         for(int i=0; i<_forecastWeather.getList().size(); i++)
         {
             Date date = new Date(_forecastWeather.getList().get(i).getDt()*1000);
             SimpleDateFormat dayFormatter = new SimpleDateFormat("EEE");
             SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
-            WeatherForecast.forecastList.add(
+            WeatherForecast.ForecastList.add(
                     new Forecast(
                             dayFormatter.format(date),
                             timeFormatter.format(date),
@@ -77,7 +76,7 @@ public class ForecastWeatherFetchData extends AsyncTask<String, Void, String>
                             String.valueOf(_forecastWeather.getList().get(i).getMain().getTemp().intValue()),
                             String.format("%.2f",_forecastWeather.getList().get(i).getWind().getSpeed()*3.6)));
         }
-        WeatherForecast.forecastAdapter.notifyDataSetChanged();
+        WeatherForecast.ForecastAdapter.notifyDataSetChanged();
         MainActivity.DownloadProgressBar.setVisibility(View.GONE);
     }
 

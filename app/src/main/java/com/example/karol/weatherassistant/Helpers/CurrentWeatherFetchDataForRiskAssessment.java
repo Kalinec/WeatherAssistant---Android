@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.karol.weatherassistant.Model.CurrentWeather.CurrentWeather.CurrentWeather;
-import com.example.karol.weatherassistant.Model.CurrentWeather.CurrentWeather.Main;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.View.MainActivity;
 import com.example.karol.weatherassistant.View.PlanTheTrip;
@@ -134,32 +133,32 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             visibilityRiskLevel = getVisibilityRiskLevelForCycling(maxVisibility);
         }
 
-        PlanTheTrip._imageWindSpeedRisk.setVisibility(View.VISIBLE);
-        PlanTheTrip._textWindSpeedRisk.setVisibility(View.VISIBLE);
-        PlanTheTrip._imageWindSpeedRisk.setVisibility(View.VISIBLE);
-        PlanTheTrip._textWindSpeedRisk.setVisibility(View.VISIBLE);
-        PlanTheTrip._imageVisibilityRisk.setVisibility(View.VISIBLE);
-        PlanTheTrip._textVisibilityRisk.setVisibility(View.VISIBLE);
-        PlanTheTrip._textCloudinessRisk.setVisibility(View.VISIBLE);
-        PlanTheTrip._imageCloudinessRisk.setVisibility(View.VISIBLE);
-        PlanTheTrip._imageWeatherConditionRisk.setVisibility(View.VISIBLE);
-        PlanTheTrip._textWeatherConditionRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip.ImageWindSpeedRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip.TextWindSpeedRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip.ImageWindSpeedRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip.TextWindSpeedRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip.ImageVisibilityRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip.TextVisibilityRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip.TextCloudinessRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip.ImageCloudinessRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip.ImageWeatherConditionRisk.setVisibility(View.VISIBLE);
+        PlanTheTrip.TextWeatherConditionRisk.setVisibility(View.VISIBLE);
 
         switch (temperatureRiskLevel)
         {
             case 0:
                 if(minTemperature.equals(maxTemperature))
                 {
-                    PlanTheTrip._textTemperatureRisk.setText(
-                            MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_temperature_walking_and_cycle) +
+                    PlanTheTrip.TextTemperatureRisk.setText(
+                            MainActivity.Resources.getString(R.string.PlanTheTrip_risk_none_temperature_walking_and_cycle) +
                                     " " +
                                     minTemperature.intValue() +
                                     "°C");
                 }
                 else
                 {
-                    PlanTheTrip._textTemperatureRisk.setText(
-                            MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_temperature_walking_and_cycle) +
+                    PlanTheTrip.TextTemperatureRisk.setText(
+                            MainActivity.Resources.getString(R.string.PlanTheTrip_risk_none_temperature_walking_and_cycle) +
                                     " " +
                                     minTemperature.intValue() +
                                     "°C" +
@@ -168,20 +167,20 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                                     "°C");
                 }
 
-                PlanTheTrip._imageTemperatureRisk.setImageResource(R.drawable.if_risk_not);
+                PlanTheTrip.ImageTemperatureRisk.setImageResource(R.drawable.if_risk_not);
                 break;
 
             case 1:
                 if(minTemperature.equals(maxTemperature))
                 {
-                    PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_temperature_walking_and_cycle) +
+                    PlanTheTrip.TextTemperatureRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_moderate_temperature_walking_and_cycle) +
                             " " +
                             minTemperature.intValue() +
                             "°C");
                 }
                 else
                 {
-                    PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_temperature_walking_and_cycle) +
+                    PlanTheTrip.TextTemperatureRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_moderate_temperature_walking_and_cycle) +
                             " " +
                             minTemperature.intValue() +
                                     "°C" +
@@ -189,21 +188,21 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                             maxTemperature.intValue() +
                             "°C");
                 }
-                PlanTheTrip._imageTemperatureRisk.setImageResource(R.drawable.if_risk_moderate);
-                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 5);
+                PlanTheTrip.ImageTemperatureRisk.setImageResource(R.drawable.if_risk_moderate);
+                PlanTheTrip.RiskPoints.setVariable(PlanTheTrip.RiskPoints.getValue() + 5);
                 break;
 
             case 2:
                 if(minTemperature.equals(maxTemperature))
                 {
-                    PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_temperature_walking_and_cycle) +
+                    PlanTheTrip.TextTemperatureRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_temperature_walking_and_cycle) +
                             " " +
                             minTemperature.intValue() +
                             "°C");
                 }
                 else
                 {
-                    PlanTheTrip._textTemperatureRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_temperature_walking_and_cycle) +
+                    PlanTheTrip.TextTemperatureRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_temperature_walking_and_cycle) +
                             " " +
                             minTemperature.intValue() +
                                     "°C" +
@@ -212,13 +211,13 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                             "°C");
                 }
 
-                PlanTheTrip._imageTemperatureRisk.setImageResource(R.drawable.if_risk_high);
-                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 15);
+                PlanTheTrip.ImageTemperatureRisk.setImageResource(R.drawable.if_risk_high);
+                PlanTheTrip.RiskPoints.setVariable(PlanTheTrip.RiskPoints.getValue() + 15);
                 break;
 
             case -1:
-                PlanTheTrip._textTemperatureRisk.setVisibility(View.GONE);
-                PlanTheTrip._imageTemperatureRisk.setVisibility(View.GONE);
+                PlanTheTrip.TextTemperatureRisk.setVisibility(View.GONE);
+                PlanTheTrip.ImageTemperatureRisk.setVisibility(View.GONE);
 
         }
 
@@ -227,34 +226,34 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             case 0:
                 if(minWindSpeed.equals(maxWindSpeed))
                 {
-                    PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_wind_speed_walking_and_cycle) +
+                    PlanTheTrip.TextWindSpeedRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_none_wind_speed_walking_and_cycle) +
                             " " +
                             (int)(minWindSpeed * 3.6) +
                             "km/h");
                 }
                 else
                 {
-                    PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_wind_speed_walking_and_cycle) +
+                    PlanTheTrip.TextWindSpeedRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_none_wind_speed_walking_and_cycle) +
                             " " +
                             (int)(minWindSpeed * 3.6) +
                             "-" +
                             (int)(maxWindSpeed * 3.6) +
                             "km/h");
                 }
-                PlanTheTrip._imageWindSpeedRisk.setImageResource(R.drawable.if_risk_not);
+                PlanTheTrip.ImageWindSpeedRisk.setImageResource(R.drawable.if_risk_not);
                 break;
 
             case 1:
                 if(minWindSpeed.equals(maxWindSpeed))
                 {
-                    PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_wind_speed_walking_and_cycle)+
+                    PlanTheTrip.TextWindSpeedRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_moderate_wind_speed_walking_and_cycle)+
                             " " +
                             (int)(minWindSpeed * 3.6) +
                             "km/h");
                 }
                 else
                 {
-                    PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_wind_speed_walking_and_cycle)+
+                    PlanTheTrip.TextWindSpeedRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_moderate_wind_speed_walking_and_cycle)+
                             " " +
                             (int)(minWindSpeed * 3.6) +
                             "-" +
@@ -262,21 +261,21 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                             "km/h");
                 }
 
-                PlanTheTrip._imageWindSpeedRisk.setImageResource(R.drawable.if_risk_moderate);
-                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 5);
+                PlanTheTrip.ImageWindSpeedRisk.setImageResource(R.drawable.if_risk_moderate);
+                PlanTheTrip.RiskPoints.setVariable(PlanTheTrip.RiskPoints.getValue() + 5);
                 break;
 
             case 2:
                 if(minWindSpeed.equals(maxWindSpeed))
                 {
-                    PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_wind_speed_walking_and_cycle)+
+                    PlanTheTrip.TextWindSpeedRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_wind_speed_walking_and_cycle)+
                             " " +
                             (int)(minWindSpeed * 3.6) +
                             "km/h");
                 }
                 else
                 {
-                    PlanTheTrip._textWindSpeedRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_wind_speed_walking_and_cycle)+
+                    PlanTheTrip.TextWindSpeedRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_wind_speed_walking_and_cycle)+
                             " " +
                             (int)(minWindSpeed * 3.6) +
                             "-" +
@@ -284,13 +283,13 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                             "km/h");
                 }
 
-                PlanTheTrip._imageWindSpeedRisk.setImageResource(R.drawable.if_risk_high);
-                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 15);
+                PlanTheTrip.ImageWindSpeedRisk.setImageResource(R.drawable.if_risk_high);
+                PlanTheTrip.RiskPoints.setVariable(PlanTheTrip.RiskPoints.getValue() + 15);
                 break;
 
             case -1:
-                PlanTheTrip._imageWindSpeedRisk.setVisibility(View.GONE);
-                PlanTheTrip._textWindSpeedRisk.setVisibility(View.GONE);
+                PlanTheTrip.ImageWindSpeedRisk.setVisibility(View.GONE);
+                PlanTheTrip.TextWindSpeedRisk.setVisibility(View.GONE);
         }
 
         switch (visibilityRiskLevel)
@@ -298,14 +297,14 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             case 0:
                 if(minVisibility.equals(maxVisibility))
                 {
-                    PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_visibility_walking_and_cycle) +
+                    PlanTheTrip.TextVisibilityRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_none_visibility_walking_and_cycle) +
                             " " +
                             (int)(minVisibility / 1000) +
                             "km");
                 }
                 else
                 {
-                    PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_visibility_walking_and_cycle) +
+                    PlanTheTrip.TextVisibilityRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_none_visibility_walking_and_cycle) +
                             " " +
                             (int)(minVisibility / 1000) +
                             "-" +
@@ -313,20 +312,20 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                             "km");
                 }
 
-                PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_not);
+                PlanTheTrip.ImageVisibilityRisk.setImageResource(R.drawable.if_risk_not);
                 break;
 
             case 1:
                 if(minVisibility.equals(maxVisibility))
                 {
-                    PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_visibility_walking_and_cycle)+
+                    PlanTheTrip.TextVisibilityRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_moderate_visibility_walking_and_cycle)+
                             " " +
                             (int)(minVisibility / 1000) +
                             "km");
                 }
                 else
                 {
-                    PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_visibility_walking_and_cycle)+
+                    PlanTheTrip.TextVisibilityRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_moderate_visibility_walking_and_cycle)+
                             " " +
                             (int)(minVisibility / 1000) +
                             "-" +
@@ -334,21 +333,21 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                             "km");
                 }
 
-                PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_moderate);
-                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 2);
+                PlanTheTrip.ImageVisibilityRisk.setImageResource(R.drawable.if_risk_moderate);
+                PlanTheTrip.RiskPoints.setVariable(PlanTheTrip.RiskPoints.getValue() + 2);
                 break;
 
             case 2:
                 if(minVisibility.equals(maxVisibility))
                 {
-                    PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_visibility_walking_and_cycle)+
+                    PlanTheTrip.TextVisibilityRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_visibility_walking_and_cycle)+
                             " " +
                             (int)(minVisibility / 1000) +
                             "km");
                 }
                 else
                 {
-                    PlanTheTrip._textVisibilityRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_visibility_walking_and_cycle)+
+                    PlanTheTrip.TextVisibilityRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_visibility_walking_and_cycle)+
                             " " +
                             (int)(minVisibility / 1000) +
                             "-" +
@@ -356,13 +355,13 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                             "km");
                 }
 
-                PlanTheTrip._imageVisibilityRisk.setImageResource(R.drawable.if_risk_high);
-                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 5);
+                PlanTheTrip.ImageVisibilityRisk.setImageResource(R.drawable.if_risk_high);
+                PlanTheTrip.RiskPoints.setVariable(PlanTheTrip.RiskPoints.getValue() + 5);
                 break;
 
             case -1:
-                PlanTheTrip._imageVisibilityRisk.setVisibility(View.GONE);
-                PlanTheTrip._textVisibilityRisk.setVisibility(View.GONE);
+                PlanTheTrip.ImageVisibilityRisk.setVisibility(View.GONE);
+                PlanTheTrip.TextVisibilityRisk.setVisibility(View.GONE);
         }
 
         switch (cloudinessRiskLevel)
@@ -370,14 +369,14 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             case 0:
                 if(minCloudiness.equals(maxCloudiness))
                 {
-                    PlanTheTrip._textCloudinessRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_cloudiness_walking_and_cycle)+
+                    PlanTheTrip.TextCloudinessRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_none_cloudiness_walking_and_cycle)+
                             " " +
                             minCloudiness +
                             "%");
                 }
                 else
                 {
-                    PlanTheTrip._textCloudinessRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_cloudiness_walking_and_cycle)+
+                    PlanTheTrip.TextCloudinessRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_none_cloudiness_walking_and_cycle)+
                             " " +
                             minCloudiness +
                             "-" +
@@ -385,19 +384,19 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                             "%");
                 }
 
-                PlanTheTrip._imageCloudinessRisk.setImageResource(R.drawable.if_risk_not);
+                PlanTheTrip.ImageCloudinessRisk.setImageResource(R.drawable.if_risk_not);
                 break;
             case 1:
                 if(minCloudiness.equals(maxCloudiness))
                 {
-                    PlanTheTrip._textCloudinessRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_cloudiness_walking_and_cycle)+
+                    PlanTheTrip.TextCloudinessRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_moderate_cloudiness_walking_and_cycle)+
                             " " +
                             minCloudiness +
                             "%");
                 }
                 else
                 {
-                    PlanTheTrip._textCloudinessRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate_cloudiness_walking_and_cycle)+
+                    PlanTheTrip.TextCloudinessRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_moderate_cloudiness_walking_and_cycle)+
                             " " +
                             minCloudiness +
                             "-" +
@@ -405,20 +404,20 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                             "%");
                 }
 
-                PlanTheTrip._imageCloudinessRisk.setImageResource(R.drawable.if_risk_moderate);
-                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 1);
+                PlanTheTrip.ImageCloudinessRisk.setImageResource(R.drawable.if_risk_moderate);
+                PlanTheTrip.RiskPoints.setVariable(PlanTheTrip.RiskPoints.getValue() + 1);
                 break;
             case 2:
                 if(minCloudiness.equals(maxCloudiness))
                 {
-                    PlanTheTrip._textCloudinessRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_cloudiness_walking_and_cycle)+
+                    PlanTheTrip.TextCloudinessRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_cloudiness_walking_and_cycle)+
                             " " +
                             minCloudiness +
                             "%");
                 }
                 else
                 {
-                    PlanTheTrip._textCloudinessRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_cloudiness_walking_and_cycle)+
+                    PlanTheTrip.TextCloudinessRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_cloudiness_walking_and_cycle)+
                             " " +
                             minCloudiness +
                             "-" +
@@ -426,37 +425,37 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
                             "%");
                 }
 
-                PlanTheTrip._imageCloudinessRisk.setImageResource(R.drawable.if_risk_high);
-                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 2);
+                PlanTheTrip.ImageCloudinessRisk.setImageResource(R.drawable.if_risk_high);
+                PlanTheTrip.RiskPoints.setVariable(PlanTheTrip.RiskPoints.getValue() + 2);
                 break;
             case -1:
-                PlanTheTrip._textCloudinessRisk.setVisibility(View.GONE);
-                PlanTheTrip._imageCloudinessRisk.setVisibility(View.GONE);
+                PlanTheTrip.TextCloudinessRisk.setVisibility(View.GONE);
+                PlanTheTrip.ImageCloudinessRisk.setVisibility(View.GONE);
                 break;
         }
 
         switch (weatherConditionRiskLevel)
         {
             case 0:
-                PlanTheTrip._imageWeatherConditionRisk.setImageResource(R.drawable.if_risk_not);
-                PlanTheTrip._textWeatherConditionRisk.setText(weatherConditionDescription);
+                PlanTheTrip.ImageWeatherConditionRisk.setImageResource(R.drawable.if_risk_not);
+                PlanTheTrip.TextWeatherConditionRisk.setText(weatherConditionDescription);
                 break;
 
             case 1:
-                PlanTheTrip._imageWeatherConditionRisk.setImageResource(R.drawable.if_risk_moderate);
-                PlanTheTrip._textWeatherConditionRisk.setText(weatherConditionDescription);
-                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 5);
+                PlanTheTrip.ImageWeatherConditionRisk.setImageResource(R.drawable.if_risk_moderate);
+                PlanTheTrip.TextWeatherConditionRisk.setText(weatherConditionDescription);
+                PlanTheTrip.RiskPoints.setVariable(PlanTheTrip.RiskPoints.getValue() + 5);
                 break;
 
             case 2:
-                PlanTheTrip._imageWeatherConditionRisk.setImageResource(R.drawable.if_risk_high);
-                PlanTheTrip._textWeatherConditionRisk.setText(weatherConditionDescription);
-                PlanTheTrip.riskPoints.setVariable(PlanTheTrip.riskPoints.getValue() + 15);
+                PlanTheTrip.ImageWeatherConditionRisk.setImageResource(R.drawable.if_risk_high);
+                PlanTheTrip.TextWeatherConditionRisk.setText(weatherConditionDescription);
+                PlanTheTrip.RiskPoints.setVariable(PlanTheTrip.RiskPoints.getValue() + 15);
                 break;
 
             case -1:
-                PlanTheTrip._imageWeatherConditionRisk.setVisibility(View.GONE);
-                PlanTheTrip._textWeatherConditionRisk.setVisibility(View.GONE);
+                PlanTheTrip.ImageWeatherConditionRisk.setVisibility(View.GONE);
+                PlanTheTrip.TextWeatherConditionRisk.setVisibility(View.GONE);
                 break;
         }
 

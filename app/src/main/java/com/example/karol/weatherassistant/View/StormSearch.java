@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,6 @@ import com.example.karol.weatherassistant.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
-
 public class StormSearch extends Fragment {
 
     public static TextView Time;
@@ -35,8 +32,8 @@ public class StormSearch extends Fragment {
 
     private RecyclerView _recyclerView;
     private RecyclerView.LayoutManager _layoutManager;
-    public static List<Warning> warningList;
-    public static WarningAdapter warningAdapter;
+    public static List<Warning> WarningList;
+    public static WarningAdapter WarningAdapter;
 
 
     public StormSearch() {
@@ -62,10 +59,10 @@ public class StormSearch extends Fragment {
         if(_recyclerView != null)
             _recyclerView.setHasFixedSize(true);
 
-        warningList = new ArrayList<>();
-        warningAdapter = new WarningAdapter(warningList);
-        _recyclerView.setAdapter(warningAdapter);
-        warningAdapter.notifyDataSetChanged();
+        WarningList = new ArrayList<>();
+        WarningAdapter = new WarningAdapter(WarningList);
+        _recyclerView.setAdapter(WarningAdapter);
+        WarningAdapter.notifyDataSetChanged();
 
 
         //radius spinner implementation

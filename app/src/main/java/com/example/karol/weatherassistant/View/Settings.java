@@ -1,26 +1,13 @@
 package com.example.karol.weatherassistant.View;
 
 
-import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Looper;
 import android.os.SystemClock;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,14 +22,9 @@ import android.widget.Toast;
 import com.example.karol.weatherassistant.Helpers.NotificationReceiver;
 import com.example.karol.weatherassistant.Helpers.Permissions;
 import com.example.karol.weatherassistant.R;
-import com.example.karol.weatherassistant.Services.NotificationService;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Settings extends Fragment
 {
-    //private Intent intent;
     private RadioGroup _stormLocationRadioGroup;
     private EditText _city;
     private Spinner _radiusSpinner;
@@ -51,8 +33,8 @@ public class Settings extends Fragment
     private Spinner _updatesFrequencySpinner;
     private CheckBox[] _weatherWarnings;
     private int[] _weatherWarningsValues;
-    private AlarmManager alarmManager;
-    private PendingIntent pendingIntent;
+    private AlarmManager _alarmManager;
+    private PendingIntent _pendingIntent;
 
     public Settings()
     {
@@ -139,26 +121,26 @@ public class Settings extends Fragment
                     else
                     {
                         intent.putExtra("City", _city.getText().toString());
-                        alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
-                        pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-                        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 500, pendingIntent);
+                        _alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+                        _pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                        _alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 500, _pendingIntent);
                         _confirmButton.setEnabled(false);
                         _cancelButton.setVisibility(View.VISIBLE);
                         /*
-                        alarmManager.setInexactRepeating(
+                        _alarmManager.setInexactRepeating(
                                 AlarmManager.ELAPSED_REALTIME_WAKEUP,
                                 SystemClock.elapsedRealtime(),
                                 1000 * 60 * Integer.parseInt(_updatesFrequencySpinner.getSelectedItem().toString()),
-                                pendingIntent); */
+                                _pendingIntent); */
                         ///
-                      /*  alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+                      /*  _alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
                         Intent intent = new Intent(getContext(), NotificationReceiver.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-                        alarmManager.setInexactRepeating(
+                        _pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                        _alarmManager.setInexactRepeating(
                                 AlarmManager.ELAPSED_REALTIME_WAKEUP,
                                 SystemClock.elapsedRealtime(),
                                 1000 * 60 * Integer.parseInt(_updatesFrequencySpinner.getSelectedItem().toString()),
-                                pendingIntent); */
+                                _pendingIntent); */
                         ///
 
                     }
@@ -175,18 +157,18 @@ public class Settings extends Fragment
 
                     if(MainActivity.CheckGpsStatus(getContext()))
                     {
-                        alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
-                        pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-                        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 15000, pendingIntent);
+                        _alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+                        _pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                        _alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 15000, _pendingIntent);
 
                         _confirmButton.setEnabled(false);
                         _cancelButton.setVisibility(View.VISIBLE);
                         /*
-                        alarmManager.setInexactRepeating(
+                        _alarmManager.setInexactRepeating(
                                 AlarmManager.ELAPSED_REALTIME_WAKEUP,
                                 SystemClock.elapsedRealtime(),
                                 1000 * 60 * Integer.parseInt(_updatesFrequencySpinner.getSelectedItem().toString()),
-                                pendingIntent); */
+                                _pendingIntent); */
                     }
 
                     else {
@@ -204,16 +186,16 @@ public class Settings extends Fragment
             {
 
                 //Canceling the alarm when the application has not been closed.
-               if(alarmManager != null)
-                   alarmManager.cancel(pendingIntent);
+               if(_alarmManager != null)
+                   _alarmManager.cancel(_pendingIntent);
 
                //Canceling an alarm in case the application was previously closed.
                else
                {
                    Intent intent = new Intent(getContext(), NotificationReceiver.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                   alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
-                   pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-                   alarmManager.cancel(pendingIntent);
+                   _alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+                   _pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                   _alarmManager.cancel(_pendingIntent);
                }
 
                _confirmButton.setEnabled(true);

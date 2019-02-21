@@ -1,7 +1,6 @@
 package com.example.karol.weatherassistant.View;
 
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -16,10 +15,8 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
-import android.widget.Toolbar;
 
 import com.example.karol.weatherassistant.R;
 import com.koushikdutta.ion.Ion;
@@ -35,9 +32,8 @@ public class StormyMap extends Fragment {
     private CheckBox _showGroupsAndStormsNumber;
     private ToggleButton _selectedMap;
     private RadioButton _staticMap;
-    private RadioButton _animatedMap;
     private Spinner _mapMagnification;
-    private ArrayAdapter<CharSequence> adapter;
+    private ArrayAdapter<CharSequence> _adapter;
 
     public StormyMap() {
         // Required empty public constructor
@@ -57,13 +53,12 @@ public class StormyMap extends Fragment {
         _showGroupsAndStormsNumber = view.findViewById(R.id.checkBox_stormyMap_showGroupsAndStormsNumber);
         _selectedMap = view.findViewById(R.id.toggleButton_stormyMap_mapChange);
         _staticMap = view.findViewById(R.id.radioButton_stormyMap_staticMap);
-        _animatedMap = view.findViewById(R.id.radioButton_stormyMap_animatedMap);
         _mapMagnification = view.findViewById(R.id.spinner_stormyMap_magnification);
         _staticMap.setChecked(true);
 
-        adapter = ArrayAdapter.createFromResource(getContext(),R.array.magnification_polish_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        _mapMagnification.setAdapter(adapter);
+        _adapter = ArrayAdapter.createFromResource(getContext(),R.array.magnification_polish_array, android.R.layout.simple_spinner_item);
+        _adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        _mapMagnification.setAdapter(_adapter);
 
         _mapMagnification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -127,11 +122,11 @@ public class StormyMap extends Fragment {
     private void changeSpinnerList()
     {
         if(_selectedMap.isChecked())
-            adapter = ArrayAdapter.createFromResource(getContext(),R.array.magnification_europe_array, android.R.layout.simple_spinner_item);
+            _adapter = ArrayAdapter.createFromResource(getContext(),R.array.magnification_europe_array, android.R.layout.simple_spinner_item);
         else
-            adapter = ArrayAdapter.createFromResource(getContext(),R.array.magnification_polish_array, android.R.layout.simple_spinner_item);
+            _adapter = ArrayAdapter.createFromResource(getContext(),R.array.magnification_polish_array, android.R.layout.simple_spinner_item);
 
-        _mapMagnification.setAdapter(adapter);
+        _mapMagnification.setAdapter(_adapter);
     }
     private void changeMap()
     {

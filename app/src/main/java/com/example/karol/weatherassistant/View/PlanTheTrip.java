@@ -12,17 +12,13 @@ import com.example.karol.weatherassistant.Helpers.RiskPointListener;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.Services.BurzeDzisService.IWsdl2CodeEvents;
 import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTypeBurza;
-import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTypeMiejscowosc;
 import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTypeOstrzezenia;
 import com.example.karol.weatherassistant.Services.BurzeDzisService.serwerSOAPService;
 import com.example.karol.weatherassistant.Services.WeatherService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
-import com.mapbox.api.directions.v5.MapboxDirections;
 import com.mapbox.api.directions.v5.models.LegStep;
-import com.mapbox.api.geocoding.v5.GeocodingCriteria;
-import com.mapbox.geocoder.MapboxGeocoder;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
@@ -68,38 +64,36 @@ import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 import com.mapbox.services.android.ui.geocoder.GeocoderAutoCompleteView;
 import com.mapbox.services.api.geocoding.v5.models.CarmenFeature;
 
-import static android.content.ContentValues.TAG;
-
 public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxMap.OnMapClickListener, LocationEngineListener, PermissionsListener {
-    private MapView mapView;
+    private MapView _mapView;
     // variables for adding location layer
-    private MapboxMap mapboxMap;
-    private PermissionsManager permissionsManager;
-    private LocationLayerPlugin locationLayerPlugin;
+    private MapboxMap _mapboxMap;
+    private PermissionsManager _permissionsManager;
+    private LocationLayerPlugin _locationLayerPlugin;
     //private LocationEngine locationEngine;
-    private Location originLocation;
+    //private Location originLocation;
     // variables for adding a marker
-    private Marker destinationMarker;
-    private LatLng originCoord;
-    private LatLng destinationCoord;
+    private Marker _destinationMarker;
+    private LatLng _originCoord;
+    private LatLng _destinationCoord;
     // variables for calculating and drawing a route
 
-    private Point originPoint;
-    private Point destinationPoint;
-    private Position originPosition;
-    private Position destinationPosition;
-    private DirectionsRoute currentRoute;
+    private Point _originPoint;
+    private Point _destinationPoint;
+    private Position _originPosition;
+    private Position _destinationPosition;
+    private DirectionsRoute _currentRoute;
     private static final String TAG = "DirectionsActivity";
-    private NavigationMapRoute navigationMapRoute;
+    private NavigationMapRoute _navigationMapRoute;
     private ImageButton _displayRouteSet;
     private ImageButton _displayRiskInfo;
     private CardView _routeCardView;
     private Button _showRouteButton;
     private RadioButton _criteriaWalkingMode;
     private RadioButton _criteriaCyclingMode;
-    private MapboxGeocoder _mapboxGeocoder;
-    private GeocoderAutoCompleteView autoCompleteOrigin;
-    private GeocoderAutoCompleteView autoCompleteDestination;
+    //private MapboxGeocoder _mapboxGeocoder;
+    private GeocoderAutoCompleteView _autoCompleteOrigin;
+    private GeocoderAutoCompleteView _autoCompleteDestination;
     private Button _startNavigateButton;
 
     //Route details
@@ -110,29 +104,29 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     //Risk info details
     private CardView _riskDetailsCardView;
     private ImageButton _exitRiskDetailsCardView;
-    public static TextView _generalRisk;
-    public static ImageView _imageStormRisk;
-    public static ImageView _imageWeatherWarningRisk;
-    public static ImageView _imageTemperatureRisk;
-    public static ImageView _imageWeatherConditionRisk;
-    public static ImageView _imageCloudinessRisk;
-    public static ImageView _imageWindSpeedRisk;
-    public static ImageView _imageVisibilityRisk;
-    public static TextView _textStormRisk;
-    public static TextView _textWeatherWarningRisk;
-    public static TextView _textTemperatureRisk;
-    public static TextView _textWeatherConditionRisk;
-    public static TextView _textCloudinessRisk;
-    public static TextView _textWindSpeedRisk;
-    public static TextView _textVisibilityRisk;
+    public static TextView GeneralRisk;
+    public static ImageView ImageStormRisk;
+    public static ImageView ImageWeatherWarningRisk;
+    public static ImageView ImageTemperatureRisk;
+    public static ImageView ImageWeatherConditionRisk;
+    public static ImageView ImageCloudinessRisk;
+    public static ImageView ImageWindSpeedRisk;
+    public static ImageView ImageVisibilityRisk;
+    public static TextView TextStormRisk;
+    public static TextView TextWeatherWarningRisk;
+    public static TextView TextTemperatureRisk;
+    public static TextView TextWeatherConditionRisk;
+    public static TextView TextCloudinessRisk;
+    public static TextView TextWindSpeedRisk;
+    public static TextView TextVisibilityRisk;
    // public static int riskPoint;
     private boolean _riskPointGranted;
-    public static RiskPointListener riskPoints;
+    public static RiskPointListener RiskPoints;
 
     //Burze.dzis.net API
     final int RADIUS = 25;
     private serwerSOAPService _stormApi;
-    public IWsdl2CodeEvents _eventsHandler;
+    public IWsdl2CodeEvents EventsHandler;
     private boolean _areStormsExist;
     private int _frostWarningLevel;
     private int _heatWarningLevel;
@@ -141,13 +135,13 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     private int _stormWarningLevel;
     private int _tornadoWarningLevel;
 
-    private MapboxDirections client;
+    //private MapboxDirections client;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plan_the_trip, container, false);
         Mapbox.getInstance(getActivity(), getString(R.string.mapbox_access_token));
-        mapView = view.findViewById(R.id.mapView);
+        _mapView = view.findViewById(R.id.mapView);
         _displayRouteSet = (ImageButton) view.findViewById(R.id.imageButton_route);
         _displayRiskInfo = view.findViewById(R.id.imageButton_planTheTrip_options_display_risk_info);
         _exitRiskDetailsCardView = view.findViewById(R.id.imageButton_planTheTrip_risk_exit);
@@ -156,34 +150,34 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
         _showRouteButton = (Button) view.findViewById(R.id.button_show_route);
         _criteriaWalkingMode = view.findViewById(R.id.radioButton_planTheTrip_walk_mode);
         _criteriaCyclingMode = view.findViewById(R.id.radioButton_planTheTrip_bike_mode);
-        autoCompleteOrigin = (GeocoderAutoCompleteView) view.findViewById(R.id.origin);
-        autoCompleteDestination = view.findViewById(R.id.destination);
+        _autoCompleteOrigin = (GeocoderAutoCompleteView) view.findViewById(R.id.origin);
+        _autoCompleteDestination = view.findViewById(R.id.destination);
         _routeDetailsCardView = view.findViewById(R.id.cardView_planTheTrip_route_details);
         _routeTime = view.findViewById(R.id.textView_planTheTrip_time);
         _routeDistance = view.findViewById(R.id.textView_planTheTrip_distance);
         _startNavigateButton = view.findViewById(R.id.button_planTheTrip_start_navigate);
-        riskPoints = new RiskPointListener();
-        _generalRisk = view.findViewById(R.id.textView_planTheTrip_risk_riskValue);
-        _imageStormRisk = view.findViewById(R.id.imageView_planTheTrip_risk_stormRisk);
-        _imageWeatherWarningRisk = view.findViewById(R.id.imageView_planTheTrip_risk_weatherWarningRisk);
-        _imageTemperatureRisk = view.findViewById(R.id.imageView_planTheTrip_risk_temperatureRisk);
-        _imageWeatherConditionRisk = view.findViewById(R.id.imageView_planTheTrip_risk_weatherConditionRisk);
-        _imageCloudinessRisk = view.findViewById(R.id.imageView_planTheTrip_risk_cloudinessRisk);
-        _imageWindSpeedRisk = view.findViewById(R.id.imageView_planTheTrip_risk_windSpeedRisk);
-        _imageVisibilityRisk = view.findViewById(R.id.imageView_planTheTrip_risk_visibilityRisk);
-        _textStormRisk = view.findViewById(R.id.textView_planTheTrip_risk_stormRisk);
-        _textWeatherWarningRisk = view.findViewById(R.id.textView_planTheTrip_risk_weatherWarningRisk);
-        _textTemperatureRisk = view.findViewById(R.id.textView_planTheTrip_risk_temperatureRisk);
-        _textWeatherConditionRisk = view.findViewById(R.id.textView_planTheTrip_risk_weatherConditionRisk);
-        _textCloudinessRisk = view.findViewById(R.id.textView_planTheTrip_risk_cloudinessRisk);
-        _textWindSpeedRisk = view.findViewById(R.id.textView_planTheTrip_risk_windSpeedRisk);
-        _textVisibilityRisk = view.findViewById(R.id.textView_planTheTrip_risk_visibilityRisk);
+        RiskPoints = new RiskPointListener();
+        GeneralRisk = view.findViewById(R.id.textView_planTheTrip_risk_riskValue);
+        ImageStormRisk = view.findViewById(R.id.imageView_planTheTrip_risk_stormRisk);
+        ImageWeatherWarningRisk = view.findViewById(R.id.imageView_planTheTrip_risk_weatherWarningRisk);
+        ImageTemperatureRisk = view.findViewById(R.id.imageView_planTheTrip_risk_temperatureRisk);
+        ImageWeatherConditionRisk = view.findViewById(R.id.imageView_planTheTrip_risk_weatherConditionRisk);
+        ImageCloudinessRisk = view.findViewById(R.id.imageView_planTheTrip_risk_cloudinessRisk);
+        ImageWindSpeedRisk = view.findViewById(R.id.imageView_planTheTrip_risk_windSpeedRisk);
+        ImageVisibilityRisk = view.findViewById(R.id.imageView_planTheTrip_risk_visibilityRisk);
+        TextStormRisk = view.findViewById(R.id.textView_planTheTrip_risk_stormRisk);
+        TextWeatherWarningRisk = view.findViewById(R.id.textView_planTheTrip_risk_weatherWarningRisk);
+        TextTemperatureRisk = view.findViewById(R.id.textView_planTheTrip_risk_temperatureRisk);
+        TextWeatherConditionRisk = view.findViewById(R.id.textView_planTheTrip_risk_weatherConditionRisk);
+        TextCloudinessRisk = view.findViewById(R.id.textView_planTheTrip_risk_cloudinessRisk);
+        TextWindSpeedRisk = view.findViewById(R.id.textView_planTheTrip_risk_windSpeedRisk);
+        TextVisibilityRisk = view.findViewById(R.id.textView_planTheTrip_risk_visibilityRisk);
 
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
+        _mapView.onCreate(savedInstanceState);
+        _mapView.getMapAsync(this);
 
         //burze.dzis.net API initialization
-        _eventsHandler = new IWsdl2CodeEvents() {
+        EventsHandler = new IWsdl2CodeEvents() {
             @Override
             public void Wsdl2CodeStartedRequest() {
 
@@ -219,9 +213,9 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                         if(stormInfo.liczba != 0)
                         {
                             _areStormsExist = true;
-                            PlanTheTrip._imageStormRisk.setImageResource(R.drawable.if_risk_high);
-                            PlanTheTrip._textStormRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_storm_walking_and_cycle));
-                            riskPoints.setVariable(riskPoints.getValue() + 15);
+                            PlanTheTrip.ImageStormRisk.setImageResource(R.drawable.if_risk_high);
+                            PlanTheTrip.TextStormRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_storm_walking_and_cycle));
+                            RiskPoints.setVariable(RiskPoints.getValue() + 15);
                         }
                         break;
                     case "miejscowosci_lista":
@@ -239,26 +233,26 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
 
             }
         };
-        _stormApi = new serwerSOAPService(_eventsHandler, "https://burze.dzis.net/soap.php");
+        _stormApi = new serwerSOAPService(EventsHandler, "https://burze.dzis.net/soap.php");
        // _locationInfo = new MyComplexTypeMiejscowosc();
        // _stormInfo = new MyComplexTypeBurza();
         //_warningInfo = new MyComplexTypeOstrzezenia();
 
-        autoCompleteOrigin.setAccessToken(Mapbox.getAccessToken());
-        //autoCompleteOrigin.setType(GeocodingCriteria.TYPE_PLACE);
-        autoCompleteOrigin.setOnFeatureListener(new GeocoderAutoCompleteView.OnFeatureListener() {
+        _autoCompleteOrigin.setAccessToken(Mapbox.getAccessToken());
+        //_autoCompleteOrigin.setType(GeocodingCriteria.TYPE_PLACE);
+        _autoCompleteOrigin.setOnFeatureListener(new GeocoderAutoCompleteView.OnFeatureListener() {
             @Override
             public void onFeatureClick(CarmenFeature feature) {
-                originPosition = feature.asPosition();
+                _originPosition = feature.asPosition();
             }
         });
 
-        autoCompleteDestination.setAccessToken(Mapbox.getAccessToken());
-        //autoCompleteDestination.setType(GeocodingCriteria.TYPE_PLACE);
-        autoCompleteDestination.setOnFeatureListener(new GeocoderAutoCompleteView.OnFeatureListener() {
+        _autoCompleteDestination.setAccessToken(Mapbox.getAccessToken());
+        //_autoCompleteDestination.setType(GeocodingCriteria.TYPE_PLACE);
+        _autoCompleteDestination.setOnFeatureListener(new GeocoderAutoCompleteView.OnFeatureListener() {
             @Override
             public void onFeatureClick(CarmenFeature feature) {
-                destinationPosition = feature.asPosition();
+                _destinationPosition = feature.asPosition();
 
             }
         });
@@ -278,7 +272,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             @Override
             public void onClick(View v)
             {
-                if(_riskDetailsCardView.getVisibility() == View.GONE && currentRoute != null)
+                if(_riskDetailsCardView.getVisibility() == View.GONE && _currentRoute != null)
                     _riskDetailsCardView.setVisibility(View.VISIBLE);
                 else if(_riskDetailsCardView.getVisibility() == View.VISIBLE)
                     _riskDetailsCardView.setVisibility(View.GONE);
@@ -296,17 +290,21 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             @Override
             public void onClick(View v)
             {
+                //validation check
+                if(_autoCompleteOrigin.getText().toString().isEmpty() || _autoCompleteDestination.getText().toString().isEmpty())
+                    return;
+
                 //delete any markers
-                if (destinationMarker != null)
-                    mapboxMap.removeMarker(destinationMarker);
-               if(originPosition.getLatitude() != 0.00 && originPosition.getLongitude() != 0.00 && destinationPosition.getLatitude() != 0.00 && destinationPosition.getLongitude() != 0.00)
+                if (_destinationMarker != null)
+                    _mapboxMap.removeMarker(_destinationMarker);
+               if(_originPosition.getLatitude() != 0.00 && _originPosition.getLongitude() != 0.00 && _destinationPosition.getLatitude() != 0.00 && _destinationPosition.getLongitude() != 0.00)
                {
-                   originPoint = Point.fromLngLat(originPosition.getLongitude(),originPosition.getLatitude());
-                   destinationPoint = Point.fromLngLat(destinationPosition.getLongitude(),destinationPosition.getLatitude());
+                   _originPoint = Point.fromLngLat(_originPosition.getLongitude(), _originPosition.getLatitude());
+                   _destinationPoint = Point.fromLngLat(_destinationPosition.getLongitude(), _destinationPosition.getLatitude());
 
                    try
                    {
-                       getRoute(originPoint,destinationPoint);
+                       getRoute(_originPoint, _destinationPoint);
 
 
                    }
@@ -321,24 +319,24 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             }
         });
 
-        riskPoints.setValueChangeListener(new RiskPointListener.onValueChangeListener() {
+        RiskPoints.setValueChangeListener(new RiskPointListener.onValueChangeListener() {
             @Override
             public void onChange() {
-                if(riskPoints.getValue() <= 4)
-                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none) +
+                if(RiskPoints.getValue() <= 4)
+                    GeneralRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_none) +
                             " (" +
-                            riskPoints.getValue()
+                            RiskPoints.getValue()
                             + "pkt)");
 
-                else if(riskPoints.getValue() >= 15)
-                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high) +
+                else if(RiskPoints.getValue() >= 15)
+                    GeneralRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high) +
                             " (" +
-                            riskPoints.getValue() +
+                            RiskPoints.getValue() +
                             "pkt)");
                 else
-                    _generalRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_moderate) +
+                    GeneralRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_moderate) +
                             " (" +
-                            riskPoints.getValue() +
+                            RiskPoints.getValue() +
                             "pkt)");
             }
         });
@@ -347,9 +345,9 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     };
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
+        this._mapboxMap = mapboxMap;
         enableLocationPlugin();
-        originCoord = new LatLng(51.14, 22.34);
+        _originCoord = new LatLng(51.14, 22.34);
         // Toast.makeText(getActivity(), "Latitude: " + originLocation.getLatitude() + "  Longitude: " + originLocation.getLongitude(), Toast.LENGTH_SHORT).show();
 
         mapboxMap.addOnMapClickListener(this);
@@ -358,7 +356,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             public void onClick(View v) {
                 boolean simulateRoute = false;
                 NavigationLauncherOptions options = NavigationLauncherOptions.builder()
-                        .directionsRoute(currentRoute)
+                        .directionsRoute(_currentRoute)
                         .shouldSimulateRoute(simulateRoute)
                         .build();
                 NavigationLauncher.startNavigation(getActivity(), options);
@@ -369,16 +367,16 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
 
     @Override
     public void onMapClick(@NonNull LatLng point){
-        if (destinationMarker != null) {
-            mapboxMap.removeMarker(destinationMarker);
+        if (_destinationMarker != null) {
+            _mapboxMap.removeMarker(_destinationMarker);
         }
-        destinationCoord = point;
-        destinationMarker = mapboxMap.addMarker(new MarkerOptions()
-                .position(destinationCoord)
+        _destinationCoord = point;
+        _destinationMarker = _mapboxMap.addMarker(new MarkerOptions()
+                .position(_destinationCoord)
         );
-        destinationPoint = Point.fromLngLat(destinationCoord.getLongitude(), destinationCoord.getLatitude());
-        originPoint = Point.fromLngLat(originCoord.getLongitude(), originCoord.getLatitude());
-        getRoute(originPoint, destinationPoint);
+        _destinationPoint = Point.fromLngLat(_destinationCoord.getLongitude(), _destinationCoord.getLatitude());
+        _originPoint = Point.fromLngLat(_originCoord.getLongitude(), _originCoord.getLatitude());
+        getRoute(_originPoint, _destinationPoint);
         //button.setEnabled(true);
     }
 
@@ -405,23 +403,23 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                         }
 
                         //saving the map route
-                        currentRoute = response.body().routes().get(0);
+                        _currentRoute = response.body().routes().get(0);
 
                         //update UI - time and distance
                         _routeCardView.setVisibility(View.GONE);
-                        _routeTime.setText(durationToDisplay(currentRoute.duration()));
-                        _routeDistance.setText(distanceToDisplay(currentRoute.distance()));
+                        _routeTime.setText(durationToDisplay(_currentRoute.duration()));
+                        _routeDistance.setText(distanceToDisplay(_currentRoute.distance()));
                         _routeDetailsCardView.setVisibility(View.VISIBLE);
 
 
                         // Draw the route on the map
-                        if (navigationMapRoute != null) {
-                            navigationMapRoute.removeRoute();
+                        if (_navigationMapRoute != null) {
+                            _navigationMapRoute.removeRoute();
                         } else {
-                            navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
+                            _navigationMapRoute = new NavigationMapRoute(null, _mapView, _mapboxMap, R.style.NavigationMapRoute);
                         }
-                        navigationMapRoute.addRoute(currentRoute);
-                        assessTheRisk(currentRoute.distance(), currentRoute.legs().get(0).steps(), routeProfile);
+                        _navigationMapRoute.addRoute(_currentRoute);
+                        assessTheRisk(_currentRoute.distance(), _currentRoute.legs().get(0).steps(), routeProfile);
                     }
 
                     @Override
@@ -433,13 +431,13 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                 .include(new LatLng(origin.latitude(), origin.longitude()))
                 .include(new LatLng(destination.latitude(), destination.longitude()))
                 .build();
-        mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 20), 5000, null);
+        _mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 20), 5000, null);
     }
 
     private void assessTheRisk(double distance, List<LegStep> steps, String criteria)
     {
         _riskPointGranted = false;
-        riskPoints.setVariable(0);
+        RiskPoints.setVariable(0);
         _areStormsExist = false;
         _frostWarningLevel = 0;
         _heatWarningLevel = 0;
@@ -447,8 +445,8 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
         _rainWarningLevel = 0;
         _stormWarningLevel = 0;
         _tornadoWarningLevel = 0;
-        PlanTheTrip._imageStormRisk.setImageResource(R.drawable.if_risk_not);
-        PlanTheTrip._textStormRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_storm_walking_and_cycle));
+        PlanTheTrip.ImageStormRisk.setImageResource(R.drawable.if_risk_not);
+        PlanTheTrip.TextStormRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_none_storm_walking_and_cycle));
 
         ArrayList<ArrayList<Double>> listOfCoordinates = new ArrayList<ArrayList<Double>>();
         if(distance <= 25000)
@@ -499,110 +497,110 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                 _windWarningLevel == 0 || _rainWarningLevel == 0 ||
                 _stormWarningLevel == 0 || _tornadoWarningLevel == 0)
         {
-            PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_none_warnings_walking_and_cycle));
-            PlanTheTrip._imageWeatherWarningRisk.setImageResource(R.drawable.if_risk_not);
+            PlanTheTrip.TextWeatherWarningRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_none_warnings_walking_and_cycle));
+            PlanTheTrip.ImageWeatherWarningRisk.setImageResource(R.drawable.if_risk_not);
         }
 
         else
         {
             if(!_riskPointGranted)
             {
-                riskPoints.setVariable(riskPoints.getValue() + 15);
+                RiskPoints.setVariable(RiskPoints.getValue() + 15);
                 _riskPointGranted = true;
             }
 
-            PlanTheTrip._textWeatherWarningRisk.setText("");
-            PlanTheTrip._imageWeatherWarningRisk.setImageResource(R.drawable.if_risk_high);
+            PlanTheTrip.TextWeatherWarningRisk.setText("");
+            PlanTheTrip.ImageWeatherWarningRisk.setImageResource(R.drawable.if_risk_high);
             switch (_frostWarningLevel)
             {
                 case 1:
-                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree1_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree1_walking_and_cycle));
                     break;
                 case 2:
-                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree2_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree2_walking_and_cycle));
                     break;
                 case 3:
-                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree3_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_frost_degree3_walking_and_cycle));
                     break;
             }
 
             switch (_heatWarningLevel)
             {
                 case 1:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_heat_degree1_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.append(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_heat_degree1_walking_and_cycle));
                     break;
                 case 2:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_heat_degree2_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.append(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_heat_degree2_walking_and_cycle));
                     break;
                 case 3:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_heat_degree3_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_heat_degree3_walking_and_cycle));
                     break;
             }
 
             switch (_windWarningLevel)
             {
                 case 1:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_wind_degree1_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.append(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_wind_degree1_walking_and_cycle));
                     break;
                 case 2:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_wind_degree2_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.append(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_wind_degree2_walking_and_cycle));
                     break;
                 case 3:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_wind_degree3_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_wind_degree3_walking_and_cycle));
                     break;
             }
 
             switch (_rainWarningLevel)
             {
                 case 1:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_rain_degree1_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.append(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_rain_degree1_walking_and_cycle));
                     break;
                 case 2:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_rain_degree2_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.append(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_rain_degree2_walking_and_cycle));
                     break;
                 case 3:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.setText(getString(R.string.PlanTheTrip_risk_high_warnings_rain_degree3_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.setText(getString(R.string.PlanTheTrip_risk_high_warnings_rain_degree3_walking_and_cycle));
                     break;
             }
 
             switch (_stormWarningLevel)
             {
                 case 1:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_storms_degree1_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.append(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_storms_degree1_walking_and_cycle));
                     break;
                 case 2:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_storms_degree2_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.append(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_storms_degree2_walking_and_cycle));
                     break;
                 case 3:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_storms_degree3_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_storms_degree3_walking_and_cycle));
                     break;
             }
 
             switch (_tornadoWarningLevel)
             {
                 case 1:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_tornado_degree1_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.append(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_tornado_degree1_walking_and_cycle));
                     break;
                 case 2:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.append(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_tornado_degree2_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.append(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_tornado_degree2_walking_and_cycle));
                     break;
                 case 3:
-                    PlanTheTrip._textWeatherWarningRisk.append("\n");
-                    PlanTheTrip._textWeatherWarningRisk.setText(MainActivity.resources.getString(R.string.PlanTheTrip_risk_high_warnings_tornado_degree3_walking_and_cycle));
+                    PlanTheTrip.TextWeatherWarningRisk.append("\n");
+                    PlanTheTrip.TextWeatherWarningRisk.setText(MainActivity.Resources.getString(R.string.PlanTheTrip_risk_high_warnings_tornado_degree3_walking_and_cycle));
                     break;
             }
         }
@@ -675,24 +673,24 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                 MainActivity.buildAlertMessageNoGps(getContext());
             // Create an instance of the plugin. Adding in LocationLayerOptions is also an optional
             // parameter
-            locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap);
+            _locationLayerPlugin = new LocationLayerPlugin(_mapView, _mapboxMap);
 
             // Set the plugin's camera mode
-            locationLayerPlugin.setCameraMode(CameraMode.TRACKING);
-            getLifecycle().addObserver(locationLayerPlugin);
+            _locationLayerPlugin.setCameraMode(CameraMode.TRACKING);
+            getLifecycle().addObserver(_locationLayerPlugin);
         } else {
-            permissionsManager = new PermissionsManager(this);
-            permissionsManager.requestLocationPermissions(getActivity());
+            _permissionsManager = new PermissionsManager(this);
+            _permissionsManager.requestLocationPermissions(getActivity());
         }
     }
 
     @SuppressWarnings( {"MissingPermission"})
     private void initializeLocationEngine() {
-            MainActivity._fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            MainActivity.FusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
-                   originCoord.setLatitude(task.getResult().getLatitude());
-                   originCoord.setLongitude(task.getResult().getLongitude());
+                   _originCoord.setLatitude(task.getResult().getLatitude());
+                   _originCoord.setLongitude(task.getResult().getLongitude());
                 }
             });
         }
@@ -700,7 +698,7 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        _permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -722,49 +720,49 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     @Override
     public void onStart() {
         super.onStart();
-        mapView.onStart();
-        if (locationLayerPlugin != null) {
-            locationLayerPlugin.onStart();
+        _mapView.onStart();
+        if (_locationLayerPlugin != null) {
+            _locationLayerPlugin.onStart();
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mapView.onResume();
+        _mapView.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mapView.onPause();
+        _mapView.onPause();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mapView.onStop();
-        if (locationLayerPlugin != null) {
-            locationLayerPlugin.onStop();
+        _mapView.onStop();
+        if (_locationLayerPlugin != null) {
+            _locationLayerPlugin.onStop();
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
+        _mapView.onSaveInstanceState(outState);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mapView.onDestroy();
+        _mapView.onDestroy();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        mapView.onLowMemory();
+        _mapView.onLowMemory();
     }
 
     @Override
@@ -775,6 +773,6 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     @Override
     public void onLocationChanged(Location location)
     {
-        originLocation = location;
+        //_originLocation = location;
     }
 }

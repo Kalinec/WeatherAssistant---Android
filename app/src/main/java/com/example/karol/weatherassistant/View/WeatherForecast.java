@@ -1,40 +1,25 @@
 package com.example.karol.weatherassistant.View;
 
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationListener;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.karol.weatherassistant.Helpers.ForecastAdapter;
 import com.example.karol.weatherassistant.Model.CurrentWeather.Forecast;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.Services.WeatherService;
 import com.github.lzyzsd.circleprogress.ArcProgress;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.mapzen.android.lost.api.LocationRequest;
-import com.mapzen.android.lost.api.LocationServices;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,8 +49,8 @@ public class WeatherForecast extends Fragment
 
     private RecyclerView _recyclerView;
     private RecyclerView.LayoutManager _layoutManager;
-    public static List<Forecast> forecastList;
-    public static ForecastAdapter forecastAdapter;
+    public static List<Forecast> ForecastList;
+    public static ForecastAdapter ForecastAdapter;
 
 
 
@@ -118,10 +103,10 @@ public class WeatherForecast extends Fragment
         if(_recyclerView != null)
             _recyclerView.setHasFixedSize(true);
 
-        forecastList = new ArrayList<>();
-        forecastAdapter = new ForecastAdapter(forecastList);
-        _recyclerView.setAdapter(forecastAdapter);
-        forecastAdapter.notifyDataSetChanged();
+        ForecastList = new ArrayList<>();
+        ForecastAdapter = new ForecastAdapter(ForecastList);
+        _recyclerView.setAdapter(ForecastAdapter);
+        ForecastAdapter.notifyDataSetChanged();
 
         return view;
     }

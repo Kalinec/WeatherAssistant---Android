@@ -1,19 +1,13 @@
 package com.example.karol.weatherassistant.Helpers;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 
 import com.example.karol.weatherassistant.Model.CurrentWeather.CurrentWeather.CurrentWeather;
-import com.example.karol.weatherassistant.Model.CurrentWeather.CurrentWeather.Weather;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.View.MainActivity;
-import com.example.karol.weatherassistant.View.PlanTheTrip;
 import com.example.karol.weatherassistant.View.WeatherForecast;
 import com.google.gson.Gson;
-import com.mapbox.api.directions.v5.DirectionsCriteria;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,12 +17,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public class CurrentWeatherFetchData extends AsyncTask<String, Void, String> {
     //String viewPagerSelectedFragment;
@@ -200,15 +191,15 @@ public class CurrentWeatherFetchData extends AsyncTask<String, Void, String> {
     {
         String directions[] =
                 {
-                        MainActivity.resources.getString(R.string.coord_N),
-                        MainActivity.resources.getString(R.string.coord_NE),
-                        MainActivity.resources.getString(R.string.coord_E),
-                        MainActivity.resources.getString(R.string.coord_SE),
-                        MainActivity.resources.getString(R.string.coord_S),
-                        MainActivity.resources.getString(R.string.coord_SW),
-                        MainActivity.resources.getString(R.string.coord_W),
-                        MainActivity.resources.getString(R.string.coord_NW),
-                        MainActivity.resources.getString(R.string.coord_N),
+                        MainActivity.Resources.getString(R.string.coord_N),
+                        MainActivity.Resources.getString(R.string.coord_NE),
+                        MainActivity.Resources.getString(R.string.coord_E),
+                        MainActivity.Resources.getString(R.string.coord_SE),
+                        MainActivity.Resources.getString(R.string.coord_S),
+                        MainActivity.Resources.getString(R.string.coord_SW),
+                        MainActivity.Resources.getString(R.string.coord_W),
+                        MainActivity.Resources.getString(R.string.coord_NW),
+                        MainActivity.Resources.getString(R.string.coord_N),
 
                 };
         return directions[ (int)Math.round((  ((double)x % 360) / 45)) ];
