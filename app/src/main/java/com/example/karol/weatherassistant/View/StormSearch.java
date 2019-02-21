@@ -24,30 +24,6 @@ import static android.content.ContentValues.TAG;
 
 public class StormSearch extends Fragment {
 
-   /* public IWsdl2CodeEvents _eventsHandler = new IWsdl2CodeEvents() {
-        @Override
-        public void Wsdl2CodeStartedRequest() {
-
-        }
-
-        @Override
-        public void Wsdl2CodeFinished(String methodName, Object Data) {
-            StormSearch._time.setText(methodName + ": " + Data.toString());
-        }
-
-        @Override
-        public void Wsdl2CodeFinishedWithException(Exception ex) {
-            //Log.e(TAG, "Explanation of what was being attempted with this shit", ex);
-        }
-
-        @Override
-        public void Wsdl2CodeEndedRequest() {
-
-        }
-    };
-    private serwerSOAPService _service = new serwerSOAPService(_eventsHandler,"https://burze.dzis.net/soap.php");
-    private MyComplexTypeBurza _burzatest = new MyComplexTypeBurza(); */
-
     public static TextView Time;
     public static TextView Number;
     public static TextView Distance;
@@ -97,19 +73,6 @@ public class StormSearch extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.radius_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         RadiusSpinner.setAdapter(adapter);
-        //szukajBurzy();
         return view;
     }
-
-    private void szukajBurzy()
-    {
-        try {
-          // _service.szukaj_burzyAsync();
-        }
-        catch (Exception  e){
-            Log.e(TAG, "Explanation of what was being attempted", e);
-        }
-
-    }
-
 }

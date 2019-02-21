@@ -51,7 +51,6 @@ public class WeatherForecast extends Fragment
     public static TextView Temperature;
     public static TextView Condition;
     public static TextView Description;
-    //public static TextView Humidity;
     public static ArcProgress Humidity;
     public static ArcProgress Cloudiness;
     public static TextView WindSpeed;

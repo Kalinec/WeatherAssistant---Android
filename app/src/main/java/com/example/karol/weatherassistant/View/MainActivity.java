@@ -425,9 +425,6 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
                                 fakeStormSearchAndWarning();
                             else
                                 _stormService.miejscowoscAsync(query,"3f04fbcac562e34c59d03cc166dc532a9451ded3");
-                          // _stormService.ostrzezenia_pogodoweAsync(_stormLocation.y,_stormLocation.x, "3f04fbcac562e34c59d03cc166dc532a9451ded3");
-                           //_stormService.szukaj_burzyAsync(String.valueOf(_stormLocation.y), String.valueOf(_stormLocation.x), 300, "3f04fbcac562e34c59d03cc166dc532a9451ded3");
-                           // _stormService.szukaj_burzyAsync("40.28", "17,14", 300, "3f04fbcac562e34c59d03cc166dc532a9451ded3");
                         }
                         catch (Exception e)
                         {
@@ -468,8 +465,6 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
                 }
             }
         });
-
-
     }
 
     @Override
@@ -499,10 +494,13 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
     {
         StormSearch.warningList.clear();
 
-        StormSearch.City.setText("test");
-        StormSearch.Latitude.setText("22.50");
-        StormSearch.Longitude.setText("51.20");
-
+        StormSearch.City.setText("Lublin");
+        StormSearch.Latitude.setText("22.34");
+        StormSearch.Longitude.setText("51.14");
+        StormSearch.Time.setText(String.valueOf(15));
+        StormSearch.Number.setText(String.valueOf(12));
+        StormSearch.Distance.setText(String.valueOf("5.72km"));
+        StormSearch.Direction.setText("W");
         StormSearch.warningList.add(new Warning(getString(R.string.word_storms), "1", getString(R.string.warning_storm_description1), "15.05.2018", "16.05.2018", R.drawable.if_weather_warning_storm));
         StormSearch.warningList.add(new Warning(getString(R.string.word_frost), "2", getString(R.string.warning_frost_description2), "16.05.2018", "17.05.2018", R.drawable.ic_weather_warning_frost));
         StormSearch.warningList.add(new Warning(getString(R.string.word_rain), "3", getString(R.string.warning_rain_description3), "17.05.2018", "18.05.2018", R.drawable.if_weather_warning_rain));
@@ -667,47 +665,4 @@ public class MainActivity extends AppCompatActivity /* implements GoogleApiClien
         editor.putString("WEATHERFORECAST_CITY", WeatherForecast.City.getText().toString());
         editor.commit();
     }
-
-    /*
-    // Location Listener start
-    @Override
-    public void onLocationChanged(Location location) {
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
-    // Location Listener end
-
-    // GoogleApiClient.ConnectionCallbacks Start
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-    // GoogleApiClient.ConnectionCallbacks End
-
-    //GoogleApiClient.OnConnectionFailedListener Start
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-    //GoogleApiClient.OnConnectionFailedListener End
-*/
 }

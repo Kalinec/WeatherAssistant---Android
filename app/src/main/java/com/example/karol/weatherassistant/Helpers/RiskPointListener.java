@@ -16,6 +16,7 @@ public class RiskPointListener
     }
 
     public onValueChangeListener getValueChangeListener() {
+
         return valueChangeListener;
     }
 

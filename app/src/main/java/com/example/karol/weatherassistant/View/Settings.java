@@ -54,13 +54,6 @@ public class Settings extends Fragment
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
 
-  /*  //GPS FIELDS
-    private LocationListener _locationListener;
-    private Location _location;
-    private Criteria _criteria;
-    private LocationManager _locationManager;
-    private final Looper looper = null; */
-
     public Settings()
     {
         // Required empty public constructor
@@ -89,36 +82,6 @@ public class Settings extends Fragment
                 };
         _weatherWarningsValues = new int[6];
         _city.setEnabled(false);
-
-      /*  _criteria = new Criteria();
-        setCriteria();
-        _locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
-        _locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location)
-            {
-                _location = location;
-                Log.d("Location changes", location.toString());
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras)
-            {
-                Log.d("Status Changed", String.valueOf(status));
-            }
-
-            @Override
-            public void onProviderEnabled(String provider)
-            {
-                Log.d("Provider Enabled", provider);
-            }
-
-            @Override
-            public void onProviderDisabled(String provider)
-            {
-                Log.d("Provider Disabled", provider);
-            }
-        }; */
 
         //radioGroup behavior settings
         _stormLocationRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
@@ -157,8 +120,8 @@ public class Settings extends Fragment
                 Intent intent = new Intent(getContext(), NotificationReceiver.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
 
+
                 intent.putExtra("Radius", Integer.parseInt(_radiusSpinner.getSelectedItem().toString()));
-                //intent.putExtra("WeatherWarnings", _weatherWarnings);
                 for(int i=0; i<6; i++)
                 {
                     if(_weatherWarnings[i].isChecked())
@@ -203,7 +166,6 @@ public class Settings extends Fragment
 
                 else
                 {
-                    //NotificationService.enqueueWork(getContext(), intent);
                     if(!Permissions.Check_FINE_LOCATION(getActivity()))
                     {
                         Permissions.Request_FINE_LOCATION(getActivity(), 2);
@@ -254,7 +216,6 @@ public class Settings extends Fragment
                    alarmManager.cancel(pendingIntent);
                }
 
-              // _cancelButton.setVisibility(View.GONE);
                _confirmButton.setEnabled(true);
             }
         });
@@ -302,19 +263,4 @@ public class Settings extends Fragment
         }
 
     }
-
-
-
-   /* private void setCriteria()
-    {
-        // this is done to save the battery life of the device
-        _criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        _criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
-        _criteria.setAltitudeRequired(false);
-        _criteria.setBearingRequired(false);
-        _criteria.setSpeedRequired(false);
-        _criteria.setCostAllowed(true);
-        _criteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
-        _criteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
-    } */
 }

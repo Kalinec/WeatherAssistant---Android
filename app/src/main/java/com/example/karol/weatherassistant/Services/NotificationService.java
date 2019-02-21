@@ -55,15 +55,7 @@ public class NotificationService extends JobIntentService {
     private final String CHANNEL_ID_WARNINGS = "WARNINGS";
     private NotificationManagerCompat _notificationManager;
 
-   /* //GPS FIELDS
-    private LocationListener _locationListener;
-    private Location _location;
-    private Criteria _criteria;
-    private LocationManager _locationManager;
-    private final Looper looper = null;
-    */
-
-    //GPS FIELDS newer
+    //GPS FIELDS
     private FusedLocationProviderClient _fusedLocationProviderClient;
     private LocationRequest _locationRequest;
     private LocationCallback _locationCallback;
@@ -458,84 +450,4 @@ public class NotificationService extends JobIntentService {
             notificationManager.createNotificationChannel(channelWarnings);
         }
     }
-
-   /* private void initializeLocalizer()
-    {
-        _criteria = new Criteria();
-        setCriteria();
-        _locationManager = (LocationManager)getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-        _locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location)
-            {
-                _location = location;
-                Log.d("Location changes", location.toString());
-
-                try
-                {
-                    _stormAPI.szukaj_burzyAsync(
-                            String.valueOf(location.getLatitude()),
-                            String.valueOf(location.getLongitude()),
-                            Integer.valueOf(bundle.getInt("Radius")),
-                            "3f04fbcac562e34c59d03cc166dc532a9451ded3");
-
-                    _stormAPI.ostrzezenia_pogodoweAsync(
-                            (float) location.getLatitude(),
-                            (float) location.getLongitude(),
-                            "3f04fbcac562e34c59d03cc166dc532a9451ded3");
-                }
-                catch (Exception e)
-                {
-                    Log.e("Notification Service : ", "Trying resolve szukaj_burzyAsync and ostrzezenia_pogodoweAsync methods", e);
-                }
-
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras)
-            {
-                Log.d("Status Changed", String.valueOf(status));
-            }
-
-            @Override
-            public void onProviderEnabled(String provider)
-            {
-                Log.d("Provider Enabled", provider);
-            }
-
-            @Override
-            public void onProviderDisabled(String provider)
-            {
-                Log.d("Provider Disabled", provider);
-            }
-        };
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try
-                {
-                    _locationManager.requestSingleUpdate(_criteria, _locationListener, looper);
-                }
-                catch (SecurityException e)
-                {
-                    Log.e("GPS SECURITY EXCEPTION", e.getMessage());
-                }
-            }
-        });
-
-    } */
-
-   /* private void setCriteria()
-    {
-        // this is done to save the battery life of the device
-        _criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        _criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
-        _criteria.setAltitudeRequired(false);
-        _criteria.setBearingRequired(false);
-        _criteria.setSpeedRequired(false);
-        _criteria.setCostAllowed(true);
-        _criteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
-        _criteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
-    } */
 }

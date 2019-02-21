@@ -36,6 +36,10 @@
     <string name="word_to">Do: </string>
     <string name="word_degree_of_danger"> stopień zagrożenia</string>
     <string name="word_route">Trasa</string>
+    <string name="word_time">Czas</string>
+    <string name="word_number">Liczba</string>
+    <string name="word_distance">Dystans</string>
+    <string name="word_direction">Kierunek</string>
     <string name="StormyMap_mapOfPoland">Mapa Polski</string>
     <string name="StormyMap_mapOfEurope">Mapa Europy</string>
     <string name="StormyMap_mapType">Typ mapy</string>

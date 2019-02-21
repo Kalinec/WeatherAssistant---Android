@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/cityInfo_cardView"
         android:textColor="@color/colorBlack"
-        android:text="Radius"
+        android:text="@string/word_radius"
         android:textSize="20dp" />
 
 
@@ -106,7 +106,7 @@
         android:layout_marginTop="130dp"
         android:layout_marginBottom="5dp"
         android:textColor="@color/colorBlack"
-        android:text="Storms"
+        android:text="@string/word_storms"
         android:textSize="20dp" />
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -130,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/colorBlack"
-                android:text="Time"
+                android:text="@string/word_time"
                 android:textSize="17dp" />
 
             <TextView
@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/colorBlack"
-                android:text="Number"
+                android:text="@string/word_number"
                 android:textSize="17dp" />
 
             <TextView
@@ -202,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/colorBlack"
-                android:text="Distance"
+                android:text="@string/word_distance"
                 android:textSize="17dp" />
 
             <TextView
@@ -238,7 +238,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/colorBlack"
-                android:text="Direction"
+                android:text="@string/word_direction"
                 android:textSize="17dp" />
 
             <TextView

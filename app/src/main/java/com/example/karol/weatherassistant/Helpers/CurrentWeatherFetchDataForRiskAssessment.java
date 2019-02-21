@@ -111,12 +111,9 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
             }
 
             int oldWeatherConditionRiskLevel =  weatherConditionRiskLevel;
-            //if(weatherConditionDescription.equals(""))
-            //    weatherConditionDescription = currentWeathers.get(i).getWeather().get(0).getDescription();
 
             weatherConditionRiskLevel = getWorstWeatherConditionLevel(weatherConditionRiskLevel, currentWeathers.get(i).getWeather().get(0).getId(), criteriaType);
 
-            //if((oldWeatherConditionRiskLevel != weatherConditionRiskLevel) && oldWeatherConditionRiskLevel != -1)
             if((oldWeatherConditionRiskLevel != weatherConditionRiskLevel))
                     weatherConditionDescription = currentWeathers.get(i).getWeather().get(0).getDescription();
         }
@@ -631,26 +628,10 @@ public class CurrentWeatherFetchDataForRiskAssessment extends AsyncTask<ArrayLis
 
     private int getWorstWeatherConditionLevel(int currentRiskValue, int idValueToCheck, String criteriaType)
     {
-       // if(currentRiskValue == -1)
-        //    return idValueToCheck;
-
-
-          //  int currentRiskLevel = -1;
-           // String currentConditionDescription;
             int toCheckRiskLevel = -1;
-           // String toCheckConditionDescription;
 
             for(List<Integer> list : listOfWeatherConditionsRisk)
             {
-              /*  if(list.contains(currentRiskValue))
-                {
-                    if(criteriaType.equals(DirectionsCriteria.PROFILE_WALKING))
-                        currentRiskLevel = list.get(1);
-
-                    else if(criteriaType.equals(DirectionsCriteria.PROFILE_CYCLING))
-                        currentRiskLevel = list.get(2);
-                } */
-
                 if(list.contains(idValueToCheck))
                 {
                     if(criteriaType.equals(DirectionsCriteria.PROFILE_WALKING))

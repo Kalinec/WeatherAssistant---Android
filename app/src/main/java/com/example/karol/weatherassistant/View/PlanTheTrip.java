@@ -132,9 +132,6 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
     //Burze.dzis.net API
     final int RADIUS = 25;
     private serwerSOAPService _stormApi;
-    //private MyComplexTypeMiejscowosc _locationInfo;
-    //private MyComplexTypeBurza _stormInfo;
-    //private MyComplexTypeOstrzezenia _warningInfo;
     public IWsdl2CodeEvents _eventsHandler;
     private boolean _areStormsExist;
     private int _frostWarningLevel;
@@ -156,8 +153,6 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
         _exitRiskDetailsCardView = view.findViewById(R.id.imageButton_planTheTrip_risk_exit);
         _riskDetailsCardView = view.findViewById(R.id.cardView_planTheTrip_risk_cardView);
         _routeCardView = (CardView) view.findViewById(R.id.route_options_cardView);
-       // _routeOrigin = (EditText) view.findViewById(R.id.originValue);
-       // _routeDestination = (EditText) view.findViewById(R.id.destinationValue);
         _showRouteButton = (Button) view.findViewById(R.id.button_show_route);
         _criteriaWalkingMode = view.findViewById(R.id.radioButton_planTheTrip_walk_mode);
         _criteriaCyclingMode = view.findViewById(R.id.radioButton_planTheTrip_bike_mode);
@@ -426,14 +421,6 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
                             navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
                         }
                         navigationMapRoute.addRoute(currentRoute);
-
-
-                        //check the risk of the trip
-                     /*   ArrayList<LatLng> steps = new ArrayList<>();
-                        for(LegStep x: currentRoute.legs().get(0).steps())
-                        {
-                            steps.add(new LatLng(x.maneuver().location().latitude(), x.maneuver().location().longitude()));
-                        } */
                         assessTheRisk(currentRoute.distance(), currentRoute.legs().get(0).steps(), routeProfile);
                     }
 
@@ -685,7 +672,6 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
             initializeLocationEngine();
             // Create an instance of the plugin. Adding in LocationLayerOptions is also an optional
             // parameter
-            //LocationLayerPlugin locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap);
             locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap);
 
             // Set the plugin's camera mode
@@ -699,18 +685,6 @@ public class PlanTheTrip extends Fragment implements OnMapReadyCallback, MapboxM
 
     @SuppressWarnings( {"MissingPermission"})
     private void initializeLocationEngine() {
-       // LocationEngineProvider locationEngineProvider = new LocationEngineProvider(getContext());
-       /// locationEngine = locationEngineProvider.obtainBestLocationEngineAvailable();
-       // locationEngine.setPriority(LocationEnginePriority.HIGH_ACCURACY);
-       // locationEngine.activate();
-
-        //Location lastLocation = locationEngine.getLastLocation();
-//        if (lastLocation != null) {
-        //    originLocation = lastLocation;
-       // } else {
-            //locationEngine.addLocationEngineListener(this);
-
-           // Location location = new Location("");
             MainActivity._fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {

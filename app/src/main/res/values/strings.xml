@@ -35,6 +35,10 @@
     <string name="word_to">To: </string>
     <string name="word_degree_of_danger"> degree of danger</string>
     <string name="word_route">Route</string>
+    <string name="word_time">Time</string>
+    <string name="word_number">Number</string>
+    <string name="word_distance">Distance</string>
+    <string name="word_direction">Direction</string>
     <string name="Settings_yourLocation">Your location</string>
     <string name="Settings_stormNotifications">Storm notifications</string>
     <string name="Settings_weatherAlertNotifications">Weather alert notifications</string>

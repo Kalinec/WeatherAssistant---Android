@@ -22,7 +22,6 @@ public class WeatherService
     }
 
     //rest of class
-    //private CurrentWeatherFetchData _fetchData = new CurrentWeatherFetchData();
     private final String _APIID = "ac545ebcce565f9c91956383c030f848";
     private String _units = "metric";
     private String _language = "en";
@@ -88,25 +87,6 @@ public class WeatherService
                 query = buildQueryByCoordinate(latitude, longitude, false);
             queryList.add(query);
         }
-
-       /* for(int i = 0; i < coordinates.length; i++)
-        {
-            Double latitude = null;
-            Double longitude = null;
-            String query = null;
-
-            for(int j = 0; j < coordinates[i].length; j++)
-            {
-                    if(j == 0)
-                        latitude = coordinates[i][j];
-                    else
-                        longitude = coordinates[i][j];
-            }
-
-            if(latitude != null && longitude != null)
-                query = buildQueryByCoordinate(latitude, longitude, false);
-            queryList.add(query);
-        } */
 
         queryList.add(routeCriteria);
         currentWeatherFetchDataForRiskAssessment.execute(queryList);
