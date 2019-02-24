@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Weather Assistant</string>
+    <string name="app_version" translatable="false">1.0.0</string>
     <string name="navi_weatherForecast">Weather Forecast</string>
     <string name="navi_stormyMap">Stormy Map</string>
     <string name="navi_stormSearch">Storm Search</string>
     <string name="navi_planTheTrip">Plan The Trip</string>
     <string name="navi_notifications">Notifications</string>
+    <string name="navi_about">About</string>
     <string name="gps_disabled_alert">It is required that the GPS module is on. Activate it now?</string>
     <string name="search_enterCity">Enter city</string>
     <string name="coord_N">North</string>
@@ -42,6 +44,7 @@
     <string name="word_direction">Direction</string>
     <string name="word_yes">Yes</string>
     <string name="word_no">No</string>
+    <string name="word_version">Version</string>
     <string name="Settings_yourLocation">Your location</string>
     <string name="Settings_stormNotifications">Storm notifications</string>
     <string name="Settings_weatherAlertNotifications">Weather alert notifications</string>
@@ -124,6 +127,7 @@
     <string name="PlanTheTrip_risk_none_visibility_walking_and_cycle">Good visibility</string>
     <string name="PlanTheTrip_risk_moderate_visibility_walking_and_cycle">Moderate visibility</string>
     <string name="PlanTheTrip_risk_high_visibility_walking_and_cycle">Poor visibility</string>
+    <string name="About_sources">Data sources</string>
     <string name="word_minutes">minutes</string>
     <string name="mapbox_access_token" translatable="false">pk.eyJ1Ijoia2FsaW5lYyIsImEiOiJjam1taWhiZDUwaHhnM2twYm4wZzV5cHFjIn0.NTnV11b82zHlFdXU998L7Q</string>
     <string name="user_location_permission_explanation">This app needs location permissions in order to show its functionality.</string>
@@ -146,5 +150,4 @@
     <string name="warning_heat_description1">From 30 to 34 °C</string>
     <string name="warning_heat_description2">From 35 to 38 °C</string>
     <string name="warning_heat_description3">Above 38 °C</string>
-
 </resources>

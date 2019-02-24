@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,11 +21,17 @@ import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.RelativeLayout;
+
 
 import com.example.karol.weatherassistant.Helpers.Permissions;
 import com.example.karol.weatherassistant.Model.CurrentWeather.Warning;
@@ -72,6 +79,11 @@ public class MainActivity extends AppCompatActivity
     public static FusedLocationProviderClient FusedLocationProviderClient;
     private LocationRequest _locationRequest;
     private LocationCallback _locationCallback;
+
+    private View _aboutView;
+    private PopupWindow _popupAbout;
+    private ImageButton _popupCloseButton;
+    private RelativeLayout _relativeLayout;
 
 
     @Override
@@ -343,6 +355,34 @@ public class MainActivity extends AppCompatActivity
 
                 }
 
+                else if(id == R.id.nav_About)
+                {
+                    //popup initalize
+                    LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    _aboutView = inflater.inflate(R.layout.popup_about, null);
+                    _popupAbout = new PopupWindow(
+                            _aboutView,
+                            LayoutParams.WRAP_CONTENT,
+                            LayoutParams.WRAP_CONTENT
+                    );
+
+                    if(Build.VERSION.SDK_INT >= 21)
+                    {
+                        _popupAbout.setElevation(5.0f);
+                    }
+
+                    _popupCloseButton = (ImageButton) _aboutView.findViewById(R.id.imageButton_about_exit);
+
+                    _popupCloseButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            _popupAbout.dismiss();
+                        }
+                    });
+                    _relativeLayout = findViewById(R.id.content_frame);
+                    _popupAbout.showAtLocation(_relativeLayout, Gravity.CENTER, 0, 0);
+                }
+
 
                 _drawerLayout.closeDrawers();
 
@@ -369,7 +409,10 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onPageSelected(int position) {
-                if(position == 0 || position == 2)
+
+                if(position == 5) {}
+
+                else if(position == 0 || position == 2)
                 {
                     SearchView.setVisibility(View.VISIBLE);
                     LocalizerButton.setVisibility(View.VISIBLE);

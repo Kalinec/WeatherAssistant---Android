@@ -109,148 +109,152 @@
         android:text="@string/word_storms"
         android:textSize="20dp" />
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/timeInfo_cardView"
-        android:layout_width="70dp"
-        android:layout_height="60dp"
+    <LinearLayout
+        android:id="@+id/stormLayout_stormSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/textView_Storms"
-        android:layout_gravity="center"
-        android:layout_marginLeft="40dp"
-        card_view:cardCornerRadius="1dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/timeInfo_cardView"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            card_view:cardCornerRadius="1dp">
 
-            <TextView
-                android:id="@+id/textView_Time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:text="@string/word_time"
-                android:textSize="17dp" />
-
-            <TextView
-                android:id="@+id/textView_TimeValue"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:text="0"
-                android:textSize="17dp" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/numberInfo_cardView"
-        android:layout_width="70dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/textView_Storms"
-        android:layout_toEndOf="@+id/timeInfo_cardView"
-        android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
-        card_view:cardCornerRadius="1dp">
+                <TextView
+                    android:id="@+id/textView_Time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/colorBlack"
+                    android:text="@string/word_time"
+                    android:textSize="17dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+                <TextView
+                    android:id="@+id/textView_TimeValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/colorBlack"
+                    android:text="0"
+                    android:textSize="17dp" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/numberInfo_cardView"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:layout_marginLeft="5dp"
+            card_view:cardCornerRadius="1dp">
 
-            <TextView
-                android:id="@+id/textView_Number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:text="@string/word_number"
-                android:textSize="17dp" />
-
-            <TextView
-                android:id="@+id/textView_NumberValue"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:text="0"
-                android:textSize="17dp" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/distanceInfo_cardView"
-        android:layout_width="70dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/textView_Storms"
-        android:layout_toEndOf="@+id/numberInfo_cardView"
-        android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
-        card_view:cardCornerRadius="1dp">
+                <TextView
+                    android:id="@+id/textView_Number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/colorBlack"
+                    android:text="@string/word_number"
+                    android:textSize="17dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+                <TextView
+                    android:id="@+id/textView_NumberValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/colorBlack"
+                    android:text="0"
+                    android:textSize="17dp" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/distanceInfo_cardView"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:layout_marginLeft="5dp"
+            card_view:cardCornerRadius="1dp">
 
-            <TextView
-                android:id="@+id/textView_Distance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:text="@string/word_distance"
-                android:textSize="17dp" />
-
-            <TextView
-                android:id="@+id/textView_DistanceValue"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:text="0"
-                android:textSize="17dp" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/directionInfo_cardView"
-        android:layout_width="70dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/textView_Storms"
-        android:layout_toEndOf="@+id/distanceInfo_cardView"
-        android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
-        card_view:cardCornerRadius="1dp">
+                <TextView
+                    android:id="@+id/textView_Distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/colorBlack"
+                    android:text="@string/word_distance"
+                    android:textSize="17dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+                <TextView
+                    android:id="@+id/textView_DistanceValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/colorBlack"
+                    android:text="0"
+                    android:textSize="17dp" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/directionInfo_cardView"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:layout_marginLeft="5dp"
+            card_view:cardCornerRadius="1dp">
 
-            <TextView
-                android:id="@+id/textView_Direction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:text="@string/word_direction"
-                android:textSize="17dp" />
-
-            <TextView
-                android:id="@+id/textView_DirectionValue"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:text="0"
-                android:textSize="17dp" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_Direction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/colorBlack"
+                    android:text="@string/word_direction"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:id="@+id/textView_DirectionValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/colorBlack"
+                    android:text="0"
+                    android:textSize="17dp" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/warningInfo_recyclerView"
@@ -258,7 +262,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/timeInfo_cardView">
+        android:layout_below="@+id/stormLayout_stormSearch">
 
     </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

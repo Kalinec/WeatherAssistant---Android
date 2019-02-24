@@ -24,6 +24,8 @@ public class SectionsStatePagerAdapter extends FragmentStatePagerAdapter
 
     @Override
     public Fragment getItem(int position) {
+        if(position == 5)
+            return null;
         return _fragmentList.get(position);
     }
 

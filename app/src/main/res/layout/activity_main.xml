@@ -19,13 +19,6 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
-          <!--  <SearchView
-                android:id="@+id/searchView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:iconifiedByDefault="true"
-                android:queryHint="Search"
-                android:layout_centerHorizontal="true" /> -->
             <ProgressBar
                 android:id="@+id/progressBar_download"
                 android:layout_width="30dp"

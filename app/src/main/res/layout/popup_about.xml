@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0">
+
+    <ImageButton
+        android:id="@+id/imageButton_about_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@null"
+        android:src="@drawable/if_close"/>
+
+    <ImageView
+        android:id="@+id/imageView_about_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_app"
+        android:layout_below="@+id/imageButton_about_exit"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/textView_about_appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/colorBlack"
+        android:textSize="18dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/imageView_about_logo"
+        android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:id="@+id/layout_about_versioning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_about_appName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/textView_about_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/word_version"
+            android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/textView_about_char"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=": "
+            android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/textView_about_version_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_version"
+            android:textSize="14dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView_about_sources"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/About_sources"
+        android:textSize="16dp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/layout_about_versioning"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView_about_openWeatherMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OpenWeatherMap"
+        android:textSize="16dp"
+        android:textColor="@color/colorBlack"
+        android:layout_below="@+id/textView_about_sources"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/textView_about_burzeDzisNet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="burze.dzis.net"
+        android:textSize="16dp"
+        android:textColor="@color/colorBlack"
+        android:layout_below="@+id/textView_about_openWeatherMap"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/textView_about_mapbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mapbox"
+        android:textSize="16dp"
+        android:textColor="@color/colorBlack"
+        android:layout_below="@id/textView_about_burzeDzisNet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"/>
+</RelativeLayout>
