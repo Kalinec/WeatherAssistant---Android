@@ -568,17 +568,20 @@ public class MainActivity extends AppCompatActivity
         if(!Permissions.Check_STORAGE(this))
             Permissions.Request_STORAGE(this,0);
 
+        if(!Permissions.Check_COARSE_LOCATION(this))
+            Permissions.Request_COARSE_LOCATION(this,1);
+
         if(!Permissions.Check_FINE_LOCATION(this))
-            Permissions.Request_FINE_LOCATION(this, 1);
+            Permissions.Request_FINE_LOCATION(this, 2);
 
         if(!Permissions.Check_INTERNET(this))
-            Permissions.Request_INTERNET(this, 2);
+            Permissions.Request_INTERNET(this, 3);
 
         if(!Permissions.Check_ACCESS_NETWORK_STATE(this))
-            Permissions.Request_ACCESS_NETWORK_STATE(this, 3);
+            Permissions.Request_ACCESS_NETWORK_STATE(this, 4);
 
         if(!Permissions.Check_WAKE_LOCK(this))
-            Permissions.Request_WAKE_LOCK(this, 4);
+            Permissions.Request_WAKE_LOCK(this, 5);
 
     }
 

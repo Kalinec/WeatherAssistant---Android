@@ -2,6 +2,7 @@ package com.example.karol.weatherassistant.Helpers;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +37,12 @@ public class Permissions
     {
         ActivityCompat.requestPermissions(act, new
                 String[]{Manifest.permission.CAMERA},code);
+    }
+
+    public static void Request_COARSE_LOCATION(Activity act, int code)
+    {
+        ActivityCompat.requestPermissions(act, new
+                String[] {Manifest.permission.ACCESS_COARSE_LOCATION}, code);
     }
     public static void Request_FINE_LOCATION(Activity act,int code)
     {
@@ -90,6 +97,12 @@ public class Permissions
     public static boolean Check_CAMERA(Activity act)
     {
         int result = ContextCompat.checkSelfPermission(act, Manifest.permission.CAMERA);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static boolean Check_COARSE_LOCATION(Activity act)
+    {
+        int result = ContextCompat.checkSelfPermission(act, Manifest.permission.ACCESS_COARSE_LOCATION);
         return result == PackageManager.PERMISSION_GRANTED;
     }
     public static boolean Check_FINE_LOCATION(Activity act)
