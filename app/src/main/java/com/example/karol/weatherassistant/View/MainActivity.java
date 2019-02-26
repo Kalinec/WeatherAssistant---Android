@@ -115,12 +115,12 @@ public class MainActivity extends AppCompatActivity
                                     String.valueOf(_stormLocation.y),
                                     String.valueOf(_stormLocation.x),
                                     Integer.valueOf(StormSearch.RadiusSpinner.getSelectedItem().toString())
-                                    ,"3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                                    , getString(R.string.burzedzisnet_access_token));
 
                             _stormService.ostrzezenia_pogodoweAsync(
                                     _stormLocation.y,
                                     _stormLocation.x,
-                                    "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                                    getString(R.string.burzedzisnet_access_token));
                         }
                         catch (Exception e)
                         {
@@ -277,8 +277,8 @@ public class MainActivity extends AppCompatActivity
 
                             try
                             {
-                                _stormService.szukaj_burzyAsync(convertedLatitude, convertedLongitude, Integer.valueOf(StormSearch.RadiusSpinner.getSelectedItem().toString()),"3f04fbcac562e34c59d03cc166dc532a9451ded3");
-                                _stormService.ostrzezenia_pogodoweAsync(Float.valueOf(convertedLatitude), Float.valueOf(convertedLongitude), "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                                _stormService.szukaj_burzyAsync(convertedLatitude, convertedLongitude, Integer.valueOf(StormSearch.RadiusSpinner.getSelectedItem().toString()),getString(R.string.burzedzisnet_access_token));
+                                _stormService.ostrzezenia_pogodoweAsync(Float.valueOf(convertedLatitude), Float.valueOf(convertedLongitude), getString(R.string.burzedzisnet_access_token));
                             }
                             catch (Exception e)
                             {
@@ -450,7 +450,7 @@ public class MainActivity extends AppCompatActivity
                             if(query.equals("test"))
                                 fakeStormSearchAndWarning();
                             else
-                                _stormService.miejscowoscAsync(query,"3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                                _stormService.miejscowoscAsync(query,getString(R.string.burzedzisnet_access_token));
                         }
                         catch (Exception e)
                         {

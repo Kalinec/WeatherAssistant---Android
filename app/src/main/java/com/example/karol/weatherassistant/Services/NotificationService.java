@@ -105,13 +105,13 @@ public class NotificationService extends JobIntentService {
                                     String.valueOf(_placeInfo.y),
                                     String.valueOf(_placeInfo.x),
                                     Integer.valueOf(bundle.getInt("Radius")),
-                                    "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                                    getString(R.string.burzedzisnet_access_token));
 
 
                             _stormAPI.ostrzezenia_pogodoweAsync(
                                     _placeInfo.y,
                                     _placeInfo.x,
-                                    "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                                    getString(R.string.burzedzisnet_access_token));
                         }
                         catch (Exception e)
                         {
@@ -359,7 +359,7 @@ public class NotificationService extends JobIntentService {
         {
             try
             {
-                _stormAPI.miejscowoscAsync(bundle.getString("City"), "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                _stormAPI.miejscowoscAsync(bundle.getString("City"), getString(R.string.burzedzisnet_access_token));
 
             } catch (Exception e)
             {
@@ -392,12 +392,12 @@ public class NotificationService extends JobIntentService {
                                     convertedLatitude,
                                     convertedLongitude,
                                     Integer.valueOf(bundle.getInt("Radius")),
-                                    "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                                    getString(R.string.burzedzisnet_access_token));
 
                             _stormAPI.ostrzezenia_pogodoweAsync(
                                     Float.valueOf(convertedLatitude),
                                     Float.valueOf(convertedLongitude),
-                                    "3f04fbcac562e34c59d03cc166dc532a9451ded3");
+                                    getString(R.string.burzedzisnet_access_token));
                         }
                         catch (Exception e)
                         {
