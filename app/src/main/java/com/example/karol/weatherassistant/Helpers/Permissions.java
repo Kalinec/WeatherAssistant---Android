@@ -33,11 +33,6 @@ public class Permissions
         ActivityCompat.requestPermissions(act, new
                 String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},code);
     }
-    public static void Request_CAMERA(Activity act,int code)
-    {
-        ActivityCompat.requestPermissions(act, new
-                String[]{Manifest.permission.CAMERA},code);
-    }
 
     public static void Request_COARSE_LOCATION(Activity act, int code)
     {
