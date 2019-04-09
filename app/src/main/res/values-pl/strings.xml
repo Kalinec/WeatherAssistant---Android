@@ -149,4 +149,5 @@
     <string name="warning_heat_description1">Od 30 do 34 °C</string>
     <string name="warning_heat_description2">Od 35 do 38 °C</string>
     <string name="warning_heat_description3">Powyżej 38 °C</string>
+    <string name="error_gps_update_location">Wystąpił problem z pobraniem lokalizacji</string>
 </resources>

@@ -34,7 +34,7 @@ import android.widget.RelativeLayout;
 
 
 import com.example.karol.weatherassistant.Helpers.Permissions;
-import com.example.karol.weatherassistant.Model.CurrentWeather.Warning;
+import com.example.karol.weatherassistant.Models.CurrentWeather.Warning;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.SectionsStatePagerAdapter;
 import com.example.karol.weatherassistant.Services.BurzeDzisService.IWsdl2CodeEvents;
@@ -42,12 +42,12 @@ import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTyp
 import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTypeMiejscowosc;
 import com.example.karol.weatherassistant.Services.BurzeDzisService.MyComplexTypeOstrzezenia;
 import com.example.karol.weatherassistant.Services.BurzeDzisService.serwerSOAPService;
+import com.example.karol.weatherassistant.Services.LocationService;
 import com.example.karol.weatherassistant.Services.WeatherService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -74,11 +74,14 @@ public class MainActivity extends AppCompatActivity
     public static Resources Resources;
     private Context _context;
 
+    //GPS field
+    private LocationService _locationService;
+    private LocationCallback _locationCallback;
     //GPS Fields
     public static LocationManager LocationManager;
     public static FusedLocationProviderClient FusedLocationProviderClient;
     private LocationRequest _locationRequest;
-    private LocationCallback _locationCallback;
+
 
     private View _aboutView;
     private PopupWindow _popupAbout;
@@ -251,10 +254,12 @@ public class MainActivity extends AppCompatActivity
         LocalizerButton = findViewById(R.id.imageButton_my_location);
 
         //gps
-        FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        _locationRequest = new LocationRequest();
-        _locationRequest.setNumUpdates(1);
-        _locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        _locationService = new LocationService(new LocationRequest(), getApplicationContext());
+        //gps
+        //FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        //_locationRequest = new LocationRequest();
+        //_locationRequest.setNumUpdates(1);
+        //_locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         _locationCallback = new LocationCallback() {
             @Override
@@ -262,38 +267,37 @@ public class MainActivity extends AppCompatActivity
                 if (locationResult == null) {
                     return;
                 }
-                for (Location location : locationResult.getLocations())
+
+                Location location = locationResult.getLastLocation();
+                switch (ViewPager.getCurrentItem())
                 {
-                    switch (ViewPager.getCurrentItem())
-                    {
-                        case 0:
-                            WeatherService.getInstance().getCurrentWeatherByCoordinate(location.getLatitude(), location.getLongitude(), null);
-                            WeatherService.getInstance().getForecastWeatherByCoordinate(location.getLatitude(), location.getLongitude(), null);
-                            break;
+                    case 0:
+                        WeatherService.getInstance().getCurrentWeatherByCoordinate(location.getLatitude(), location.getLongitude(), null);
+                        WeatherService.getInstance().getForecastWeatherByCoordinate(location.getLatitude(), location.getLongitude(), null);
+                        break;
 
-                        case 2:
-                            String convertedLatitude = decimalToDM(location.getLatitude());
-                            String convertedLongitude = decimalToDM(location.getLongitude());
+                    case 2:
+                        String convertedLatitude = decimalToDM(location.getLatitude());
+                        String convertedLongitude = decimalToDM(location.getLongitude());
 
-                            try
-                            {
-                                _stormService.szukaj_burzyAsync(convertedLatitude, convertedLongitude, Integer.valueOf(StormSearch.RadiusSpinner.getSelectedItem().toString()),getString(R.string.burzedzisnet_access_token));
-                                _stormService.ostrzezenia_pogodoweAsync(Float.valueOf(convertedLatitude), Float.valueOf(convertedLongitude), getString(R.string.burzedzisnet_access_token));
-                            }
-                            catch (Exception e)
-                            {
-                                Log.e(TAG, "Explanation of what was being attempted", e);
-                            }
+                        try
+                        {
+                            _stormService.szukaj_burzyAsync(convertedLatitude, convertedLongitude, Integer.valueOf(StormSearch.RadiusSpinner.getSelectedItem().toString()),getString(R.string.burzedzisnet_access_token));
+                            _stormService.ostrzezenia_pogodoweAsync(Float.valueOf(convertedLatitude), Float.valueOf(convertedLongitude), getString(R.string.burzedzisnet_access_token));
+                        }
+                        catch (Exception e)
+                        {
+                            Log.e(TAG, "Explanation of what was being attempted", e);
+                        }
 
-                            StormSearch.City.setText("-");
-                            StormSearch.Latitude.setText(convertedLatitude);
-                            StormSearch.Longitude.setText(convertedLongitude);
-                            break;
+                        StormSearch.City.setText("-");
+                        StormSearch.Latitude.setText(convertedLatitude);
+                        StormSearch.Longitude.setText(convertedLongitude);
+                        break;
 
-                        case 4:
-                            break;
+                    case 4:
+                        break;
                     }
-                }
             }
         };
 
@@ -473,22 +477,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if(!CheckGpsStatus(_context))
-                {
-                    buildAlertMessageNoGps(_context);
-                    return;
-                }
-
                 DownloadProgressBar.setVisibility(View.VISIBLE);
-                try
-                {
-                    FusedLocationProviderClient.requestLocationUpdates(_locationRequest, _locationCallback, null);
-
-                }
-                catch (SecurityException e)
-                {
-
-                }
+                _locationService.requestLocation(_locationCallback);
             }
         });
     }

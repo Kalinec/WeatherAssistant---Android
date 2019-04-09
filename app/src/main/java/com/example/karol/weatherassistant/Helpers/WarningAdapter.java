@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.karol.weatherassistant.Model.CurrentWeather.Warning;
+import com.example.karol.weatherassistant.Models.CurrentWeather.Warning;
 import com.example.karol.weatherassistant.R;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 

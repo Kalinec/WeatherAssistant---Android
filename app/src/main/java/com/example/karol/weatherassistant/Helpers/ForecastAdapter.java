@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.karol.weatherassistant.Model.CurrentWeather.Forecast;
+import com.example.karol.weatherassistant.Models.CurrentWeather.Forecast;
 import com.example.karol.weatherassistant.R;
 
 import java.util.List;

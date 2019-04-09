@@ -1,4 +1,4 @@
-package com.example.karol.weatherassistant.Model.CurrentWeather.ForecastWeather;
+package com.example.karol.weatherassistant.Models.CurrentWeather.ForecastWeather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

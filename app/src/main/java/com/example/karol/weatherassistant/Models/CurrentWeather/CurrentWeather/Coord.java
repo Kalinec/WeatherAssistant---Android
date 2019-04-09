@@ -1,24 +1,16 @@
-package com.example.karol.weatherassistant.Model.CurrentWeather.ForecastWeather;
+package com.example.karol.weatherassistant.Models.CurrentWeather.CurrentWeather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Coord {
 
-    @SerializedName("lat")
-    @Expose
-    private Double lat;
     @SerializedName("lon")
     @Expose
     private Double lon;
-
-    public Double getLat() {
-        return lat;
-    }
-
-    public void setLat(Double lat) {
-        this.lat = lat;
-    }
+    @SerializedName("lat")
+    @Expose
+    private Double lat;
 
     public Double getLon() {
         return lon;
@@ -26,6 +18,14 @@ public class Coord {
 
     public void setLon(Double lon) {
         this.lon = lon;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
     }
 
 }

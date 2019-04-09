@@ -1,4 +1,4 @@
-package com.example.karol.weatherassistant.Model.CurrentWeather.ForecastWeather;
+package com.example.karol.weatherassistant.Models.CurrentWeather.CurrentWeather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +7,7 @@ public class Weather {
 
     @SerializedName("id")
     @Expose
-    private Long id;
+    private Integer id;
     @SerializedName("main")
     @Expose
     private String main;
@@ -18,11 +18,11 @@ public class Weather {
     @Expose
     private String icon;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

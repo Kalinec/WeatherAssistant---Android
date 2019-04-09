@@ -1,4 +1,4 @@
-package com.example.karol.weatherassistant.Model.CurrentWeather.ForecastWeather;
+package com.example.karol.weatherassistant.Models.CurrentWeather.ForecastWeather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -16,7 +16,7 @@ public class ForecastWeather {
     private Long cnt;
     @SerializedName("list")
     @Expose
-    private java.util.List<com.example.karol.weatherassistant.Model.CurrentWeather.ForecastWeather.List> list = null;
+    private java.util.List<com.example.karol.weatherassistant.Models.CurrentWeather.ForecastWeather.List> list = null;
     @SerializedName("city")
     @Expose
     private City city;
@@ -45,11 +45,11 @@ public class ForecastWeather {
         this.cnt = cnt;
     }
 
-    public java.util.List<com.example.karol.weatherassistant.Model.CurrentWeather.ForecastWeather.List> getList() {
+    public java.util.List<com.example.karol.weatherassistant.Models.CurrentWeather.ForecastWeather.List> getList() {
         return list;
     }
 
-    public void setList(java.util.List<com.example.karol.weatherassistant.Model.CurrentWeather.ForecastWeather.List> list) {
+    public void setList(java.util.List<com.example.karol.weatherassistant.Models.CurrentWeather.ForecastWeather.List> list) {
         this.list = list;
     }
 

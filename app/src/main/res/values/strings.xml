@@ -151,4 +151,5 @@
     <string name="warning_heat_description1">From 30 to 34 °C</string>
     <string name="warning_heat_description2">From 35 to 38 °C</string>
     <string name="warning_heat_description3">Above 38 °C</string>
+    <string name="error_gps_update_location">Problem with location update</string>
 </resources>

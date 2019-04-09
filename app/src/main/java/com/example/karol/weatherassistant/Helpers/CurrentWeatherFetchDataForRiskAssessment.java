@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
-import com.example.karol.weatherassistant.Model.CurrentWeather.CurrentWeather.CurrentWeather;
+import com.example.karol.weatherassistant.Models.CurrentWeather.CurrentWeather.CurrentWeather;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.View.MainActivity;
 import com.example.karol.weatherassistant.View.PlanTheTrip;

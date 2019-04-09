@@ -3,8 +3,8 @@ package com.example.karol.weatherassistant.Helpers;
 import android.os.AsyncTask;
 import android.view.View;
 
-import com.example.karol.weatherassistant.Model.CurrentWeather.Forecast;
-import com.example.karol.weatherassistant.Model.CurrentWeather.ForecastWeather.ForecastWeather;
+import com.example.karol.weatherassistant.Models.CurrentWeather.Forecast;
+import com.example.karol.weatherassistant.Models.CurrentWeather.ForecastWeather.ForecastWeather;
 import com.example.karol.weatherassistant.R;
 import com.example.karol.weatherassistant.View.MainActivity;
 import com.example.karol.weatherassistant.View.WeatherForecast;
@@ -62,7 +62,7 @@ public class ForecastWeatherFetchData extends AsyncTask<String, Void, String>
         _forecastWeather = gson.fromJson(aVoid, ForecastWeather.class);
 
         WeatherForecast.ForecastList.clear();
-        //update GUI
+        //update GUI - List of weathers
         for(int i=0; i<_forecastWeather.getList().size(); i++)
         {
             Date date = new Date(_forecastWeather.getList().get(i).getDt()*1000);

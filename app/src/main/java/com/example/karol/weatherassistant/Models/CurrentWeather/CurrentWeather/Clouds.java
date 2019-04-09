@@ -1,20 +1,19 @@
-package com.example.karol.weatherassistant.Model.CurrentWeather.ForecastWeather;
+package com.example.karol.weatherassistant.Models.CurrentWeather.CurrentWeather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Clouds
-{
+public class Clouds {
 
     @SerializedName("all")
     @Expose
-    private Long all;
+    private Double all;
 
-    public Long getAll() {
+    public Double getAll() {
         return all;
     }
 
-    public void setAll(Long all) {
+    public void setAll(Double all) {
         this.all = all;
     }
 

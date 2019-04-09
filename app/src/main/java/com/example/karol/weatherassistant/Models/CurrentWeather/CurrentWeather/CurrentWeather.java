@@ -1,6 +1,4 @@
-package com.example.karol.weatherassistant.Model.CurrentWeather.CurrentWeather;
-
-import android.database.CursorIndexOutOfBoundsException;
+package com.example.karol.weatherassistant.Models.CurrentWeather.CurrentWeather;
 
 import java.util.List;
 

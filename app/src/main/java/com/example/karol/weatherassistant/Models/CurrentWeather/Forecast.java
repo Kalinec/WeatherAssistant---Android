@@ -1,4 +1,4 @@
-package com.example.karol.weatherassistant.Model.CurrentWeather;
+package com.example.karol.weatherassistant.Models.CurrentWeather;
 
 public class Forecast
 {

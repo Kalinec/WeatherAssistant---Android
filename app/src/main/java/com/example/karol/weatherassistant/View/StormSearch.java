@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.karol.weatherassistant.Helpers.WarningAdapter;
-import com.example.karol.weatherassistant.Model.CurrentWeather.Warning;
+import com.example.karol.weatherassistant.Models.CurrentWeather.Warning;
 import com.example.karol.weatherassistant.R;
 
 import java.util.ArrayList;
