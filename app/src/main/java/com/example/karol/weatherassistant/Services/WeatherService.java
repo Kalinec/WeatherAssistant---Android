@@ -22,7 +22,7 @@ public class WeatherService
     }
 
     //rest of class
-    private final String _APIID = "ac545ebcce565f9c91956383c030f848";
+    private final String _APIID = "";
     private String _units = "metric";
     private String _language = "en";
 

@@ -129,8 +129,8 @@
     <string name="PlanTheTrip_risk_high_visibility_walking_and_cycle">Poor visibility</string>
     <string name="About_sources">Data sources</string>
     <string name="word_minutes">minutes</string>
-    <string name="mapbox_access_token" translatable="false">pk.eyJ1Ijoia2FsaW5lYyIsImEiOiJjam1taWhiZDUwaHhnM2twYm4wZzV5cHFjIn0.NTnV11b82zHlFdXU998L7Q</string>
-    <string name="burzedzisnet_access_token" translatable="false">3f04fbcac562e34c59d03cc166dc532a9451ded3</string>
+    <string name="mapbox_access_token" translatable="false">key</string>
+    <string name="burzedzisnet_access_token" translatable="false">key</string>
     <string name="user_location_permission_explanation">This app needs location permissions in order to show its functionality.</string>
     <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>
     <string name="warning_storm_description1">Rain from 15 to 40 mm\nWind in gusts from 60 to 90 km/h\nHail below 2 cm</string>
